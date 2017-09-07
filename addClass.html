@@ -45,7 +45,14 @@
       background-color: blue;
     }
     .active {
+      color: red;
       background-color: green !important;
+    }
+    .un {
+      display: inline-block;
+      width: 60px;
+      height: 28px;
+      line-height: 28px;
     }
   </style>
 </head>
@@ -73,4 +80,9 @@
       return n;
     }
   })()
+  num();
+
+  !function(){
+    console.debug(6666)
+  }
 </script>
