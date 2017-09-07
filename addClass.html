@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" charset="utf-8"></script>
+  <title>Document</title>
+  <style media="screen">
+    * {
+      -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+              box-sizing: border-box;
+    }
+    @-webkit-keyframes identifier {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+    @keyframes identifier {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+    .active {
+      -webkit-animation: identifier .8s ease-out;
+              animation: identifier .8s ease-out;
+      -webkit-transition: -webkit-animation .8s ease;
+      transition: -webkit-animation .8s ease;
+      -o-transition: animation .8s ease;
+      transition: animation .8s ease;
+      transition: animation .8s ease, -webkit-animation .8s ease;
+    }
+    .wraper {
+      color: #fff;
+      border: 1px solid red;
+    }
+    .ul-list li {
+      background-color: blue;
+    }
+    .active {
+      background-color: green !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="wraper">
+    <ul class="ul-list">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+  </div>
+</body>
+</html>
+<script type="text/javascript">
+  $('.wraper .ul-list li').click(function(event) {
+    $(this).addClass('active').siblings().removeClass('active')
+  });
+  const num = (function(){
+    let n = 0;
+    return function(){
+      ++n;
+      return n;
+    }
+  })()
+</script>
