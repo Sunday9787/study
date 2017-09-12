@@ -57,6 +57,62 @@
       height: 28px;
       line-height: 28px;
     }
+    ul, li {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .list-item {
+      position: relative;
+      padding: 0;
+      margin: 0 auto;
+      width: 800px;
+      height: 800px;
+    }
+    .list-item .item {
+      position: absolute;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+    .list-item .item:first-of-type {
+      top: 150px;
+      left: 300px;
+      background-color: #106dcb;
+    }
+    .list-item .item:nth-of-type(2) {
+      top: 150px;
+      left: 500px;
+      background-color: #13b5b1;
+    }
+    .list-item .item:nth-of-type(3) {
+      top: 150px;
+      left: 700px;
+      background-color: #eb6100;
+    }
+    .list-item .item:nth-of-type(4) {
+      top: 350px;
+      left: 300px;
+      background-color: #362e2b;
+    }
+    .list-item .item:nth-of-type(5) {
+      top: 350px;
+      left: 500px;
+      background-color: #eb6877;
+    }
+    .list-item .item:nth-of-type(6) {
+      top: 350px;
+      left: 700px;
+      background-color: #c0d2e3;
+    }
+    .list-item .item:last-of-type {
+      top: 350px;
+      left: 700px;
+      background-color: #c0d2e3;
+    }
   </style>
 </head>
 <body>
@@ -70,6 +126,14 @@
       <li>6</li>
     </ul>
   </div>
+  <ul class="list-item">
+    <li class="item">1</li>
+    <li class="item">2</li>
+    <li class="item">3</li>
+    <li class="item">4</li>
+    <li class="item">5</li>
+    <li class="item">6</li>
+  </ul>
 </body>
 </html>
 <script type="text/javascript">
@@ -82,10 +146,28 @@
       ++n;
       return n;
     }
-  })()
-  num();
-
-  !function(){
-    console.debug(6666)
+  })
+  function bb () {
+    console.log(this)
+  }
+  // bb.call(this)
+  var obj = {
+    x: 10,
+    y: 12,
+    food: function () {
+      console.log(this.x)
+      console.log(this)
+    },
+    apple: {
+      x: 8,
+      y: 6,
+      a: function () {
+        console.log(this.x)
+        console.log(this)
+      }
+    }
+  }
+  var x = function () {
+    console.log(this)
   }
 </script>
