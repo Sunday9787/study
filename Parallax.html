@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" charset="utf-8"></script>
+  <title>Document</title>
+  <style media="screen">
+    * {
+      -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+              box-sizing: border-box;
+    }
+    @-webkit-keyframes identifier {
+      from {
+        color: #fff;
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+    @keyframes identifier {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+    ul, li {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .list-item {
+      position: relative;
+      padding: 0;
+      margin: 0 auto;
+      width: 800px;
+      height: 800px;
+    }
+    .list-item .item {
+      position: absolute;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+    .list-item .item:first-of-type {
+      background: url("http://qianqian.acolor.cn/img/con2.png") no-repeat center;
+    }
+    .list-item .item:nth-of-type(2) {
+      background: url("http://qianqian.acolor.cn/img/m2_w.png") no-repeat center;
+    }
+    .list-item .item:nth-of-type(3) {
+      background: url("http://qianqian.acolor.cn/img/m2_our.png") no-repeat center;
+    }
+    .list-item .item:nth-of-type(4) {
+      background: url("http://qianqian.acolor.cn/img/m2_upshi.png") no-repeat center;
+    }
+    .list-item .item:nth-of-type(5) {
+      background: url("http://qianqian.acolor.cn/img/m2_ds.png") no-repeat center;
+    }
+    .list-item .item:nth-of-type(6) {
+      background: url("http://qianqian.acolor.cn/img/m2_dds.png") no-repeat center;
+    }
+    .list-item .item:last-of-type {
+      background: url("http://qianqian.acolor.cn/img/m2_cover_7.png") no-repeat center;
+    }
+  </style>
+</head>
+<body>
+  <ul class="list-item">
+    <li class="item">1</li>
+    <li class="item">2</li>
+    <li class="item">3</li>
+    <li class="item">4</li>
+    <li class="item">5</li>
+    <li class="item">6</li>
+    <li class="item">7</li>
+  </ul>
+</body>
+</html>
+<script type="text/javascript">
+  (function(w,d,u){
+    var Parallax = function (options) {
+      return new Parall(options)
+    }
+    function Parall (options) {
+      this.el = d.querySelector(options.el);
+      this.eventEl = options.eventEl instanceof Object ? options.eventEl : d.querySelector(options.eventEl) || this.el;
+      this.smmoth = options.smmoth || 40;
+      this.difference = options.difference || 5;
+      this.documentWidth = d.documentElement.clientWidth;
+      this.documentHeight = d.documentElement.clientHeight;
+      this.middlePointX = this.documentWidth / 2;
+      this.middlePointY = this.documentHeight / 2;
+      this.pageX = null;
+      this.pageY = null;
+      this.init()
+    }
+    Parall.prototype.init = function () {
+      this.render()
+    }
+    Parall.prototype.render = function () {
+      var that = this;
+      var children = this.el.children;
+      var ls = children.length;
+      that.eventEl.addEventListener('mousemove',hander,false)
+      function hander (e) {
+        var e = e || event;
+        that.pageX = e.pageX;
+        that.pageY = e.pageY;
+        var s = that.smmoth;
+        for (var i = 0; i < ls; i++) {
+          var top = (that.middlePointY - that.pageY) / s;
+          var left = (that.middlePointX - that.pageX) / s;
+          children[i].style.top = top + 'px';
+          children[i].style.left = left + 'px';
+          s-=that.difference;
+        }
+      }
+    }
+    w.Parallax = Parallax;
+  })(window,document,undefined)
+  var listitem = Parallax({el:'.list-item','eventEl': document})
+</script>
