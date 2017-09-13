@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" charset="utf-8"></script>
+  <title>Document</title>
+  <style media="screen">
+    * {
+      padding: 0;
+      margin: 0;
+      -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+              box-sizing: border-box;
+    }
+    body {
+      transform-style: preserve-3d;
+    }
+    @-webkit-keyframes identifier {
+      from {
+        color: #fff;
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+    @keyframes identifier {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+    .active {
+      animation: identifier .8s ease-out;
+      transition: animation .8s ease;
+    }
+    .wraper {
+      color: #fff;
+      background-color: rgba(255,70,70,0.8);
+      padding: 10px;
+      border: 1px solid red;
+    }
+    .ul-list li {
+      background-color: blue;
+    }
+    .active {
+      color: red;
+      background-color: green !important;
+    }
+    .un {
+      display: inline-block;
+      width: 60px;
+      height: 28px;
+      line-height: 28px;
+    }
+    ul, li {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .list-item {
+      position: relative;
+      padding: 0;
+      margin: 0 auto;
+      width: 1200px;
+      height: 900px;
+      transform: perspective(2000px) rotate3d(1,1,0,72deg);
+      transform-style: preserve-3d;
+      transform-origin: center;
+    }
+    .list-item [class^=item] {
+      position: absolute;
+      display: flex;
+      width: 300px;
+      height: 300px;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .list-item .item-1 {
+      top: 300px;
+      left: 0px;
+      background-color: #106dcb;
+      transform-origin: right center 0;
+      transform: rotate3d(0,1,0,90deg);
+    }
+    .list-item .item-2 {
+      top: 300px;
+      left: 300px;
+      background-color: #13b5b1;
+    }
+    .list-item .item-3 {
+      top: 300px;
+      left: 600px;
+      background-color: #eb6100;
+      transform-origin: left center 0;
+      transform: rotate3d(0,1,0,-90deg);
+      transform-style: preserve-3d;
+    }
+    .list-item .item-4 {
+      top: 0px;
+      left: 300px;
+      background-color: #362e2b;
+      transform-origin: left center 0;
+      transform: rotate3d(0,1,0,-90deg);
+    }
+    .list-item .item-5 {
+      top: 0px;
+      left: 300px;
+      background-color: #eb6877;
+      transform-origin: center bottom 0;
+      transform: rotate3d(1,0,0,-90deg);
+    }
+    .list-item .item-6 {
+      top: 600px;
+      left: 300px;
+      background-color: #c0d2e3;
+      transform-origin: center top 0;
+      transform: rotate3d(1,0,0,90deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="wraper">
+    <ul class="ul-list">
+      <li>左</li>
+      <li>右</li>
+      <li>上</li>
+      <li>前</li>
+      <li>下</li>
+      <li>后</li>
+    </ul>
+  </div>
+  <ul class="list-item">
+    <li class="item-1">1</li>
+    <li class="item-2">2</li>
+    <li class="item-3">3<div class="item-4">4</div></li>
+    <li class="item-5">5</li>
+    <li class="item-6">6</li>
+  </ul>
+</body>
+<script type="text/javascript">
+</script>
+</html>
