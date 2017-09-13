@@ -1,0 +1,39 @@
+// out: index.css, compress: false, sourceMap: true
+@charset "UTF-8";
+@baseColor: #eb6100;
+@baseWidth: 150px;
+@baseHeight: 150px;
+ul, li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.list-item {
+    position: relative;
+    height: 800px;
+    /* transform: perspective(2000px) rotate3d(1,1,0,72deg); */
+    transform-style: preserve-3d;
+    transform-origin: center;
+}
+.rounded-list-item () {
+    position: absolute;
+    display: flex;
+    width: @baseWidth;
+    height: @baseHeight;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+/* 样式继承 */
+.list-item [class^=item] {
+    .rounded-list-item()
+}
+.list-item-item (@n, @i: 1) when (@i <= @n) {
+    .list-item .item-@{i} {
+        top: 0;
+        left: @baseHeight*@i;
+        background-color: spin(@baseColor, (6%*@i));
+    }
+    .list-item-item(@n, (@i+1));
+}
+.list-item-item(6);

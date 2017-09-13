@@ -1,0 +1,64 @@
+@charset "UTF-8";
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.list-item {
+  position: relative;
+  height: 800px;
+  /* transform: perspective(2000px) rotate3d(1,1,0,72deg); */
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform-origin: center;
+      -ms-transform-origin: center;
+          transform-origin: center;
+}
+/* 样式继承 */
+.list-item [class^=item] {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 150px;
+  height: 150px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: #fff;
+}
+.list-item .item-1 {
+  top: 0;
+  left: 150px;
+  background-color: #eb7900;
+}
+.list-item .item-2 {
+  top: 0;
+  left: 300px;
+  background-color: #eb9000;
+}
+.list-item .item-3 {
+  top: 0;
+  left: 450px;
+  background-color: #eba800;
+}
+.list-item .item-4 {
+  top: 0;
+  left: 600px;
+  background-color: #ebbf00;
+}
+.list-item .item-5 {
+  top: 0;
+  left: 750px;
+  background-color: #ebd700;
+}
+.list-item .item-6 {
+  top: 0;
+  left: 900px;
+  background-color: #e8eb00;
+}
+/*# sourceMappingURL=./index.css.map */
