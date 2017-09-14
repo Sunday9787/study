@@ -1,9 +1,31 @@
 @charset "UTF-8";
+/**
+ * @Author: Edward
+ * @Date:   2017-09-14T09:12:27+08:00
+ * @Email:  809537981@qq.com
+ * @Last modified by:   Edward
+ * @Last modified time: 2017-09-14T10:51:09+08:00
+ */
+body {
+  color: #333;
+}
 ul,
 li {
   padding: 0;
   margin: 0;
   list-style: none;
+}
+:link,
+:visited {
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+a {
+  color: #333;
+  text-decoration: none;
+}
+a:hover {
+  color: #000000;
 }
 .list-item {
   position: relative;
@@ -19,14 +41,17 @@ li {
 .list-item [class^=item] {
   position: absolute;
   display: -webkit-box;
+  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   width: 150px;
   height: 150px;
   -webkit-box-align: center;
+  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   -webkit-box-pack: center;
+  -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
   color: #fff;
@@ -34,31 +59,32 @@ li {
 .list-item .item-1 {
   top: 0;
   left: 150px;
-  background-color: #eb7900;
+  background-color: #ffa300;
 }
 .list-item .item-2 {
   top: 0;
   left: 300px;
-  background-color: #eb9000;
+  background-color: #ffbd00;
 }
 .list-item .item-3 {
   top: 0;
   left: 450px;
-  background-color: #eba800;
+  background-color: #ffd700;
 }
 .list-item .item-4 {
   top: 0;
   left: 600px;
-  background-color: #ebbf00;
+  background-color: #fff000;
 }
 .list-item .item-5 {
   top: 0;
   left: 750px;
-  background-color: #ebd700;
+  background-color: #f4ff00;
 }
 .list-item .item-6 {
   top: 0;
   left: 900px;
-  background-color: #e8eb00;
+  background-color: #dbff00;
 }
+/**ssss*/
 /*# sourceMappingURL=./index.css.map */

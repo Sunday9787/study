@@ -85,7 +85,7 @@
   </ul>
 </body>
 </html>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   (function(w,d,u){
     var Parallax = function (options) {
       return new Parall(options)
@@ -122,6 +122,57 @@
           children[i].style.top = top + 'px';
           children[i].style.left = left + 'px';
           s-=that.difference;
+        }
+      }
+    }
+    w.Parallax = Parallax;
+  })(window,document,undefined)
+  var listitem = Parallax({el:'.list-item','eventEl': document})
+</script>-->
+<script type="text/javascript">
+  // ES6 版本的
+  (function(w,d,u){
+    var Parallax = function (options) {
+      return new Parall(options)
+    }
+    class Parall {
+      constructor(options) {
+        this.el = d.querySelector(options.el);
+        this.eventEl = options.eventEl instanceof Object ? options.eventEl : d.querySelector(options.eventEl) || this.el;
+        this.smmoth = options.smmoth || 40;
+        this.difference = options.difference || 5;
+        this.documentWidth = d.documentElement.clientWidth;
+        this.documentHeight = d.documentElement.clientHeight;
+        this.middlePointX = this.documentWidth / 2;
+        this.middlePointY = this.documentHeight / 2;
+        this.pageX = null;
+        this.pageY = null;
+        this.init()
+      }
+      init() {
+        this.render()
+      }
+      render () {
+        this.eventHander.onmousemove()
+      }
+      eventHander () {
+        onmousemove: ()=>{
+          let that = this;
+          const children = that.el.children;
+          const ls = children.length;
+          that.eventEl.addEventListener('mousemove',hander,false)
+          function hander (e) {
+            that.pageX = e.pageX;
+            that.pageY = e.pageY;
+            let s = that.smmoth;
+            for (let i = 0; i < ls; i++) {
+              let top = (that.middlePointY - that.pageY) / s;
+              let left = (that.middlePointX - that.pageX) / s;
+              children[i].style.top = top + 'px';
+              children[i].style.left = left + 'px';
+              s-=that.difference;
+            }
+          }
         }
       }
     }

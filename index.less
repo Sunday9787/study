@@ -1,12 +1,41 @@
-// out: index.css, compress: false, sourceMap: true
+// out: css/index.css, compress: false, sourceMap: true
+
+/**
+ * @Author: Edward
+ * @Date:   2017-09-14T09:12:27+08:00
+ * @Email:  809537981@qq.com
+ * @Last modified by:   Edward
+ * @Last modified time: 2017-09-14T10:51:09+08:00
+ */
+
+
+
 @charset "UTF-8";
-@baseColor: #eb6100;
+@baseColor: #333;
+@bgColor: #ff8a00;
+@aHoverColor: darken(@baseColor, 30%);
 @baseWidth: 150px;
 @baseHeight: 150px;
+body {
+    color: @baseColor;
+}
 ul, li {
     padding: 0;
     margin: 0;
     list-style: none;
+}
+:link {
+    transition: all .3s ease;
+}
+:visited {
+    &:extend(:link);
+}
+a {
+    color: @baseColor;
+    text-decoration: none;
+    &:hover {
+        color: @aHoverColor;
+    }
 }
 .list-item {
     position: relative;
@@ -32,8 +61,9 @@ ul, li {
     .list-item .item-@{i} {
         top: 0;
         left: @baseHeight*@i;
-        background-color: spin(@baseColor, (6%*@i));
+        background-color: spin(@bgColor, (6% * @i));
     }
-    .list-item-item(@n, (@i+1));
+    .list-item-item(@n, (@i + 1));
 }
 .list-item-item(6);
+/**ssss*/
