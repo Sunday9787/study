@@ -4,7 +4,7 @@
  * @Date:   2017-09-14T09:12:27+08:00
  * @Email:  809537981@qq.com
  * @Last modified by:   Edward
- * @Last modified time: 2017-09-14T10:51:09+08:00
+ * @Last modified time: 2017-09-15T09:52:00+08:00
  */
 body {
   color: #333;
@@ -26,6 +26,9 @@ a {
 }
 a:hover {
   color: #000000;
+}
+.color {
+  color: #3d465e;
 }
 .list-item {
   position: relative;
@@ -86,5 +89,44 @@ a:hover {
   left: 900px;
   background-color: #dbff00;
 }
-/**ssss*/
+.navbar .navbar-header {
+  float: left;
+  width: 160px;
+  line-height: 56px;
+  /*padding: 18px 0;*/
+  text-align: center;
+  font-size: 20px;
+  color: #fff;
+  background-color: #3d465e;
+}
+.navbar .mainbav {
+  float: left;
+}
+.navbar .mainbav .item {
+  position: relative;
+  float: left;
+  display: block;
+  padding: 0 14px;
+  margin: 0 16px;
+  text-align: center;
+  line-height: 56px;
+  font-size: 18px;
+}
+.navbar .mainbav .item a {
+  text-decoration: line-through;
+  color: #3d465e;
+}
+.navbar .mainbav.active a {
+  color: #f5ba49;
+}
+.navbar .mainbav.active a:after {
+  content: '';
+  position: absolute;
+  display: block;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #f5ba49;
+}
 /*# sourceMappingURL=./index.css.map */
