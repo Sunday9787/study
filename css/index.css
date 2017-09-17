@@ -9,14 +9,10 @@
 body {
   color: #333;
 }
-ul,
-li {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
 :link,
-:visited {
+:active,
+:visited,
+:focus {
   -webkit-transition: all .3s ease;
   transition: all .3s ease;
 }
@@ -44,17 +40,14 @@ a:hover {
 .list-item [class^=item] {
   position: absolute;
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   width: 150px;
   height: 150px;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
   color: #fff;
@@ -128,5 +121,109 @@ a:hover {
   width: 100%;
   height: 2px;
   background-color: #f5ba49;
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+body,
+button,
+input,
+select,
+textarea {
+  font: 14px/1 "微软雅黑", "黑体", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+}
+body,
+menu,
+section,
+article,
+aside,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+fieldset,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+button,
+input,
+select,
+textarea {
+  padding: 4px;
+  margin: 0;
+  border: 1px #a9a9a9 solid;
+  outline: none;
+}
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  color: #CCC;
+}
+ul,
+ol,
+dl {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+fieldset,
+img {
+  border: none;
+}
+pre {
+  color: #000;
+}
+var,
+code {
+  font-size: 12px;
+  font-family: "source";
+}
+tt,
+code,
+kbd,
+samp {
+  font-size: 12px;
+}
+small {
+  font-size: 12px;
+}
+i,
+cite,
+em,
+var,
+address,
+dfn {
+  font-style: normal;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+hr {
+  display: block;
+  border: 0;
+  border-top: 1px #c2bfbd solid;
+}
+*,
+::before,
+::after {
+  box-sizing: border-box;
 }
 /*# sourceMappingURL=./index.css.map */

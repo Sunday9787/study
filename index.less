@@ -19,16 +19,8 @@
 body {
     color: @baseColor;
 }
-ul, li {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-:link {
+:link, :active,:visited,:focus {
     transition: all .3s ease;
-}
-:visited {
-    &:extend(:link);
 }
 a {
     color: @baseColor;
@@ -112,8 +104,72 @@ a {
         }
     }
 }
-
+@baseSize: 14px;
 @h1Size: 24px;
 @h2Size: 18px;
 @h3Size: 16px;
 @hSize: 100%;
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+body, button, input, select, textarea {
+    font: @baseSize/1 "微软雅黑","黑体","Microsoft YaHei",Helvetica , Arial, sans-serif;
+}
+body, menu,section, article,aside, h1, h2, h3, h4, h5, h6, hr, p, blockquote,
+dl, dt, dd, ul, ol, li,
+pre,
+fieldset,
+th, td {
+    margin: 0;
+    padding: 0;
+}
+button, input, select, textarea {
+    padding: 4px;
+    margin: 0;
+    border: 1px rgb(169,169,169) solid;
+    outline: none;
+}
+input::-moz-placeholder, textarea::-moz-placeholder {
+    color: #CCC;
+}
+ul, ol, dl {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+fieldset, img {
+    border: none;
+}
+pre {
+    color: #000;
+}
+var,
+code {
+    font-size: 12px;
+    font-family: "source"
+}
+tt, code, kbd, samp{
+    font-size: @baseSize - 2;
+}
+small {
+    font-size: @baseSize - 2;
+}
+i, cite, em, var, address, dfn {
+    font-style: normal;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+hr {
+    display: block;
+    border: 0;
+    border-top: 1px #c2bfbd solid;
+}
+*,::before,::after {
+	box-sizing: border-box;
+}
