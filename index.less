@@ -1,13 +1,12 @@
-// out: css/index.css, compress: false, sourceMap: true
+// compress: true, sourceMap: true
 
 /**
  * @Author: Edward
  * @Date:   2017-09-14T09:12:27+08:00
  * @Email:  809537981@qq.com
  * @Last modified by:   Edward
- * @Last modified time: 2017-09-15T09:52:00+08:00
+ * @Last modified time: 2017-09-19T14:32:11+08:00
  */
-
 
 
 @charset "UTF-8";
@@ -23,6 +22,7 @@ body {
     transition: all .3s ease;
 }
 a {
+    font-size: 15px;
     color: @baseColor;
     text-decoration: none;
     &:hover {
@@ -104,6 +104,7 @@ a {
         }
     }
 }
+
 @baseSize: 14px;
 @h1Size: 24px;
 @h2Size: 18px;
@@ -115,7 +116,7 @@ body {
     margin: 0;
 }
 body, button, input, select, textarea {
-    font: @baseSize/1 "微软雅黑","黑体","Microsoft YaHei",Helvetica , Arial, sans-serif;
+    font: @baseSize / 1 "微软雅黑","黑体","Microsoft YaHei",Helvetica , Arial, sans-serif;
 }
 body, menu,section, article,aside, h1, h2, h3, h4, h5, h6, hr, p, blockquote,
 dl, dt, dd, ul, ol, li,
@@ -149,7 +150,7 @@ pre {
 var,
 code {
     font-size: 12px;
-    font-family: "source"
+    font-family: "source";
 }
 tt, code, kbd, samp{
     font-size: @baseSize - 2;
@@ -171,5 +172,7 @@ hr {
     border-top: 1px #c2bfbd solid;
 }
 *,::before,::after {
+    margin: 0;
+    padding: 0;
 	box-sizing: border-box;
 }

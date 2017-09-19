@@ -13,33 +13,18 @@
 </head>
 <body>
     <canvas id="can" width="800px" height="800px"></canvas>
-    <script>
-        for(var i = 0; i<10; i++) {
-            console.log(i)
-        }
-        console.log(i);
-    </script>
     <script type="text/javascript">
         var el = document.querySelector("#can");
         var crx = el.getContext("2d"); // 使用2d绘图
-        crx.beginPath()
+        crx.save()
         crx.fillStyle = '#eb6100';
-        crx.lineWidth = 4;
-        crx.strokeStyle = "#362e2b";
+        crx.lineWidth = 2;
+        crx.strokeStyle = "#fff";
         crx.fillRect(4,4,150,200);
         crx.strokeRect(4,4,150,200);
-        crx.closePath();
+        crx.restore();
 
-        crx.beginPath()  // 绘制新的路径
-        crx.strokeStyle = "#000";
-        crx.fillStyle = '#fff';
-        crx.lineWidth = 8;
-        crx.arc(500,500,100,0,2*Math.PI,false);   // 定义路径
-        crx.stroke();  // 绘制路径
-        crx.fill();  // 渲染路径
-        crx.closePath();  // 结束绘制
-
-        // crx.lineWidth = 15;
+        crx.save()
         crx.beginPath()
         crx.rect(200,200,150,200);
         crx.fillStyle = "#106dcb";
@@ -48,19 +33,51 @@
         crx.strokeRect(200,200,150,200);
         crx.fill();
         crx.closePath();
+        crx.restore();
 
+        crx.save()
+        crx.beginPath()  // 绘制新的路径
+        crx.strokeStyle = "#13b5b1";
+        crx.fillStyle = "#106dcb";
+        crx.lineWidth = 30;
+        crx.arc(500,500,100,0,2*Math.PI,false);   // 定义路径
+        crx.stroke();  // 绘制路径
+        crx.fill();  // 渲染路径
+        crx.closePath();  // 结束绘制
+        crx.restore();
+
+        crx.save()
         crx.beginPath();
-        var gradient = crx.createLinearGradient(300,720,300,870);
+        var gradient = crx.createLinearGradient(450,120,450,370);
         gradient.addColorStop(0,'red');
         gradient.addColorStop(0.5,'blue');
         gradient.addColorStop(1,'green');
         crx.fillStyle = gradient;
-        crx.rect(300,720,150,150);
+        crx.rect(450,120,150,150);
         crx.textAlign = "center";
+        crx.font = "80px/1 'Comic Sans MS',Chiller,'Microsoft YaHei UI'";
+        crx.fill();
+        crx.closePath();
+        crx.restore();
+
+        crx.save()
+        crx.beginPath();
+        crx.textAlign = "center";
+        crx.fillStyle = "#4b6475";
         crx.font = "80px/1 'Comic Sans MS',Chiller,'Microsoft YaHei UI'";
         crx.fillText("Rap R&B",300,720);
         crx.fill();
         crx.closePath();
+        crx.restore();
+
+        crx.save();
+        crx.beginPath();
+        crx.font = "80px/1 'Comic Sans MS',Chiller,'Microsoft YaHei UI'";
+        crx.strokeStyle = "#c0d2e3";
+        crx.strokeText('Canvas',360,360);
+        // crx.stroke();
+        crx.closePath();
+        crx.restore();
     </script>
 </body>
 </html>

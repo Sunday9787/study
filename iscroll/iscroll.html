@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="./iscroll-master/build/iscroll.js" charset="utf-8"></script>
+  <title>Document</title>
+  <style media="screen">
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+    body {
+      position: relative;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding-top: 45px;
+      padding-bottom: 45px;
+    }
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      height: 45px;
+      width: 100%;
+      background-color: #13b5b1;
+    }
+    header>div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    header>div.goBack {
+      flex-grow: 1;
+    }
+    header>div.title {
+      flex-grow: 2;
+    }
+    header>div.shear {
+      flex-grow: 1;
+    }
+    main {
+      position: relative;
+      height: 100%;
+    }
+    footer {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      bottom: 0;
+      left: 0;
+      height: 45px;
+      width: 100%;
+      background-color: #c0d2e3;
+    }
+
+    ul, li {
+      list-style: none;
+    }
+    #wapper {
+      overflow: hidden;
+    }
+    #pullUp,#pullDown {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 30px;
+    }
+    .iscroll .item {
+      padding: 10px 0;
+      border-bottom: 1px solid #e8e8e8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="goBack"><a href="javascript:;">返回</a></div>
+    <div class="title"><a href="javascript:;">标题</a></div>
+    <div class="shear"><a href="javascript:;">分享</a></div>
+  </header>
+  <main id="wapper">
+    <div class="iscroll">
+      <div id="pullUp">下拉刷新</div>
+      <ul class="list-item">
+        <li class="item">1</li>
+        <li class="item">2</li>
+        <li class="item">3</li>
+        <li class="item">4</li>
+        <li class="item">5</li>
+        <li class="item">6</li>
+        <li class="item">7</li>
+        <li class="item">8</li>
+        <li class="item">9</li>
+        <li class="item">10</li>
+        <li class="item">11</li>
+        <li class="item">12</li>
+        <li class="item">13</li>
+        <li class="item">14</li>
+        <li class="item">15</li>
+        <li class="item">16</li>
+        <li class="item">17</li>
+        <li class="item">18</li>
+        <li class="item">19</li>
+        <li class="item">20</li>
+      </ul>
+      <div id="pullDown">我是有底线的</div>
+    </div>
+  </main>
+  <footer>
+    <p>脚</p>
+  </footer>
+  <script type="text/javascript">
+  var myScroll;
+  var pullUpOffset = document.querySelector('#pullUp').offsetHeight;
+    document.addEventListener('DOMContentLoaded',function () {
+      myScroll = new IScroll('#wapper',{
+        // scrollbars: true,
+        // interactiveScrollbars: true,
+        // shrinkScrollbars: 'scale',
+        startY: -pullUpOffset,
+      });
+    })
+  </script>
+</body>
+</html>

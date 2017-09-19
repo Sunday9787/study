@@ -232,6 +232,10 @@
                 </div>`;
   var reg = /<[^>]+>/g;
   console.debug(str.replace(reg,'').replace(/undefined|\s|\f/g,''))
+
+  var str = '1345678977777.0008888';
+  var regg = /([0-9]{8}).*(\.[0-9]{3})/;
+  console.log(str.match(regg));
   // 判断数据类型
   function is(obj,type) {
     var t = Object.prototype.toString.call(obj).replace(/\[object |\]/g,'').toLowerCase()
