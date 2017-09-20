@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="./iscroll-master/build/iscroll.js" charset="utf-8"></script>
+  <!-- <script src="./iscroll-master/build/iscroll.js" charset="utf-8"></script> -->
+  <script src="./iscroll-master/build/iscroll-probe.js" charset="utf-8"></script>
   <title>Document</title>
   <style media="screen">
     * {
@@ -122,14 +123,28 @@
   </footer>
   <script type="text/javascript">
   var myScroll;
-  var pullUpOffset = document.querySelector('#pullUp').offsetHeight;
+  var pullUpOffset = -(document.querySelector('#pullUp').offsetHeight);
     document.addEventListener('DOMContentLoaded',function () {
       myScroll = new IScroll('#wapper',{
         // scrollbars: true,
         // interactiveScrollbars: true,
         // shrinkScrollbars: 'scale',
-        startY: -pullUpOffset,
+        probeType: 3,
+        startY: pullUpOffset
       });
+      myScroll.on('scroll',function(){
+        // console.log(this)
+        console.debug(this.y >> 0)
+        if(this.y >= pullUpOffset) {
+          console.log("滚动到顶点")
+        }
+      })
+      // myScroll.on('scrollEnd',function(){
+      //   // console.log(this)
+      //   if(this.y >= pullUpOffset) {
+      //     console.log("滚动到顶点")
+      //   }
+      // })
     })
   </script>
 </body>

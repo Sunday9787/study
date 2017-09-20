@@ -153,24 +153,27 @@
         this.render()
       }
       render () {
-        this.eventHander.onmousemove()
+        this.eventHander().onmousemove()
+        console.log(this.eventHander().onmousemove())
       }
       eventHander () {
-        onmousemove: ()=>{
-          let that = this;
-          const children = that.el.children;
-          const ls = children.length;
-          that.eventEl.addEventListener('mousemove',hander,false)
-          function hander (e) {
-            that.pageX = e.pageX;
-            that.pageY = e.pageY;
-            let s = that.smmoth;
-            for (let i = 0; i < ls; i++) {
-              let top = (that.middlePointY - that.pageY) / s;
-              let left = (that.middlePointX - that.pageX) / s;
-              children[i].style.top = top + 'px';
-              children[i].style.left = left + 'px';
-              s-=that.difference;
+        return {
+          onmousemove: ()=>{
+            let that = this;
+            const children = that.el.children;
+            const ls = children.length;
+            that.eventEl.addEventListener('mousemove',hander,false)
+            function hander (e) {
+              that.pageX = e.pageX;
+              that.pageY = e.pageY;
+              let s = that.smmoth;
+              for (let i = 0; i < ls; i++) {
+                let top = (that.middlePointY - that.pageY) / s;
+                let left = (that.middlePointX - that.pageX) / s;
+                children[i].style.top = top + 'px';
+                children[i].style.left = left + 'px';
+                s-=that.difference;
+              }
             }
           }
         }
