@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- <script src="./iscroll-master/build/iscroll.js" charset="utf-8"></script> -->
   <script src="./iscroll-master/build/iscroll-probe.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_375929_ilwmdcm04fgvi.css">
   <title>Document</title>
   <style media="screen">
     * {
@@ -82,6 +83,14 @@
       padding: 10px 0;
       border-bottom: 1px solid #e8e8e8;
     }
+    .iconfont.icon-arrow-down {
+      display: inline-block;
+      transform: rotate(180deg);
+      transition: all .3s ease;
+    }
+    .iconfont.icon-arrow-down.active {
+      transform: rotate(0deg);
+    }
   </style>
 </head>
 <body>
@@ -92,7 +101,9 @@
   </header>
   <main id="wapper">
     <div class="iscroll">
-      <div id="pullUp">下拉刷新</div>
+      <div id="pullUp">
+        <p><span class="iconfont icon-arrow-down"></span>下拉刷新</p>
+      </div>
       <ul class="list-item">
         <li class="item">1</li>
         <li class="item">2</li>
@@ -121,30 +132,36 @@
   <footer>
     <p>脚</p>
   </footer>
+  <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js" charset="utf-8"></script>
   <script type="text/javascript">
   var myScroll;
-  var pullUpOffset = -(document.querySelector('#pullUp').offsetHeight);
+  var pullUp = document.querySelector('#pullUp');
+  var pullUpOffset = pullUp.offsetHeight;
     document.addEventListener('DOMContentLoaded',function () {
       myScroll = new IScroll('#wapper',{
         // scrollbars: true,
         // interactiveScrollbars: true,
         // shrinkScrollbars: 'scale',
-        probeType: 3,
-        startY: pullUpOffset
+        probeType: 2,
+        startY: -pullUpOffset
       });
       myScroll.on('scroll',function(){
+        //console.debug(this.y | 0)
+        console.debug(this)
+        console.log(this.y | 0)
+        if (this.y <= pullUpOffset) {
+          pullUp.querySelector('.icon-arrow-down').className = 'iconfont icon-arrow-down active';
+        } else if (this.y >= pullUpOffset) {
+          pullUp.querySelector('.icon-arrow-down').className = 'iconfont icon-arrow-down';
+        }
+      })
+      myScroll.on('scrollEnd',function(){
         // console.log(this)
-        console.debug(this.y >> 0)
+        this.scrollTo(0, -pullUpOffset, 1000, IScroll.utils.ease.back)
         if(this.y >= pullUpOffset) {
           console.log("滚动到顶点")
         }
       })
-      // myScroll.on('scrollEnd',function(){
-      //   // console.log(this)
-      //   if(this.y >= pullUpOffset) {
-      //     console.log("滚动到顶点")
-      //   }
-      // })
     })
   </script>
 </body>
