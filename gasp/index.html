@@ -8,7 +8,8 @@
   <title>TweenMax动画库</title>
   <script src="./greensock-js/src/minified/TweenMax.min.js"></script>
   <style type="text/css">
-    ul,li {
+    ul,
+    li {
       list-style: none;
       padding: 0;
       margin: 0;
@@ -25,7 +26,7 @@
     .list>.item:first-of-type {
       background-color: #13b5b1;
     }
-    
+
     .list>.item:nth-of-type(2) {
       background-color: #eb6100;
     }
@@ -52,6 +53,116 @@
     <li class="item">4</li>
   </ul>
   <script type="text/javascript">
+    var list = document.querySelector('.list');
+    var listItems = list.children;
+    const data1 = [{
+        id: 1,
+        title: '一局',
+        subitem: [{
+          id: 2,
+          title: '无人机001',
+          longitude: 116.38000,
+          latitude: 39.90000,
+          normal_image: '../../../../images/Visual/icon_aerial_vehicle_normal.png',
+          light_image: '../../../../images/Visual/icon_aerial_vehicle_light.png'
+        }, {
+          id: 3,
+          title: '无人机002',
+          longitude: 116.55000,
+          latitude: 39.79945,
+          normal_image: '../../../../images/Visual/icon_aerial_vehicle_normal.png',
+          light_image: '../../../../images/Visual/icon_aerial_vehicle_light.png'
+        }, {
+          id: 4,
+          title: '无人机003',
+          longitude: 116.32500,
+          latitude: 39.85000,
+          normal_image: '../../../../images/Visual/icon_aerial_vehicle_normal.png',
+          light_image: '../../../../images/Visual/icon_aerial_vehicle_light.png'
+        }, {
+          id: 5,
+          title: '无人机004',
+          longitude: 116.40000,
+          latitude: 39.50000,
+          normal_image: '../../../../images/Visual/icon_aerial_vehicle_normal.png',
+          light_image: '../../../../images/Visual/icon_aerial_vehicle_light.png'
+        }]
+      },
+      {
+        id: 6,
+        title: '二局',
+        subitem: [{
+          id: 7,
+          title: '无人机001',
+          longitude: 116.40769,
+          latitude: 39.89945,
+          normal_image: '../../../../images/Visual/icon_aerial_vehicle_normal.png',
+          light_image: '../../../../images/Visual/icon_aerial_vehicle_light.png'
+        }, {
+          id: 8,
+          title: '无人机002',
+          longitude: 116.40780,
+          latitude: 39.89945,
+          normal_image: '../../../../images/Visual/icon_aerial_vehicle_normal.png',
+          light_image: '../../../../images/Visual/icon_aerial_vehicle_light.png'
+        }, {
+          id: 9,
+          title: '无人机003',
+          longitude: 116.40769,
+          latitude: 39.89950,
+          normal_image: '../../../../images/Visual/icon_aerial_vehicle_normal.png',
+          light_image: '../../../../images/Visual/icon_aerial_vehicle_light.png'
+        }, {
+          id: 10,
+          title: '无人机004',
+          longitude: 116.40769,
+          latitude: 39.89945,
+          normal_image: '../../../../images/Visual/icon_aerial_vehicle_normal.png',
+          light_image: '../../../../images/Visual/icon_aerial_vehicle_light.png'
+        }]
+      },
+      {
+        id: 11,
+        title: '三局',
+        subitem: [{
+          id: 12,
+          title: '无人机001',
+          longitude: 116.40769,
+          latitude: 39.89945,
+          normal_image: '../../../../images/Visual/icon_aerial_vehicle_normal.png',
+          light_image: '../../../../images/Visual/icon_aerial_vehicle_light.png'
+        }, {
+          id: 13,
+          title: '无人机002',
+          longitude: 116.40780,
+          latitude: 39.89945,
+          normal_image: '../../../../images/Visual/icon_aerial_vehicle_normal.png',
+          light_image: '../../../../images/Visual/icon_aerial_vehicle_light.png'
+        }, {
+          id: 14,
+          title: '无人机003',
+          longitude: 116.40769,
+          latitude: 39.89950,
+          normal_image: '../../../../images/Visual/icon_aerial_vehicle_normal.png',
+          light_image: '../../../../images/Visual/icon_aerial_vehicle_light.png'
+        }, {
+          id: 15,
+          title: '无人机004',
+          longitude: 116.40769,
+          latitude: 39.89945,
+          normal_image: '../../../../images/Visual/icon_aerial_vehicle_normal.png',
+          light_image: '../../../../images/Visual/icon_aerial_vehicle_light.png'
+        }]
+      }
+    ];
+    var res = [];
+    data1.forEach(function(i){
+      i.subitem.forEach(function(a){
+        if(a.id === 4) {
+          res.push(a.id);
+        }
+      })
+    })
   </script>
 </body>
 
