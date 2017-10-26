@@ -167,13 +167,16 @@
               that.pageX = e.pageX;
               that.pageY = e.pageY;
               let s = that.smmoth;
-              for (let i = 0; i < ls; i++) {
+              [...children].forEach(value => {
                 let top = (that.middlePointY - that.pageY) / s;
                 let left = (that.middlePointX - that.pageX) / s;
-                children[i].style.top = top + 'px';
-                children[i].style.left = left + 'px';
+                value.style.top = top + 'px';
+                value.style.left = left + 'px';
                 s-=that.difference;
-              }
+              })
+              // for (let i = 0; i < ls; i++) {
+                
+              // }
             }
           }
         }

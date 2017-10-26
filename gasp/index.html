@@ -174,6 +174,29 @@
         }
       })
     })
+    document.querySelector('#start').addEventListener('click', function () {
+
+      setTimeout(()=> {this.style.fontSize = '22px'},300);
+
+    },false)
+    let ar = [0,2,3,4];
+    // var str = (x, y)=> x+y;  // str(1,2)   3
+    // var str = (x, y)=> {x+y}; // str(1,2)  undefined   函数内部运算已经计算，函数执行完毕如果没有返回值默认返回undefined
+    // var str = (x, y)=> (x+y);  // str(1,2)    3
+    // var str = (x, y) => ({'x': x, 'y': y});  //str(6,2)  返回 object
+    // var str = (x, y) => { return {'x': x,'y': y}};   // 返回 object
+
+    /* 箭头函数 
+    *  var str = (x, y)=> x+y;  相当于    var str = function(x,y) { return x+y }   箭头函数默认返回值
+    *  var str = (x, y)=> {x+y} 相当于    var  str = function(x,y) {x+y }  函数执行完毕如果没有返回值默认返回undefined
+    *  var str = (x, y)=> (x+y)  相当于   var str = function(x,y) { return x+y }   箭头函数默认返回值
+    *
+    *  总结：
+    *  箭头函数 表达式部分 可以写  {} ()也可不写，默认 返回值，{} 内 不会默认返回值
+    *  如果语句有多条，需要使用  {}
+    *  
+    *  箭头函数内返回对象 需要用 ()计算后返回
+    */ 
   </script>
 </body>
 
