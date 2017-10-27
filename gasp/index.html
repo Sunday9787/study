@@ -62,12 +62,12 @@
         return function () {
             [...list.children].forEach((value, index, arry) => {
                 console.log(value, index, arry);
-                // T.to(value, 1, {'height': `${flag ? '50': '0'}'px'`});
-                if (flag) {
-                    T.to(value, 1, {'height': '50px'});
-                } else {
-                    T.to(value, 1, {'height': '0px'});
-                }
+                T.to(value, 1, {'height': `${flag ? '50': '0'}px`});
+                // if (flag) {
+                //     T.to(value, 1, {'height': '50px'});
+                // } else {
+                //     T.to(value, 1, {'height': '0px'});
+                // }
             })
 
             flag = !flag;
