@@ -15,9 +15,7 @@
       margin: 0;
     }
 
-    .list {
-      margin-left: 10px;
-    }
+    .list {};
 
     .list>.item {
       display: block;
@@ -57,23 +55,33 @@
   <script type="text/javascript">
     var T = new TimelineMax();
     var list = document.querySelector('.list');
-    function toggle() {
-        let flag = true;
-        return function () {
-            [...list.children].forEach((value, index, arry) => {
-                console.log(value, index, arry);
-                T.to(value, 1, {'height': `${flag ? '50': '0'}px`});
-                // if (flag) {
-                //     T.to(value, 1, {'height': '50px'});
-                // } else {
-                //     T.to(value, 1, {'height': '0px'});
-                // }
-            })
 
-            flag = !flag;
-        }
+    function toggle() {
+      let flag = true;
+      let listrry = [...list.children];
+      return function() {
+        flag ? listrry : listrry.reverse();
+        listrry.forEach((value, index, arry) => {
+          // console.log(value, index, arry);
+          T.to(value, 1, {
+            'height': `${flag ? '50': '0'}px`,
+            'ease': Power0.easeNone,
+            'onStart': () => {
+              console.log('onStart会在动画的开始触发');
+            },
+            'onUpdate': () => {
+              console.log('onUpdate会在动画的每一帧触发');
+            },
+            'onComplete': () => {
+              console.log('onComplete会在动画结束的时候触发。');
+            }
+          });
+        })
+
+        flag = !flag;
+      }
     }
-    document.querySelector('#start').addEventListener('click', toggle())
+    document.querySelector('#start').addEventListener('click', toggle(),false)
   </script>
   <script type="text/javascript">
     var list = document.querySelector('.list');
@@ -179,19 +187,19 @@
       }
     ];
     var res = [];
-    data1.forEach(function(i){
-      i.subitem.forEach(function(a){
-        if(a.id === 4) {
+    data1.forEach(function(i) {
+      i.subitem.forEach(function(a) {
+        if (a.id === 4) {
           res.push(a.id);
         }
       })
     })
-    document.querySelector('#start').addEventListener('click', function () {
-
-      setTimeout(()=> {this.style.fontSize = '22px'},300);
-
-    },false)
-    let ar = [0,2,3,4];
+    // document.querySelector('#start').addEventListener('click', function () {
+    //
+    //   setTimeout(()=> {this.style.fontSize = '22px'},300);
+    //
+    // },false)
+    let ar = [0, 2, 3, 4];
     // var str = (x, y)=> x+y;  // str(1,2)   3
     // var str = (x, y)=> {x+y}; // str(1,2)  undefined   函数内部运算已经计算，函数执行完毕如果没有返回值默认返回undefined
     // var str = (x, y)=> (x+y);  // str(1,2)    3
@@ -199,16 +207,16 @@
     // var str = (x, y) => { return {'x': x,'y': y}};   // 返回 object
 
     /* 箭头函数
-    *  var str = (x, y)=> x+y;  相当于    var str = function(x,y) { return x+y }   箭头函数默认返回值
-    *  var str = (x, y)=> {x+y} 相当于    var  str = function(x,y) {x+y }  函数执行完毕如果没有返回值默认返回undefined
-    *  var str = (x, y)=> (x+y)  相当于   var str = function(x,y) { return x+y }   箭头函数默认返回值
-    *
-    *  总结：
-    *  箭头函数 表达式部分 可以写  {} ()也可不写，默认 返回值，{} 内 不会默认返回值
-    *  如果语句有多条，需要使用  {}
-    *
-    *  箭头函数内返回对象 需要用 ()计算后返回
-    */
+     *  var str = (x, y)=> x+y;  相当于    var str = function(x,y) { return x+y }   箭头函数默认返回值
+     *  var str = (x, y)=> {x+y} 相当于    var  str = function(x,y) {x+y }  函数执行完毕如果没有返回值默认返回undefined
+     *  var str = (x, y)=> (x+y)  相当于   var str = function(x,y) { return x+y }   箭头函数默认返回值
+     *
+     *  总结：
+     *  箭头函数 表达式部分 可以写  {} ()也可不写，默认 返回值，{} 内 不会默认返回值
+     *  如果语句有多条，需要使用  {}
+     *
+     *  箭头函数内返回对象 需要用 ()计算后返回
+     */
   </script>
 </body>
 
