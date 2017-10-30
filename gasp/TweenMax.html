@@ -2,84 +2,145 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="./greensock-js/src/uncompressed/TweenMax.js" charset="utf-8"></script>
-  <title>TweenMax</title>
-  <style media="screen">
-    ul,
-    li {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../layui-v2.0.0/layui/css/layui.css">
+    <script src="./greensock-js/src/uncompressed/TweenMax.js" charset="utf-8"></script>
+    <title>TweenMax</title>
+    <style media="screen">
+        ul,
+        li {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-    .lis2 {
-      display: flex;
-      flex-basis: 100%;
-      height: 100px;
-      justify-content: center;
-    }
+        .list {
+            display: flex;
+            flex-basis: 100%;
+            height: 100px;
+            justify-content: center;
+        }
 
-    .lis2>.item {
-      display: flex;
-      flex-basis: 20%;
-      height: 100%;
-      justify-content: center;
-      align-items: center;
-      opacity: 1;
-    }
+        .list>.item {
+            display: flex;
+            flex-basis: 20%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+        }
 
-    .lis2>.item:first-of-type {
-      background-color: #c0d2e3;
-    }
+        .list>.item:first-of-type {
+            background-color: #c0d2e3;
+        }
 
-    .lis2>.item:nth-of-type(2) {
-      background-color: #eb6877;
-    }
+        .list>.item:nth-of-type(2) {
+            background-color: #eb6877;
+        }
 
-    .lis2>.item:nth-of-type(3) {
-      background-color: #362e2b;
-    }
+        .list>.item:nth-of-type(3) {
+            background-color: #362e2b;
+        }
 
-    .lis2>.item:nth-of-type(4) {
-      background-color: #eb6100;
-    }
+        .list>.item:nth-of-type(4) {
+            background-color: #eb6100;
+        }
 
-    .lis2>.item:last-of-type {
-      background-color: #13b5b1;
-    }
-  </style>
+        .list>.item:last-of-type {
+            background-color: #13b5b1;
+        }
+
+        #demo2 {
+            width: 100%;
+        }
+
+        #demo2 .layui-row .layui-col-xs6 {
+            line-height: 30px;
+            color: #fff;
+            background-color: teal;
+        }
+    </style>
 </head>
 
 <body>
 
-  <a href="javascript:;" class="btn-2">多个元素运动</a>
-  <ul class="lis2">
-    <li class="item">1</li>
-    <li class="item">2</li>
-    <li class="item">3</li>
-    <li class="item">4</li>
-    <li class="item">5</li>
-  </ul>
-  <script type="text/javascript">
-  var TweenMax = new TimelineMax();
-  //staggerFrom 操作多个元素动画
-  // staggerFrom(元素组[arry], 一个动画执行时长,{cssKey: value, delay(延时): number,ease(过度效果): object,)
-  TweenMax.staggerFrom('.lis2>.item', 3, {'scale':  0.5, 'opacity': 0, 'delay': 0.3, 'ease': Elastic.easeOut}, 0.2)
-  function toggle2 () {
-    var flag = false;
-    return () => {
-      flag ? TweenMax.reverse() : TweenMax.staggerFrom('.lis2>.item', 2, {'scale': 0.5, 'opacity': 0, 'delay': 0.3, 'ease': Elastic.easeOut}, 0.2);
-      flag = !flag;
-      console.log(flag)
-    }
-  }
-  document.querySelector('.btn-2').addEventListener('click', function () {
-    TweenMax.staggerFrom('.lis2>.item', 2, {'scale': 0.5, 'opacity': 0, 'delay': 0.3, 'ease': Elastic.easeOut}, 0.2)
-  }, false)
-  </script>
+    <a id="btn-1" class="layui-btn layui-btn-normal" href="javascript:;">多个元素运动</a>
+    <ul class="list">
+        <li class="item">1</li>
+        <li class="item">2</li>
+        <li class="item">3</li>
+        <li class="item">4</li>
+        <li class="item">5</li>
+    </ul>
+    <h2>实例2</h2>
+    <hr>
+    <div class="layui-row">
+        <div id="demo2" class="layui-col-xs6">
+            <div class="layui-row">
+                <div class="layui-col-xs6 layui-offset-left3">第1行</div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-xs6">第2行</div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-xs6">第3行</div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-xs6">第4行</div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-xs6">第5行</div>
+            </div>
+        </div>
+        <div class="layui-col-xs12">
+            <div class="layui-row">
+                <a id="btn-2" href="javascript:;" class="layui-btn layui-btn-danger">实例2</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var TweenMax = new TimelineMax();
+        //staggerFrom 操作多个元素动画
+        // staggerFrom(元素组[arry], 一个动画执行时长,{cssKey: value, delay(延时): number,ease(过度效果): object,)
+        TweenMax.staggerFrom('.list>.item', 3, {
+            'scale': 0.5,
+            'opacity': 0,
+            'delay': 0.3,
+            'ease': Elastic.easeOut
+        }, 0.2)
+
+        function toggle2() {
+            var flag = false;
+            return () => {
+                flag ? TweenMax.reverse() : TweenMax.staggerFrom('.list>.item', 2, {
+                    'scale': 0.5,
+                    'opacity': 0,
+                    'delay': 0.3,
+                    'ease': Elastic.easeOut
+                }, 0.2);
+                flag = !flag;
+                console.log(flag)
+            }
+        }
+        document.querySelector('#btn-1').addEventListener('click', function() {
+            TweenMax.staggerTo('.list>.item', 2, {
+                'scale': 0,
+                'opacity': 0,
+                'delay': 0.2,
+                'ease': Back.easeOut
+            }, 0.1)
+        }, false)
+
+        // 效果2
+        let TweenMax2 = new TimelineMax();
+        let btn2 = document.querySelector('#btn-2');
+        btn2.onclick = function () {
+            TweenMax2.staggerFrom('#demo2>.layui-row', 1.5, {opacity: 1,cycle: {x: [-100, 100], ease: (i)=> Back.easeOut.config(i * 0.3)}});
+            console.log(this)
+        }
+    </script>
 </body>
 
 </html>
