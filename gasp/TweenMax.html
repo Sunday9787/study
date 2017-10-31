@@ -53,13 +53,19 @@
         }
 
         #demo2 {
-            width: 100%;
+            /*width: 100%;*/
         }
 
-        #demo2 .layui-row .layui-col-xs6 {
+        #demo2 .layui-row > div {
             line-height: 30px;
             color: #fff;
             background-color: teal;
+        }
+
+        .box {
+          height: 180px;
+          width: 180px;
+          background-color: #338;
         }
     </style>
 </head>
@@ -77,21 +83,21 @@
     <h2>实例2</h2>
     <hr>
     <div class="layui-row">
-        <div id="demo2" class="layui-col-xs6">
+        <div id="demo2" class="layui-col-xs6 layui-col-xs-offset3">
             <div class="layui-row">
-                <div class="layui-col-xs6 layui-offset-left3">第1行</div>
+                <div class="layui-col-xs12">第1行</div>
             </div>
             <div class="layui-row">
-                <div class="layui-col-xs6">第2行</div>
+                <div class="layui-col-xs12">第2行</div>
             </div>
             <div class="layui-row">
-                <div class="layui-col-xs6">第3行</div>
+                <div class="layui-col-xs12">第3行</div>
             </div>
             <div class="layui-row">
-                <div class="layui-col-xs6">第4行</div>
+                <div class="layui-col-xs12">第4行</div>
             </div>
             <div class="layui-row">
-                <div class="layui-col-xs6">第5行</div>
+                <div class="layui-col-xs12">第5行</div>
             </div>
         </div>
         <div class="layui-col-xs12">
@@ -100,6 +106,8 @@
             </div>
         </div>
     </div>
+    <div class="box"></div>
+    <a id="btn-3" href="javascript:;" class="layui-btn layui-btn-warm">实例3</a>
     <script type="text/javascript">
         var TweenMax = new TimelineMax();
         //staggerFrom 操作多个元素动画
@@ -137,8 +145,15 @@
         let TweenMax2 = new TimelineMax();
         let btn2 = document.querySelector('#btn-2');
         btn2.onclick = function () {
-            TweenMax2.staggerFrom('#demo2>.layui-row', 1.5, {opacity: 1,cycle: {x: [-100, 100], ease: (i)=> Back.easeOut.config(i * 0.3)}});
+            TweenMax2.staggerFrom('#demo2>.layui-row', 1.5, {opacity: 1,cycle: {x: [-150, 150], ease: (i)=> Back.easeOut.config(i * 0.3)}});
             console.log(this)
+        }
+
+        let TweenMax3 = new TimelineMax();
+        let btn3 = document.querySelector('#btn-3');
+        btn3.onclick = function () {
+          TweenMax3.to('.box', 1.2, {x: 200, y: 0}).add(()=> {console.log('添加一个小东西。。。我们可以做些什么')},1.5)
+          .to('.box', 1.2, {width: '+=30', height: '+=30',delay: 0.52, rotation: '+=360'}).add('label','');
         }
     </script>
 </body>
