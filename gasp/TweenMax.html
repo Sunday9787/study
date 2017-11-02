@@ -67,6 +67,50 @@
           width: 180px;
           background-color: #338;
         }
+        .loading {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        .loading .box1,
+        .loading .box2 {
+            width: 300px;
+            height: 300px;
+            position: relative;
+        }
+        .loading .box1 .subBox,
+        .loading .box2 .subBox {
+            position: absolute;
+            width: 33.33333%;
+            height: 33.33333%;
+            border-radius: 100%;
+        }
+        .loading .box1 .subBox:first-of-type {
+            left: 33.33333%;
+            top: 0;
+            background-color: #eb6877;
+        }
+        .loading .box1 .subBox:nth-of-type(2) {
+            right: 0;
+            top: 33.33333%;
+            background-color: #eb6100;
+            /*transform-origin: left top;
+            transform: rotateZ(30deg);*/
+        }
+        .loading .box1 .subBox:nth-of-type(3) {
+            right: 33.33333%;
+            bottom: 0;
+            background-color: #338;
+            /*transform-origin: left top;
+            transform: rotateZ(30deg);*/
+        }
+        .loading .box1 .subBox:last-of-type {
+            left: 0;
+            top: 33.33333%;
+            background-color: #13b5b1;
+            /*transform-origin: right top;
+            transform: rotateZ(-30deg);*/
+        }
     </style>
 </head>
 
@@ -108,6 +152,14 @@
     </div>
     <div class="box"></div>
     <a id="btn-3" href="javascript:;" class="layui-btn layui-btn-warm">实例3</a>
+    <div class="loading">
+        <div class="box1">
+            <div class="subBox"></div>
+            <div class="subBox"></div>
+            <div class="subBox"></div>
+            <div class="subBox"></div>
+        </div>
+    </div>
     <script type="text/javascript">
         var TweenMax = new TimelineMax();
         //staggerFrom 操作多个元素动画
@@ -152,9 +204,23 @@
         let TweenMax3 = new TimelineMax();
         let btn3 = document.querySelector('#btn-3');
         btn3.onclick = function () {
-          TweenMax3.to('.box', 1.2, {x: 200, y: 0}).add(()=> {console.log('添加一个小东西。。。我们可以做些什么')},1.5)
+          TweenMax3.to('.box', 1.2, {x: 400, y: 0, backgroundColor: '#eb6100'}).add(()=> {console.log('添加一个小东西。。。我们可以做些什么')},1.5)
           .to('.box', 1.2, {width: '+=30', height: '+=30',delay: 0.52, rotation: '+=360'}).add('label','');
         }
+
+        // 案例三
+        // var loading = document.querySelector
+        var loading = new TimelineMax();
+        var loadingEl = document.querySelector('.loading>.box1');
+        var loadingSub1 = loadingEl.children[0],
+            loadingSub2 = loadingEl.children[1],
+            loadingSub3 = loadingEl.children[2],
+            loadingSub4 = loadingEl.children[3];
+
+        loading.to(loadingSub1, 1.5, {autoAlpha: 0,y: 200});
+        loading.to(loadingSub2, 1.5, {autoAlpha: 0,x: -200});
+        loading.to(loadingSub3, 1.5, {autoAlpha: 0,y: -200});
+        loading.to(loadingSub4, 1.5, {autoAlpha: 0,x: 200});
     </script>
 </body>
 

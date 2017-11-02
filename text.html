@@ -12,5 +12,22 @@
 			//aaddddagjaa
 		}
 	</script>
+	<a id="btn" href="javascript:;">点击追加元素</a>
+	<script type="text/javascript">
+		var btn = document.querySelector('#btn');
+
+		btn.addEventListener('click',function(){
+			var html = document.createDocumentFragment();
+			var p = document.createElement('p');
+			p.innerHTML = '<p><a href="javascript:;" onClick="get(this)">点击获取id</a></p>';
+			html.appendChild(p);
+			console.log(html.append)
+			document.body.appendChild(html)
+		},false)
+
+		function get(obj) {
+			console.log(obj)
+		}
+	</script>
 </body>
 </html>
