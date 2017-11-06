@@ -1,37 +1,44 @@
-// compress: true, sourceMap: true
+// out: css/main.css, sourcemap: true, compress: false
 
 /**
  * @Author: Edward
  * @Date:   2017-09-14T09:12:27+08:00
  * @Email:  809537981@qq.com
  * @Last modified by:   Edward
- * @Last modified time: 2017-09-19T14:32:11+08:00
+ * @Last modified time: 2017-11-05T22:45:14+08:00
  */
-
-
 @charset "UTF-8";
 @baseColor: #333;
 @bgColor: #ff8a00;
 @aHoverColor: darken(@baseColor, 30%);
 @baseWidth: 150px;
 @baseHeight: 150px;
+
 body {
     color: @baseColor;
 }
-:link, :active,:visited,:focus {
-    transition: all .3s ease;
+
+:active,
+:focus,
+:link,
+:visited {
+    transition: all 0.3s ease;
 }
+
 a {
     font-size: 15px;
     color: @baseColor;
     text-decoration: none;
+
     &:hover {
         color: @aHoverColor;
     }
 }
+
 .color {
     color: #3d465e;
 }
+
 .list-item {
     position: relative;
     height: 800px;
@@ -39,6 +46,7 @@ a {
     transform-style: preserve-3d;
     transform-origin: center;
 }
+
 .rounded-list-item () {
     position: absolute;
     display: flex;
@@ -49,9 +57,11 @@ a {
     color: #fff;
 }
 /* 样式继承 */
+
 .list-item [class^=item] {
     .rounded-list-item()
 }
+
 .list-item-item (@n, @i: 1) when (@i <= @n) {
     .list-item .item-@{i} {
         top: 0;
@@ -73,8 +83,10 @@ a {
         color: #fff;
         background-color: #3d465e;
     }
+
     .mainbav {
         float: left;
+
         .item {
             position: relative;
             float: left;
@@ -84,13 +96,16 @@ a {
             text-align: center;
             line-height: 56px;
             font-size: 18px;
+
             a {
                 text-decoration: line-through;
-                .color()
+                .color();
             }
         }
+
         &.active a {
             color: #f5ba49;
+
             &:after {
                 content: '';
                 position: absolute;
@@ -104,75 +119,130 @@ a {
         }
     }
 }
-
 @baseSize: 14px;
 @h1Size: 24px;
 @h2Size: 18px;
 @h3Size: 16px;
 @hSize: 100%;
-html,
-body {
+
+body,
+html {
     padding: 0;
     margin: 0;
 }
-body, button, input, select, textarea {
-    font: @baseSize / 1 "微软雅黑","黑体","Microsoft YaHei",Helvetica , Arial, sans-serif;
+
+body,
+button,
+input,
+select,
+textarea {
+    font: @baseSize / 1"微软雅黑","黑体","Microsoft YaHei",Helvetica , Arial, sans-serif;
 }
-body, menu,section, article,aside, h1, h2, h3, h4, h5, h6, hr, p, blockquote,
-dl, dt, dd, ul, ol, li,
-pre,
+
+article,
+aside,
+blockquote,
+body,
+dd,
+dl,
+dt,
 fieldset,
-th, td {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+li,
+menu,
+ol,
+p,
+pre,
+section,
+td,
+th,
+ul {
     margin: 0;
     padding: 0;
 }
-button, input, select, textarea {
+
+button,
+input,
+select,
+textarea {
     padding: 4px;
     margin: 0;
     border: 1px rgb(169,169,169) solid;
     outline: none;
 }
-input::-moz-placeholder, textarea::-moz-placeholder {
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
     color: #CCC;
 }
-ul, ol, dl {
+
+dl,
+ol,
+ul {
     list-style: none;
 }
+
 a {
     text-decoration: none;
 }
-fieldset, img {
+
+fieldset,
+img {
     border: none;
 }
+
 pre {
     color: #000;
 }
-var,
-code {
+
+code,
+var {
     font-size: 12px;
     font-family: "source";
 }
-tt, code, kbd, samp{
+
+code,
+kbd,
+samp,
+tt {
     font-size: @baseSize - 2;
 }
+
 small {
     font-size: @baseSize - 2;
 }
-i, cite, em, var, address, dfn {
+
+address,
+cite,
+dfn,
+em,
+i,
+var {
     font-style: normal;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
 hr {
     display: block;
     border: 0;
     border-top: 1px #c2bfbd solid;
 }
-*,::before,::after {
+
+*,
+::after,
+::before {
     margin: 0;
     padding: 0;
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
