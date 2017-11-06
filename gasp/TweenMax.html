@@ -207,6 +207,20 @@
           TweenMax3.to('.box', 1.2, {x: 400, y: 0, backgroundColor: '#eb6100'}).add(()=> {console.log('添加一个小东西。。。我们可以做些什么')},1.5)
           .to('.box', 1.2, {width: '+=30', height: '+=30',delay: 0.52, rotation: '+=360'}).add('label','');
         }
+
+        // 案例三
+        // var loading = document.querySelector
+        var loading = new TimelineMax();
+        var loadingEl = document.querySelector('.loading>.box1');
+        var loadingSub1 = loadingEl.children[0],
+            loadingSub2 = loadingEl.children[1],
+            loadingSub3 = loadingEl.children[2],
+            loadingSub4 = loadingEl.children[3];
+
+        loading.to(loadingSub1, 1.5, {autoAlpha: 0,y: 200});
+        loading.to(loadingSub2, 1.5, {autoAlpha: 0,x: -200});
+        loading.to(loadingSub3, 1.5, {autoAlpha: 0,y: -200});
+        loading.to(loadingSub4, 1.5, {autoAlpha: 0,x: 200});
     </script>
 </body>
 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../layui-v2.0.0/layui/css/layui.css">
+    <script src="./greensock-js/src/uncompressed/TweenMax.js" charset="utf-8"></script>
+    <title>TweenMax</title>
+    <style media="screen">
+        img {
+            max-width: 100%;
+        }
+        .cloud .cloud-bg,
+        .cloud .cloud-2,
+        .cloud .cloud-1 {
+            transform-style: preserve-3d;
+        }
+
+        .wrapper {
+            position: relative;
+            width: 840px;
+            height: 740px;
+            margin: 0 auto;
+            background-color: #2294b3;
+        }
+        .background {
+            position: absolute;
+            left: 0;
+            bottom: 130px;
+        }
+        .foreground {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+        .cloud {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 62.5%;
+        }
+        .cloud .cloud-bg,
+        .cloud .cloud-1 {
+            position: absolute;
+            width: 80%;
+            bottom: 17%;
+        }
+        .cloud .cloud-bg {
+            left: -80%;
+        }
+        .cloud .cloud-1 {
+            left: -140%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="background">
+            <img src="../images/howls/background.jpg" alt="">
+        </div>
+        <div class="cloud">
+            <div class="cloud-bg">
+                <img src="../images/howls/cloud-bg.png" alt="">
+            </div>
+            <div class="cloud-1">
+                <img src="../images/howls/cloud-bg.png" alt="">
+            </div>
+        </div>
+        <div class="foreground">
+            <img src="../images/howls/foreground.png" alt="">
+        </div>
+    </div>
+    <a id="btn-2" href="javascript:;" class="layui-btn layui-btn-danger">实例1</a>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            init();
+        });
+
+
+        var width = document.querySelector('.wrapper').clientWidth;
+        var init = function () {
+            // TweenMax.set('.cloud-bg')
+            cloudIntro();
+            console.log('set 完毕')
+        };
+
+        var cloudIntro = function () {
+
+            TweenMax.to('.cloud-bg', 20, {
+                x: width * 2 + 50,
+                force3D: true,
+                repeat: -1,
+                ease: Linear.easeNone,
+                onRepeat: function () {
+                    TweenMax.set(this.target[0], {
+                        rotationZ: Math.round(Math.random() * 60) - 30,
+                        scaleX: Math.random() > 0.5 ? 1 : -1
+                    });
+                }
+            });
+
+            TweenMax.to('.cloud-1', 20, {
+                x: width * 2 + 50,
+                repeat: -1,
+                force3D: true,
+                ease: Linear.easeNone,
+                onRepeat () {
+                    TweenMax.set(this.target[0], {
+                        y: Math.random() * 100,
+                        rotationZ: Math.round(Math.random() * 60) - 30,
+                        scaleX: Math.random() > 0.5 ? 1 : -1
+                    })
+                }
+            });
+        };
+    </script>
+</body>
+
+</html>
