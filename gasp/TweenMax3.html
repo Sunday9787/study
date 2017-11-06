@@ -23,6 +23,7 @@
             width: 840px;
             height: 740px;
             margin: 0 auto;
+            /* overflow: hidden; */
             background-color: #2294b3;
         }
         .background {
@@ -49,10 +50,10 @@
             bottom: 17%;
         }
         .cloud .cloud-bg {
-            left: -80%;
+            right: 100%;
         }
         .cloud .cloud-1 {
-            left: -140%;
+            right: 100%;
         }
     </style>
 </head>
@@ -80,7 +81,6 @@
             init();
         });
 
-
         var width = document.querySelector('.wrapper').clientWidth;
         var init = function () {
             // TweenMax.set('.cloud-bg')
@@ -91,12 +91,12 @@
         var cloudIntro = function () {
 
             TweenMax.to('.cloud-bg', 20, {
-                x: width * 2 + 50,
+                x: width * 2,
                 force3D: true,
                 repeat: -1,
                 ease: Linear.easeNone,
                 onRepeat: function () {
-                    TweenMax.set(this.target[0], {
+                    TweenMax.set(this.target, {
                         rotationZ: Math.round(Math.random() * 60) - 30,
                         scaleX: Math.random() > 0.5 ? 1 : -1
                     });
@@ -104,12 +104,13 @@
             });
 
             TweenMax.to('.cloud-1', 20, {
-                x: width * 2 + 50,
+                x: width * 2,
                 repeat: -1,
                 force3D: true,
+                delay: 5,
                 ease: Linear.easeNone,
                 onRepeat () {
-                    TweenMax.set(this.target[0], {
+                    TweenMax.set(this.target, {
                         y: Math.random() * 100,
                         rotationZ: Math.round(Math.random() * 60) - 30,
                         scaleX: Math.random() > 0.5 ? 1 : -1
@@ -117,6 +118,15 @@
                 }
             });
         };
+        
+// TweenMax.to($('.cloud-bg'), 40, {x: WIDTH * 2, y: 200 * scale, ease: Linear.easeNone, repeat: -1, force3D: true, onRepeat: function() {
+//     TweenLite.set(this.target[0], {y: Math.random() * 200 - 100, rotationZ: Math.round(Math.random() * 60) - 30, scaleX: Math.random() > 0.5 ? 1 : -1});
+// }});
+
+// TweenMax.to($('.cloud-bg2'), 40, {x: WIDTH * 2, y: 200 * scale, ease: Linear.easeNone, delay: 10, repeat: -1, force3D: true, onRepeat: function() {
+//     TweenLite.set(this.target[0], {y: Math.random() * 200 - 100, rotationZ: Math.round(Math.random() * 60) - 30, scaleX: Math.random() > 0.5 ? 1 : -1});
+// }});
+
     </script>
 </body>
 
