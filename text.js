@@ -4,21 +4,21 @@
 // console.log(parseInt(20*Math.random()));
 
 var obj = {
-  a: 1,
-  b: 2,
-  c: {
-    d: 1,
-    e: {
-      f: 1,
-      g: {
-        h: 1,
-        i: {
-          j: 1
+    a: 1,
+    b: 2,
+    c: {
+        d: 1,
+        e: {
+            f: 1,
+            g: {
+                h: 1,
+                i: {
+                    j: 1
+                }
+            }
         }
-      }
     }
-  }
-}
+};
 
 // function mmp(obj) {
 //   for (var i in obj) {
@@ -35,14 +35,21 @@ var obj = {
 walk(obj, []);
 
 function walk(obj, prefix) {
-  Object.keys(obj).forEach((it) => {
-    const x = obj[it];
-    prefix.push(it);
+    Object.keys(obj).forEach((it) => {
+        const x = obj[it];
+        prefix.push(it);
 
-    if (typeof x === 'object') {
-      return walk(x, prefix);
-    }
+        if (typeof x === 'object') {
+            return walk(x, prefix);
+        }
 
-    console.log(prefix.join('.'), x);
-  });
+        console.log(prefix.join('.'), x);
+    });
+}
+// $(this).on('click',function () {
+//     console.log(this);
+// });
+let type = 'json';
+switch(type) {
+    case 'json': console.log('yes');
 }
