@@ -26,34 +26,61 @@
             /* overflow: hidden; */
             background-color: #2294b3;
         }
+
         .background {
             position: absolute;
             left: 0;
             bottom: 130px;
         }
+
         .foreground {
             position: absolute;
             left: 0;
             bottom: 0;
         }
-        .cloud {
+
+        .cloud,
+        .forecloud {
             position: absolute;
             left: 0;
             bottom: 0;
             width: 100%;
             height: 62.5%;
         }
+
         .cloud .cloud-bg,
-        .cloud .cloud-1 {
+        .cloud .cloud-bg-2 {
             position: absolute;
             width: 80%;
             bottom: 17%;
-        }
-        .cloud .cloud-bg {
             right: 100%;
         }
-        .cloud .cloud-1 {
-            right: 100%;
+
+        .forecloud .cloud-1,
+        .forecloud .cloud-2,
+        .forecloud .cloud-shadow {
+            position: absolute;
+            width: 100%;
+            bottom: 4%;
+        }
+
+        .forecloud .cloud-1 {
+            right: 50%;
+        }
+
+        .forecloud .cloud-shadow {
+            height: 100%;
+        }
+
+        .cloud-shadow .cloud-shadow-1,
+        .cloud-shadow .cloud-shadow-2 {
+            position: absolute;
+            bottom: 0;
+        }
+
+        .cloud-shadow .cloud-shadow-1 {
+            right: 50%;
+            width: 100%;
         }
     </style>
 </head>
@@ -67,12 +94,28 @@
             <div class="cloud-bg">
                 <img src="../images/howls/cloud-bg.png" alt="">
             </div>
-            <div class="cloud-1">
+            <div class="cloud-bg-2">
                 <img src="../images/howls/cloud-bg.png" alt="">
             </div>
         </div>
         <div class="foreground">
             <img src="../images/howls/foreground.png" alt="">
+        </div>
+        <div class="forecloud">
+            <div class="cloud-shadow">
+                <div class="cloud-shadow-1">
+                    <img src="../images/howls/cloud_shadow-1.png">
+                </div>
+                <div class="cloud-shadow-2">
+                    <img src="../images/howls/cloud_shadow-1.png">
+                </div>
+            </div>
+            <div class="cloud-1">
+                <img src="../images/howls/cloud-1.png" alt="">
+            </div>
+            <div class="cloud-2">
+                <img src="../images/howls/cloud-2.png" alt="">
+            </div>
         </div>
     </div>
     <a id="btn-2" href="javascript:;" class="layui-btn layui-btn-danger">实例1</a>
@@ -83,14 +126,12 @@
 
         var width = document.querySelector('.wrapper').clientWidth;
         var init = function () {
-            // TweenMax.set('.cloud-bg')
             cloudIntro();
             console.log('set 完毕')
         };
 
         var cloudIntro = function () {
-
-            TweenMax.to('.cloud-bg', 20, {
+            var cloudBg_Config = {
                 x: width * 2,
                 force3D: true,
                 repeat: -1,
@@ -101,31 +142,33 @@
                         scaleX: Math.random() > 0.5 ? 1 : -1
                     });
                 }
-            });
+            }
 
-            TweenMax.to('.cloud-1', 20, {
-                x: width * 2,
-                repeat: -1,
+            TweenMax.to('.cloud-bg', 40,cloudBg_Config );
+
+            TweenMax.to('.cloud-bg-2', 40,cloudBg_Config);
+
+            TweenMax.to('.forecloud', 20, {
+                x: width * 1.5,
                 force3D: true,
-                delay: 5,
-                ease: Linear.easeNone,
-                onRepeat () {
-                    TweenMax.set(this.target, {
-                        y: Math.random() * 100,
-                        rotationZ: Math.round(Math.random() * 60) - 30,
-                        scaleX: Math.random() > 0.5 ? 1 : -1
-                    })
-                }
-            });
-        };
-        
-// TweenMax.to($('.cloud-bg'), 40, {x: WIDTH * 2, y: 200 * scale, ease: Linear.easeNone, repeat: -1, force3D: true, onRepeat: function() {
-//     TweenLite.set(this.target[0], {y: Math.random() * 200 - 100, rotationZ: Math.round(Math.random() * 60) - 30, scaleX: Math.random() > 0.5 ? 1 : -1});
-// }});
+                ease: Linear.easeNone
+            })
 
-// TweenMax.to($('.cloud-bg2'), 40, {x: WIDTH * 2, y: 200 * scale, ease: Linear.easeNone, delay: 10, repeat: -1, force3D: true, onRepeat: function() {
-//     TweenLite.set(this.target[0], {y: Math.random() * 200 - 100, rotationZ: Math.round(Math.random() * 60) - 30, scaleX: Math.random() > 0.5 ? 1 : -1});
-// }});
+            // TweenMax.to('.cloud-2', 40, {
+            //     x: width * 2,
+            //     repeat: -1,
+            //     force3D: true,
+            //     delay: 0,
+            //     ease: Linear.easeNone,
+            //     onRepeat () {
+            //         TweenMax.set(this.target, {
+            //             y: Math.random() * 100,
+            //             rotationZ: Math.round(Math.random() * 60) - 30,
+            //             scaleX: Math.random() > 0.5 ? 1 : -1
+            //         })
+            //     }
+            // });
+        };
 
     </script>
 </body>
