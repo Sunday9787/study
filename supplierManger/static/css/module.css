@@ -1,0 +1,26 @@
+@charset "UTF-8";
+/*
+ * @Author: Edward
+ * @Date: 2017-08-3 15:49:56
+ * @Last modified by:   Edward
+ * @Last modified time: 2017-08-23T16:58:33+08:00
+ */
+html {
+  height: 100%;
+  background-color: #fff;
+  word-break: break-all;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.main {
+  max-width: 1920px;
+  min-width: 1336px;
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}

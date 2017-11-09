@@ -23,7 +23,7 @@
             width: 840px;
             height: 740px;
             margin: 0 auto;
-            /* overflow: hidden; */
+             overflow: hidden;
             background-color: #2294b3;
         }
 
@@ -65,7 +65,7 @@
         }
 
         .forecloud .cloud-1 {
-            right: 50%;
+            right: 70%;
         }
 
         .forecloud .cloud-shadow {
@@ -79,8 +79,17 @@
         }
 
         .cloud-shadow .cloud-shadow-1 {
-            right: 50%;
+            right: 70%;
             width: 100%;
+        }
+
+        .house {
+            position: absolute;
+            width: 30%;
+            bottom: 35%;
+        }
+        .main {
+            transform: rotate3d(0, 0, 1, 10deg);
         }
     </style>
 </head>
@@ -96,6 +105,12 @@
             </div>
             <div class="cloud-bg-2">
                 <img src="../images/howls/cloud-bg.png" alt="">
+            </div>
+        </div>
+        <!-- 房子主体 -->
+        <div class="house">
+            <div class="main">
+                <img src="../images/howls/main.png" alt="">
             </div>
         </div>
         <div class="foreground">
@@ -125,13 +140,16 @@
         });
 
         var width = document.querySelector('.wrapper').clientWidth;
+        var scale = width / 1440;
         var init = function () {
             cloudIntro();
             console.log('set 完毕')
         };
 
+        // 云彩
         var cloudIntro = function () {
-            var cloudBg_Config = {
+
+            TweenMax.to('.cloud-bg', 40, {
                 x: width * 2,
                 force3D: true,
                 repeat: -1,
@@ -142,34 +160,36 @@
                         scaleX: Math.random() > 0.5 ? 1 : -1
                     });
                 }
-            }
+            });
 
-            TweenMax.to('.cloud-bg', 40,cloudBg_Config );
-
-            TweenMax.to('.cloud-bg-2', 40,cloudBg_Config);
+            TweenMax.to('.cloud-bg-2', 40,{
+                x: width * 2,
+                force3D: true,
+                repeat: -1,
+                delay: 10,
+                ease: Linear.easeNone,
+                onRepeat: function () {
+                    TweenMax.set(this.target, {
+                        rotationZ: Math.round(Math.random() * 60) - 30,
+                        scaleX: Math.random() > 0.5 ? 1 : -1
+                    });
+                }
+            });
 
             TweenMax.to('.forecloud', 20, {
                 x: width * 1.5,
                 force3D: true,
                 ease: Linear.easeNone
             })
-
-            // TweenMax.to('.cloud-2', 40, {
-            //     x: width * 2,
-            //     repeat: -1,
-            //     force3D: true,
-            //     delay: 0,
-            //     ease: Linear.easeNone,
-            //     onRepeat () {
-            //         TweenMax.set(this.target, {
-            //             y: Math.random() * 100,
-            //             rotationZ: Math.round(Math.random() * 60) - 30,
-            //             scaleX: Math.random() > 0.5 ? 1 : -1
-            //         })
-            //     }
-            // });
         };
 
+        var house = function () {
+            var tl = new TimelineMax({repeat: -1, delay: 0.0, ease: Linear.easeNone});
+                tl.to('.main', 0.5, {x: '+=10', y: '-=4', delay: 0.0, force3D: true})
+                .to('.main', 0.5, {x: '-=3', y: '+=4', delay: 0.5, force3D: true})
+                .to('.main', 0.5, {x: '+=10', y: '-=5', delay: 1.0, force3D: true})
+                .to('.main', 0.5, {x: '-=3', y: '+=5', delay: 1.5, force3D: true})
+        };
     </script>
 </body>
 

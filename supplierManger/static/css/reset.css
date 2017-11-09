@@ -1,0 +1,186 @@
+@charset "utf-8";
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+::before,::after {
+  box-sizing: inherit;
+}
+html {
+  height: 100%;
+  background-color: #fff;
+  word-break: break-all;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+body, button, input, select, textarea {
+  font: 14px/1 "微软雅黑", "黑体", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+html,body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, fieldset, button, input, textarea, th, td {
+  margin: 0;
+  padding: 0;
+}
+
+/* html,body {
+    height: 100%;
+} */
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+h4, h5, h6 {
+  font-size: 100%;
+}
+
+h1, h2, h3 {
+  letter-spacing: 2px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+
+p {
+  margin-top: 10px;
+}
+
+i, address, cite, dfn, em, var {
+  font-style: normal;
+}
+
+code, kbd, pre, samp, tt {
+  font-family: "Courier New", Courier, monospace;
+}
+
+small {
+  font-size: 12px;
+}
+
+/* 重置列表元素 */
+
+ul, ol, dl {
+  list-style: none;
+}
+
+ul, ol, dl, menu {
+  padding: 0;
+  margin: 0;
+}
+
+th {
+  font-weight: normal;
+}
+
+/* 重置文本格式元素 */
+
+a {
+  color: #333;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+fieldset, img {
+  border: none;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+/* 重置表单元素 */
+
+button, input, select, textarea {
+  display: inline-block;
+  font-size: 100%;
+  outline: none;
+}
+
+input, select, textarea {
+  vertical-align: middle;
+}
+
+input, select, textarea {
+  border: 1px #c2bfbd solid;
+}
+
+/*input[type=text],input[type=password],textarea,input[type=button] {
+    width: 100%;
+}*/
+
+input[type=button], button {
+  cursor: pointer;
+  border: none;
+}
+
+input[type=file], input[type=radio],input[type=checkbox] {
+  position: absolute;
+  height: 0;
+  width: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  border: none;
+}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #ccc;
+}
+
+input:-moz-placeholder, textarea:-moz-placeholder {
+  color: #ccc;
+}
+
+input::-moz-placeholder, textarea::-moz-placeholder {
+  color: #ccc;
+}
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+  color: #ccc;
+}
+
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+hr {
+  display: block;
+  border: 0;
+  border-top: 1px #c2bfbd solid;
+}
+
+:focus {
+  outline: 0;
+}
+::-moz-selection {
+  color: #fff;
+  background-color: #3090f3;
+}
+::selection {
+  color: #fff;
+  background-color: #3090f3;
+}
