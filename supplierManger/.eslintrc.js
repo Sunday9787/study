@@ -8,6 +8,7 @@ module.exports = {
   },
   env: {
     browser: true,
+    jquery: true
   },
   extends: 'airbnb-base',
   // required to lint *.vue files
@@ -35,5 +36,9 @@ module.exports = {
     }],
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+  },
+  "global": {
+    layui: true,
+    $: true
   }
 }

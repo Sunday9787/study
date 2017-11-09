@@ -1,14 +1,9 @@
 <template>
-  <div class="layui-fluid">
+  <div class="layui-layout layui-layout-admin">
     <header-main></header-main>
-    <div class="layui-row">
-      <div class="layui-col-md2">
-        <sidebar-left></sidebar-left>
-      </div>
-      <div class="layui-col-md10">
-        <main-content></main-content>
-      </div>
-    </div>
+    <sidebar-left></sidebar-left>
+    <main-content></main-content>
+    <div class="layui-footer">© layui.com - 底部固定区域</div>
   </div>
 </template>
 <script>

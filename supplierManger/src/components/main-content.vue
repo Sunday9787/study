@@ -1,5 +1,5 @@
 <template>
-  <div class="layui-row">
+  <div class="layui-body">
       <router-view></router-view>
   </div>
 </template>
