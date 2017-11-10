@@ -7,7 +7,6 @@
           <li class="layui-nav-item"><a href="javascript:;">仓库管理</a></li>
           <li class="layui-nav-item"><a href="javascript:;">统计报表</a></li>
           <li class="layui-nav-item"><a href="javascript:;">基本信息</a></li>
-          <span class="layui-nav-bar"></span>
       </ul>
       <ul class="layui-nav layui-layout-right">          
           <li class="layui-nav-item">
@@ -26,6 +25,6 @@
 </template>
 <script>
 export default {
-  name: 'header-2',
+  name: 'header',
 };
 </script>
