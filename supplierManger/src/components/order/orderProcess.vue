@@ -7,12 +7,12 @@
           <div class="layui-col-sm5 layui-col-md4">
             <label class="layui-form-label" for="boxNum">输入箱号：</label>
             <div class="layui-input-block">
-              <input type="text" name="box" required lay-verify="required" placeholder="请输入标题" autocomplete="off" id="boxNum" class="layui-input">
+              <input class="layui-input" v-model="PickBox" id="boxNum" type="text" name="box" required lay-verify="required" placeholder="箱号" autocomplete="off">
             </div>
           </div>
           <div class="layui-col-sm-offset1 layui-col-sm3 layui-col-md2">
-            <a href="javascript:;" class="layui-btn">确认</a>
-            <a href="javascript:;" class="layui-btn">添加打包人</a>
+            <a href="javascript:;" v-on:click="addPickBox" class="layui-btn">确认</a>
+            <a href="javascript:;" v-on:click="addPickUser" class="layui-btn">添加打包人</a>
           </div>
           <div class="layui-col-sm-offset1 layui-col-sm2 layui-col-md1 layui-col-md-offset4">
             <a href="javascript:;" class="layui-btn">复核完成</a>
@@ -119,6 +119,9 @@
           </tbody>
         </table>
         <p style="text-align: center;"><a class="layui-btn layui-btn-small" href="javascript:;">显示更多数据</a></p>
+        <ul>
+          <li v-for="value in $store.getters.getAddPickingUser">{{value.name}}</li>
+        </ul>
       </div>
     </section>
   </div>
@@ -126,5 +129,62 @@
 <script>
 export default {
   name: 'order-01',
+  data() {
+    return {
+      PickBox: '',
+    };
+  },
+  computed: {
+    clearPickUser() {
+      this.PickBox = '';
+    },
+  },
+  methods: {
+    addPickBox() {
+      this.$store.commit('addPickBox', this.PickBox);
+    },
+    addPickUser() {
+      const that = this;
+      layui.use('layer', () => {
+        const layer = layui.layer;
+        layer.open({
+          type: 1,
+          area: ['400px', '300px'],
+          shadeClose: true,
+          btn: ['确定'],
+          content: `
+            <div style="padding: 20px;">
+              <form class="layui-form">
+                <div class="layui-form-item">
+                  <label class="layui-form-label">添加打包人:</label>
+                  <div class="layui-input-block">
+                    <input class="layui-input" type="text" name="modelAddPickUser" placeholder="请输入姓名或工号" lay-verify="required" autocomplete="off">
+                  </div>
+                </div>
+                <div class="layui-form-item">
+                  <label class="layui-form-label">添加打包人:</label>
+                  <div class="layui-input-block">
+                    <input class="layui-input" type="text" name="modelAddPickUser" placeholder="请输入姓名或工号" autocomplete="off">
+                  </div>
+                </div>
+              </form>
+            </div>
+          `,
+          yes(index, layero) {
+            const els = layero[0].querySelectorAll('[name="modelAddPickUser"]');
+            [...els].forEach((el) => {
+              that.$store.commit('addPickingUser', el.value);
+            });
+            layer.close(index);
+          },
+        });
+      });
+      // this.$store.state.orderPicking.boxPickingUser.user.push({
+      //   name: this.PickUser,
+      //   boxNumber: [{ number: '', checked: false }],
+      // });
+      // this.PickUser = '';
+    },
+  },
 };
 </script>

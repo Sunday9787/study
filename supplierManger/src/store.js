@@ -2,9 +2,35 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 Vue.use(Vuex);
-
+/* eslint-disable */
 export default new Vuex.Store({
   state: {
-    show: false,
+    orderPicking: {
+      boxPickingUser: {
+        user: [
+          { name: '', boxNumber: [] },
+        ],
+      },
+    },
+  },
+  getters: {
+    getAddPickingUser(state) {
+      return state.orderPicking.boxPickingUser.user;
+    },
+  },
+  mutations: {
+    addPickingUser(state, Payload) {
+      state.orderPicking.boxPickingUser.user.push({
+        name: Payload,
+        boxNumber: [{ number: null, checked: false }],
+      });
+    },
+    addPickBox(state, Payload) {
+      state.orderPicking.boxPickingUser.user.forEach((value) => {
+        value.boxNumber.push({ number: Payload, checked: false })
+        // console.log(value.number, Payload);
+      });
+      console.table(state.orderPicking.boxPickingUser.user);
+    },
   },
 });

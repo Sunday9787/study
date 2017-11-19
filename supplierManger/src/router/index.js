@@ -8,6 +8,11 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/',
+      name: 'root',
+      redirect: '/order',
+    },
+    {
       path: '/order',
       name: 'order',
       component: orderProcess,
