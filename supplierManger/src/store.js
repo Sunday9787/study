@@ -19,18 +19,54 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    /**
+     *
+     *
+     * @param {any} state
+     * @param {Object} Payload
+     */
     addPickingUser(state, Payload) {
-      state.orderPicking.boxPickingUser.user.push({
-        name: Payload,
-        boxNumber: [],
+      console.log(Payload);
+      if (Payload.name !== '') {
+        state.orderPicking.boxPickingUser.user.push({
+          name: Payload.name,
+          userID: Payload.id,
+          boxNumber: [
+            { number: null, checked: false },
+          ],
+        });
+      }
+    },
+    /**
+     *
+     *
+     * @param {any} state
+     * @param {Number} Payload
+     */
+    addPickBox(state, Payload) {
+      console.log(Payload);
+      state.orderPicking.boxPickingUser.user.forEach((value) => {
+        /* eslint-disable */
+        value.boxNumber[0].number = Payload;
       });
     },
-    addPickBox(state, Payload) {
+    /**
+     *
+     *
+     * @param {state} state
+     * @param {Ooject} Payload
+     */
+    editPickUser(state, Payload) {
       state.orderPicking.boxPickingUser.user.forEach((value) => {
-        value.boxNumber.push({ number: Payload, checked: false });
-        // console.log(value.number, Payload);
+        console.log(value.userID === Payload.id);
+        console.log(Payload);
+        if (Payload.name !== '') {
+          if (value.userID === Payload.id) {
+            /* eslint-disable */
+            value.name = Payload.name;
+          }
+        }
       });
-      // console.table(state.orderPicking.boxPickingUser.user);
     },
   },
 });
