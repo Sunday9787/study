@@ -11,7 +11,7 @@
             </div>
           </div>
           <div class="layui-col-sm-offset1 layui-col-sm4 layui-col-md3">
-            <a href="javascript:;" v-on:click="addsPickBox" class="layui-btn">确认</a>
+            <a href="javascript:;" v-on:click="addPickBox" class="layui-btn">确认</a>
             <a href="javascript:;" v-on:click="addPickUser" class="layui-btn">添加打包人</a>
             <a href="javascript:;"v-on:click="editPickUser" class="layui-btn">修改打包人</a>
           </div>
@@ -147,14 +147,14 @@ export default {
   methods: {
     ...mapMutations({
       addUser: 'orderPickingaddPickingUser',
-      addPickBox: 'orderPickingaddPickBox',
-      editPickUser: 'orderPickingeditPickUser',
+      addsPickBox: 'orderPickingaddPickBox',
+      editsPickUser: 'orderPickingeditPickUser',
     }),
     clearPick() {
       this.PickBox = '';
     },
-    addsPickBox() {
-      this.addPickBox(this.PickBox);
+    addPickBox() {
+      this.addsPickBox(this.PickBox);
       console.log(this.getAddPickingUser);
       this.clearPick();
     },
@@ -188,7 +188,7 @@ export default {
             const els = layero[0].querySelectorAll('[name^="modelAddPickUser"]');
             [...els].forEach((el) => {
               if (el.value !== '') {
-                that.addPickingUser({ id: el.name, name: el.value });
+                that.addUser({ id: el.name, name: el.value });
               }
             });
             layer.close(index);
@@ -200,6 +200,7 @@ export default {
       const that = this;
       layui.use('layer', () => {
         const layer = layui.layer;
+        console.table(that.getAddPickingUser);
         if (!that.getAddPickingUser[0]) {
           layer.msg('未添加任何打包人', {
             icon: 8,
@@ -233,7 +234,7 @@ export default {
           yes(index, layero) {
             const els = layero[0].querySelectorAll('[name^="modelAddPickUser"]');
             [...els].forEach((el) => {
-              that.editPickUser({ id: el.name, name: el.value });
+              that.editsPickUser({ id: el.name, name: el.value });
             });
             layer.close(index);
           },
