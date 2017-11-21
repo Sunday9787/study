@@ -7,11 +7,11 @@
           <div class="layui-col-sm5 layui-col-md4">
             <label class="layui-form-label" for="boxNum">输入箱号：</label>
             <div class="layui-input-block">
-              <input class="layui-input" v-model.trim.number="PickBox" id="boxNum" type="text" name="box" required lay-verify="required" placeholder="箱号" autocomplete="off">
+              <input class="layui-input" v-model.trim="PickBox" id="boxNum" type="text" name="box" required lay-verify="required" placeholder="箱号" autocomplete="off">
             </div>
           </div>
           <div class="layui-col-sm-offset1 layui-col-sm4 layui-col-md3">
-            <a href="javascript:;" v-on:click="addPickBox" class="layui-btn">确认</a>
+            <a href="javascript:;" v-on:click="addsPickBox" class="layui-btn">确认</a>
             <a href="javascript:;" v-on:click="addPickUser" class="layui-btn">添加打包人</a>
             <a href="javascript:;"v-on:click="editPickUser" class="layui-btn">修改打包人</a>
           </div>
@@ -120,8 +120,8 @@
           </tbody>
         </table>
         <p style="text-align: center;"><a class="layui-btn layui-btn-small" href="javascript:;">显示更多数据</a></p>
-        <ul v-if="$store.getters.getAddPickingUser.length > 0">
-          <li v-for="(value, index) in $store.getters.getAddPickingUser" v-bind:key="value.name">
+        <ul v-if="getAddPickingUser.length > 0">
+          <li v-for="(value, index) in getAddPickingUser" v-bind:key="value.name">
             <p>索引:{{index}}  打包人:{{value.name}} 打包：箱号<span v-for="(num, index) in value.boxNumber" v-bind:key="num.number">{{num.number}},</span></p>
           </li>
         </ul>
@@ -130,6 +130,8 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapMutations } from 'vuex';
+
 export default {
   name: 'order-01',
   data() {
@@ -137,14 +139,23 @@ export default {
       PickBox: null,
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters({
+      getAddPickingUser: 'orderPickinggetAddPickingUser',
+    }),
+  },
   methods: {
+    ...mapMutations({
+      addUser: 'orderPickingaddPickingUser',
+      addPickBox: 'orderPickingaddPickBox',
+      editPickUser: 'orderPickingeditPickUser',
+    }),
     clearPick() {
       this.PickBox = '';
     },
-    addPickBox() {
-      this.$store.commit('addPickBox', this.PickBox);
-      console.log(this.$store.state.orderPicking.boxPickingUser.user);
+    addsPickBox() {
+      this.addPickBox(this.PickBox);
+      console.log(this.getAddPickingUser);
       this.clearPick();
     },
     addPickUser() {
@@ -177,7 +188,7 @@ export default {
             const els = layero[0].querySelectorAll('[name^="modelAddPickUser"]');
             [...els].forEach((el) => {
               if (el.value !== '') {
-                that.$store.commit('addPickingUser', { id: el.name, name: el.value });
+                that.addPickingUser({ id: el.name, name: el.value });
               }
             });
             layer.close(index);
@@ -189,9 +200,9 @@ export default {
       const that = this;
       layui.use('layer', () => {
         const layer = layui.layer;
-        if (!that.$store.getters.getAddPickingUser[0]) {
+        if (!that.getAddPickingUser[0]) {
           layer.msg('未添加任何打包人', {
-            icon: 1,
+            icon: 8,
             time: 2000,
           });
           return false;
@@ -207,13 +218,13 @@ export default {
                 <div class="layui-form-item">
                   <label class="layui-form-label">打包人1:</label>
                   <div class="layui-input-block">
-                    <input class="layui-input" type="text" name="modelAddPickUser1" value="${(that.$store.getters.getAddPickingUser[0].name)}" placeholder="请输入姓名或工号修改" lay-verify="required" autocomplete="off">
+                    <input class="layui-input" type="text" name="modelAddPickUser1" value="${(that.getAddPickingUser[0].name)}" placeholder="请输入姓名或工号修改" lay-verify="required" autocomplete="off">
                   </div>
                 </div>
                 <div class="layui-form-item">
                   <label class="layui-form-label">打包人2:</label>
                   <div class="layui-input-block">
-                    <input class="layui-input" type="text" name="modelAddPickUser2" value="${(that.$store.getters.getAddPickingUser[1].name)}" placeholder="请输入姓名或工号修改" autocomplete="off">
+                    <input class="layui-input" type="text" name="modelAddPickUser2" value="${(that.getAddPickingUser[1].name)}" placeholder="请输入姓名或工号修改" autocomplete="off">
                   </div>
                 </div>
               </form>
@@ -222,7 +233,7 @@ export default {
           yes(index, layero) {
             const els = layero[0].querySelectorAll('[name^="modelAddPickUser"]');
             [...els].forEach((el) => {
-              that.$store.commit('editPickUser', { id: el.name, name: el.value });
+              that.editPickUser({ id: el.name, name: el.value });
             });
             layer.close(index);
           },

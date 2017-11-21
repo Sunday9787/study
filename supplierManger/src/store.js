@@ -14,7 +14,7 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    getAddPickingUser(state) {
+    orderPickinggetAddPickingUser(state) {
       return state.orderPicking.boxPickingUser.user;
     },
   },
@@ -25,8 +25,8 @@ export default new Vuex.Store({
      * @param {any} state
      * @param {Object} Payload
      */
-    addPickingUser(state, Payload) {
-      console.log(Payload);
+    orderPickingaddPickingUser(state, Payload) {
+      // console.log(Payload);
       if (Payload.name !== '') {
         state.orderPicking.boxPickingUser.user.push({
           name: Payload.name,
@@ -43,8 +43,8 @@ export default new Vuex.Store({
      * @param {any} state
      * @param {Number} Payload
      */
-    addPickBox(state, Payload) {
-      console.log(Payload);
+    orderPickingaddPickBox(state, Payload) {
+      // console.log(Payload);
       state.orderPicking.boxPickingUser.user.forEach((value) => {
         /* eslint-disable */
         value.boxNumber[0].number = Payload;
@@ -56,10 +56,10 @@ export default new Vuex.Store({
      * @param {state} state
      * @param {Ooject} Payload
      */
-    editPickUser(state, Payload) {
+    orderPickingeditPickUser(state, Payload) {
       state.orderPicking.boxPickingUser.user.forEach((value) => {
-        console.log(value.userID === Payload.id);
-        console.log(Payload);
+        // console.log(value.userID === Payload.id);
+        // console.log(Payload);
         if (Payload.name !== '') {
           if (value.userID === Payload.id) {
             /* eslint-disable */
