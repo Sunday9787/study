@@ -165,7 +165,7 @@ export default {
         layer.open({
           type: 1,
           shadeClose: true,
-          btn: ['确定'],
+          btn: ['增加打包人', '确定'],
           content: `
             <div style="padding: 20px;">
               <form class="layui-form">
@@ -185,6 +185,17 @@ export default {
             </div>
           `,
           yes(index, layero) {
+            const form = layero[0].querySelector('.layui-form');
+            const htmlTempalte = document.createElement('div');
+            htmlTempalte.className = 'layui-form-item';
+            htmlTempalte.innerHTML = `<label class="layui-form-label">添加打包人:</label>
+              <div class="layui-input-block">
+                <input class="layui-input" type="text" name="modelAddPickUser" placeholder="请输入姓名或工号" autocomplete="off">
+              </div>`;
+            form.appendChild(htmlTempalte);
+            // console.log(this, layero[0].querySelector('.layui-form'));
+          },
+          btn2(index, layero) {
             const els = layero[0].querySelectorAll('[name^="modelAddPickUser"]');
             [...els].forEach((el) => {
               if (el.value !== '') {
@@ -212,7 +223,7 @@ export default {
         layer.open({
           type: 1,
           shadeClose: true,
-          btn: ['确定'],
+          btn: ['增加打包人', '确定'],
           content: `
             <div style="padding: 20px;">
               <form class="layui-form">
