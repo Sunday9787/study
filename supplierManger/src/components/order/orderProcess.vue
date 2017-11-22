@@ -164,6 +164,7 @@ export default {
         const layer = layui.layer;
         layer.open({
           type: 1,
+          title: '添加打包人',
           shadeClose: true,
           btn: ['增加打包人', '确定'],
           content: `
@@ -220,28 +221,22 @@ export default {
           return false;
         }
 
+        let template = '';
+        that.getAddPickingUser.forEach((value, index) => {
+          template += `<div class="layui-form-item">
+            <label class="layui-form-label">打包人${(index + 1)}:</label>
+            <div class="layui-input-block">
+              <input class="layui-input" type="text" name="modelAddPickUser${(index + 1)}" value="${value.name}" placeholder="请输入姓名或工号修改" lay-verify="required" autocomplete="off">
+            </div>
+          </div>`;
+        });
+
         layer.open({
           type: 1,
+          title: '修改打包人',
           shadeClose: true,
           btn: ['增加打包人', '确定'],
-          content: `
-            <div style="padding: 20px;">
-              <form class="layui-form">
-                <div class="layui-form-item">
-                  <label class="layui-form-label">打包人1:</label>
-                  <div class="layui-input-block">
-                    <input class="layui-input" type="text" name="modelAddPickUser1" value="${(that.getAddPickingUser[0].name)}" placeholder="请输入姓名或工号修改" lay-verify="required" autocomplete="off">
-                  </div>
-                </div>
-                <div class="layui-form-item">
-                  <label class="layui-form-label">打包人2:</label>
-                  <div class="layui-input-block">
-                    <input class="layui-input" type="text" name="modelAddPickUser2" value="${(that.getAddPickingUser[1].name)}" placeholder="请输入姓名或工号修改" autocomplete="off">
-                  </div>
-                </div>
-              </form>
-            </div>
-          `,
+          content: `<div style="padding: 20px;"><form class="layui-form">${template}</form></div>`,
           yes(index, layero) {
             const els = layero[0].querySelectorAll('[name^="modelAddPickUser"]');
             [...els].forEach((el) => {
