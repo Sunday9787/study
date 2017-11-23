@@ -62,7 +62,20 @@ export default new Vuex.Store({
 
       let editUser = Payload.slice(1, stateUser.length);
 
-      let addUser = Payload.slice(stateUser.length, Payload.length);
+      if (Payload.length > stateUser.length) {
+        let addUser = Payload.slice(stateUser.length, Payload.length);
+        addUser.forEach((value, index) => {
+          if (value.name) {
+            stateUser.push({
+              name: value.name,
+              userID: value.id,
+              boxNumber: [
+                { number: null, checked: false },
+              ],
+            })
+          }
+        })
+      }
       console.log(addUser);
 
       editUser.forEach((value, index) => {
@@ -70,18 +83,6 @@ export default new Vuex.Store({
           if (value.userID === stateUser[index].id && value.name !== stateUser[index].name) {
               value.name = stateUser[index].name;
           }
-        }
-      })
-
-      addUser.forEach((value, index) => {
-        if (value.name) {
-          stateUser.push({
-            name: value.name,
-            userID: value.id,
-            boxNumber: [
-              { number: null, checked: false },
-            ],
-          })
         }
       })
     },
