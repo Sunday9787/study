@@ -212,8 +212,9 @@ export default {
       const that = this;
       layui.use('layer', () => {
         const layer = layui.layer;
+        const PickingUser = that.getAddPickingUser;
         console.table(that.getAddPickingUser);
-        if (!that.getAddPickingUser[0]) {
+        if (!PickingUser[0]) {
           layer.msg('未添加任何打包人', {
             icon: 8,
             time: 2000,
@@ -238,9 +239,21 @@ export default {
           btn: ['增加打包人', '确定'],
           content: `<div style="padding: 20px;"><form class="layui-form">${template}</form></div>`,
           yes(index, layero) {
+            const form = layero[0].querySelector('.layui-form');
+            const htmlTempalte = document.createElement('div');
+            htmlTempalte.className = 'layui-form-item';
+            htmlTempalte.innerHTML = `<label class="layui-form-label">添加打包人:</label>
+              <div class="layui-input-block">
+                <input class="layui-input" type="text" name="modelAddPickUser${(PickingUser.length += 1)}" placeholder="请输入姓名或工号" autocomplete="off">
+              </div>`;
+            form.appendChild(htmlTempalte);
+          },
+          btn2(index, layero) {
             const els = layero[0].querySelectorAll('[name^="modelAddPickUser"]');
             [...els].forEach((el) => {
-              that.editsPickUser({ id: el.name, name: el.value });
+              if (el.value) {
+                that.editsPickUser({ id: el.name, name: el.value });
+              }
             });
             layer.close(index);
           },
