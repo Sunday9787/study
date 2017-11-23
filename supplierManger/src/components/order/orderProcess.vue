@@ -162,6 +162,7 @@ export default {
       const that = this;
       layui.use('layer', () => {
         const layer = layui.layer;
+        let PickingUser = 2;
         layer.open({
           type: 1,
           title: '添加打包人',
@@ -191,7 +192,7 @@ export default {
             htmlTempalte.className = 'layui-form-item';
             htmlTempalte.innerHTML = `<label class="layui-form-label">添加打包人:</label>
               <div class="layui-input-block">
-                <input class="layui-input" type="text" name="modelAddPickUser" placeholder="请输入姓名或工号" autocomplete="off">
+                <input class="layui-input" type="text" name="modelAddPickUser${PickingUser += 1}" placeholder="请输入姓名或工号" autocomplete="off">
               </div>`;
             form.appendChild(htmlTempalte);
             // console.log(this, layero[0].querySelector('.layui-form'));
@@ -212,9 +213,9 @@ export default {
       const that = this;
       layui.use('layer', () => {
         const layer = layui.layer;
-        const PickingUser = that.getAddPickingUser;
+        let PickingUser = that.getAddPickingUser.length;
         console.table(that.getAddPickingUser);
-        if (!PickingUser[0]) {
+        if (that.getAddPickingUser.length === 0) {
           layer.msg('未添加任何打包人', {
             icon: 8,
             time: 2000,
@@ -227,7 +228,7 @@ export default {
           template += `<div class="layui-form-item">
             <label class="layui-form-label">打包人${(index + 1)}:</label>
             <div class="layui-input-block">
-              <input class="layui-input" type="text" name="modelAddPickUser${(index + 1)}" value="${value.name}" placeholder="请输入姓名或工号修改" lay-verify="required" autocomplete="off">
+              <input class="layui-input" type="text" name="${value.userID}" value="${value.name}" placeholder="请输入姓名或工号修改" lay-verify="required" autocomplete="off">
             </div>
           </div>`;
         });
@@ -242,19 +243,22 @@ export default {
             const form = layero[0].querySelector('.layui-form');
             const htmlTempalte = document.createElement('div');
             htmlTempalte.className = 'layui-form-item';
-            htmlTempalte.innerHTML = `<label class="layui-form-label">添加打包人:</label>
+            htmlTempalte.innerHTML = `<label class="layui-form-label">打包人${(PickingUser += 1)}:</label>
               <div class="layui-input-block">
-                <input class="layui-input" type="text" name="modelAddPickUser${(PickingUser.length += 1)}" placeholder="请输入姓名或工号" autocomplete="off">
+                <input class="layui-input" type="text" name="modelAddPickUser${(PickingUser)}" placeholder="请输入姓名或工号" autocomplete="off">
               </div>`;
             form.appendChild(htmlTempalte);
           },
           btn2(index, layero) {
             const els = layero[0].querySelectorAll('[name^="modelAddPickUser"]');
+            const user = [];
+            console.log(els);
             [...els].forEach((el) => {
               if (el.value) {
-                that.editsPickUser({ id: el.name, name: el.value });
+                user.push({ id: el.name, name: el.value });
               }
             });
+            that.editsPickUser(user);
             layer.close(index);
           },
         });

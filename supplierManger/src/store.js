@@ -56,29 +56,34 @@ export default new Vuex.Store({
      * @param {Ooject} Payload
      */
     orderPickingeditPickUser(state, Payload) {
-      console.log('修改前', state.orderPicking.boxPickingUser.user.length);
-      state.orderPicking.boxPickingUser.user.forEach((value) => {
-        // console.log(value.userID === Payload.id);
-        // console.log(Payload);
-        if (Payload.name) {
-          if (value.userID === Payload.id) {
-            console.log(Payload.id)
-            /* eslint-disable */
-            value.name = Payload.name;
-          } else if(Payload.id) {
-            console.log('新增加', Payload);
-            // return false;
-            // state.orderPicking.boxPickingUser.user.push({
-            //   name: Payload.name,
-            //   userID: Payload.id,
-            //   boxNumber: [
-            //     { number: null, checked: false },
-            //   ],
-            // });
+      console.log(Payload);
+
+      let stateUser = state.orderPicking.boxPickingUser.user;
+
+      let editUser = Payload.slice(1, stateUser.length);
+
+      let addUser = Payload.slice(stateUser.length, Payload.length);
+      console.log(addUser);
+
+      editUser.forEach((value, index) => {
+        if (editUser[index].name) {
+          if (value.userID === stateUser[index].id && value.name !== stateUser[index].name) {
+              value.name = stateUser[index].name;
           }
         }
-      });
-      console.log('修改后', state.orderPicking.boxPickingUser.user.length);
+      })
+
+      addUser.forEach((value, index) => {
+        if (value.name) {
+          stateUser.push({
+            name: value.name,
+            userID: value.id,
+            boxNumber: [
+              { number: null, checked: false },
+            ],
+          })
+        }
+      })
     },
   },
 });
