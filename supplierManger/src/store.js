@@ -53,35 +53,25 @@ export default new Vuex.Store({
      *
      *
      * @param {state} state
-     * @param {Ooject} Payload
+     * @param {Arry} Payload
      */
     orderPickingeditPickUser(state, Payload) {
       console.log(Payload);
-
       let stateUser = state.orderPicking.boxPickingUser.user;
-
-      let editUser = Payload.slice(1, stateUser.length);
-
-      if (Payload.length > stateUser.length) {
-        let addUser = Payload.slice(stateUser.length, Payload.length);
-        addUser.forEach((value, index) => {
-          if (value.name) {
+      Payload.forEach((value, index) => {
+        if (stateUser[index]) { 
+          if (stateUser[index].userID === value.id && stateUser[index].name !== value.name) {
+            stateUser[index].name = value.name;
+          }
+        } else {
+          if( value.name) {
             stateUser.push({
               name: value.name,
               userID: value.id,
               boxNumber: [
                 { number: null, checked: false },
-              ],
+              ]
             })
-          }
-        })
-      }
-      console.log(addUser);
-
-      editUser.forEach((value, index) => {
-        if (editUser[index].name) {
-          if (value.userID === stateUser[index].id && value.name !== stateUser[index].name) {
-              value.name = stateUser[index].name;
           }
         }
       })

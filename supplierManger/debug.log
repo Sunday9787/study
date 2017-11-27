@@ -1,3 +1,4 @@
 [1123/132406.832:ERROR:process_info.cc(632)] range at 0xbaae6c4600000000, size 0x20e fully unreadable
 [1123/132406.847:ERROR:process_info.cc(632)] range at 0xbaae6ca600000000, size 0x20e fully unreadable
 [1123/132406.847:ERROR:process_info.cc(632)] range at 0x0, size 0x20e fully unreadable
+[1127/215542.649:ERROR:settings.cc(258)] Settings magic is not 1129342067
