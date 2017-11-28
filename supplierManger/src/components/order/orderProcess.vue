@@ -172,7 +172,7 @@ export default {
       this.PickBox = '';
     },
     clearPickUser() {
-      this.$store.dispatch('clearPickUser', layui);
+      this.$store.dispatch('clearPickUser');
     },
     addPickBox() {
       this.addsPickBox(this.PickBox);
