@@ -76,5 +76,25 @@ export default new Vuex.Store({
         }
       })
     },
+    orderPickingClearPickUser(state) {
+      state.orderPicking.boxPickingUser.user = [];
+    }
   },
+  actions: {
+    clearPickUser ({commit}, Payload) {
+      console.log(Payload);
+      Payload.layer.msg('清空完毕',{
+        icon: 1,
+      })
+      // Payload.use('layer', () => {
+      //   const layer = layui.layer;
+      //   setTimeout(function() {
+      //     commit('orderPickingClearPickUser');
+      //   },2000)
+      //   layer.msg('清空完毕',{
+      //     icon: 1,
+      //   })
+      // })
+    }
+  }
 });

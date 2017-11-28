@@ -14,6 +14,7 @@
             <a href="javascript:;" v-on:click="addPickBox" class="layui-btn">确认</a>
             <a href="javascript:;" v-on:click="addPickUser" class="layui-btn">添加打包人</a>
             <a href="javascript:;"v-on:click="editPickUser" class="layui-btn">修改打包人</a>
+            <a href="javascript:;"v-on:click="clearPickUser" class="layui-btn">清空打包人</a>
           </div>
           <div class="layui-col-sm-offset1 layui-col-sm2 layui-col-md1 layui-col-md-offset3">
             <a href="javascript:;" class="layui-btn">复核完成</a>
@@ -24,7 +25,7 @@
     <section>
       <h4>未复核列表</h4>
       <div class="layui-row">
-        <table class="layui-table">
+        <table class="layui-table" lay-skin="line">
           <thead>
             <tr>
               <th>序号</th>
@@ -73,7 +74,7 @@
         <p style="text-align: center;"><a class="layui-btn layui-btn-small" href="javascript:;">显示更多数据</a></p>
       </div>
       <div class="layui-row">
-        <table class="layui-table">
+        <table class="layui-table" lay-skin="line">
           <thead>
             <tr>
               <th>序号</th>
@@ -119,12 +120,29 @@
             </tr>
           </tbody>
         </table>
+        <h2>打包人</h2>
+        <table class="layui-table" lay-size="sm">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>打包人</th>
+              <th>打包箱号</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-if="getAddPickingUser.length < 1">
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr v-else v-for="(value, index) in getAddPickingUser" v-bind:key="value.name">
+              <td>{{index}}</td>
+              <td>{{value.name}}</td>
+              <td v-for="(num, index) in value.boxNumber" v-bind:key="num.number">{{num.number}}</td>
+            </tr>
+          </tbody>
+        </table>
         <p style="text-align: center;"><a class="layui-btn layui-btn-small" href="javascript:;">显示更多数据</a></p>
-        <ul v-if="getAddPickingUser.length > 0">
-          <li v-for="(value, index) in getAddPickingUser" v-bind:key="value.name">
-            <p>索引:{{index}}  打包人:{{value.name}} 打包：箱号<span v-for="(num, index) in value.boxNumber" v-bind:key="num.number">{{num.number}},</span></p>
-          </li>
-        </ul>
       </div>
     </section>
   </div>
@@ -152,6 +170,9 @@ export default {
     }),
     clearPick() {
       this.PickBox = '';
+    },
+    clearPickUser() {
+      this.$store.dispatch('clearPickUser', layui);
     },
     addPickBox() {
       this.addsPickBox(this.PickBox);
