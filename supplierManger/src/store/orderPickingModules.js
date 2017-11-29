@@ -45,7 +45,6 @@ export default new Vuex.Store({
     orderPickingaddPickBox(state, Payload) {
       // console.log(Payload);
       state.orderPicking.boxPickingUser.user.forEach((value) => {
-        /* eslint-disable */
         value.boxNumber[0].number = Payload;
       });
     },
@@ -57,40 +56,30 @@ export default new Vuex.Store({
      */
     orderPickingeditPickUser(state, Payload) {
       console.log(Payload);
-      let stateUser = state.orderPicking.boxPickingUser.user;
+      const stateUser = state.orderPicking.boxPickingUser.user;
       Payload.forEach((value, index) => {
-        if (stateUser[index]) { 
+        if (stateUser[index]) {
           if (stateUser[index].userID === value.id && stateUser[index].name !== value.name) {
             stateUser[index].name = value.name;
           }
-        } else {
-          if( value.name) {
-            stateUser.push({
-              name: value.name,
-              userID: value.id,
-              boxNumber: [
-                { number: null, checked: false },
-              ]
-            })
-          }
+        } else if (value.name) {
+          stateUser.push({
+            name: value.name,
+            userID: value.id,
+            boxNumber: [
+              { number: null, checked: false },
+            ],
+          });
         }
-      })
+      });
     },
     orderPickingClearPickUser(state) {
       state.orderPicking.boxPickingUser.user = [];
-    }
+    },
   },
   actions: {
-    clearPickUser ({commit}) {
-      layui.use('layer', () => {
-        const layer = layui.layer;
-        setTimeout(function() {
-          commit('orderPickingClearPickUser');
-        },2000)
-        layer.msg('清空完毕',{
-          icon: 1,
-        })
-      })
-    }
-  }
+    clearPickUser({ commit }) {
+      commit('orderPickingClearPickUser');
+    },
+  },
 });

@@ -172,7 +172,7 @@ export default {
       clearsPickUser: 'clearPickUser',
     }),
     clearPickUser() {
-      this.clearPickUser();
+      this.clearsPickUser();
       layui.use('layer', () => {
         const layer = layui.layer;
         layer.msg('清空完毕', {
