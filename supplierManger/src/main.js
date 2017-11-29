@@ -4,7 +4,7 @@ import Vue from 'vue';
 import Axios from 'axios';
 import VueAxios from 'vue-axios';
 import router from './router';
-import store from './store';
+import store from './store/store';
 
 // import Jquery from 'jquery';
 // import Layui from '../static/layui/layui';

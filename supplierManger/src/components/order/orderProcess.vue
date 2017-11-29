@@ -148,7 +148,7 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
   name: 'order-01',
@@ -168,11 +168,20 @@ export default {
       addsPickBox: 'orderPickingaddPickBox',
       editsPickUser: 'orderPickingeditPickUser',
     }),
+    ...mapActions({
+      clearsPickUser: 'clearPickUser',
+    }),
+    clearPickUser() {
+      this.clearPickUser();
+      layui.use('layer', () => {
+        const layer = layui.layer;
+        layer.msg('清空完毕', {
+          icon: 1,
+        });
+      });
+    },
     clearPick() {
       this.PickBox = '';
-    },
-    clearPickUser() {
-      this.$store.dispatch('clearPickUser');
     },
     addPickBox() {
       this.addsPickBox(this.PickBox);
