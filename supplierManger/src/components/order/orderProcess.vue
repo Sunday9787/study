@@ -157,6 +157,11 @@ export default {
       PickBox: null,
     };
   },
+  created() {
+    this.axios.get('/api/packBox.php?packBox=大师兄').then((response) => {
+      console.log(response.data);
+    });
+  },
   computed: {
     ...mapGetters({
       getAddPickingUser: 'orderPickinggetAddPickingUser',
