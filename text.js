@@ -11,9 +11,7 @@
 // for(let i = 0; i < 20; i++) {
 //     console.log(i);
 // }
-<<<<<<< HEAD
 console.log(parseInt(20*Math.random()));
-=======
 // console.log(parseInt(20*Math.random()));
 
 var obj = {
@@ -32,19 +30,6 @@ var obj = {
         }
     }
 };
-
-// function mmp(obj) {
-//   for (var i in obj) {
-//     if (typeof obj[i] !== 'object') {
-//       // console.log(i+'    '+obj[i]);
-//       console.log(i);
-//     }
-//     if(typeof obj[i] === 'object') {
-//       mmp(obj[i]);
-//     }
-//   }
-// }
-// mmp(obj);
 walk(obj, []);
 
 function walk(obj, prefix) {
@@ -66,4 +51,3 @@ let type = 'json';
 switch(type) {
     case 'json': console.log('yes');
 }
->>>>>>> e972660d4ea36fcde52644faca522d5ed0e82273
