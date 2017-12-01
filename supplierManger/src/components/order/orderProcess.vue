@@ -10,22 +10,22 @@
               <input class="layui-input" v-model.trim="PickBox" id="boxNum" type="text" name="box" required lay-verify="required" placeholder="箱号" autocomplete="off">
             </div>
           </div>
-          <div class="layui-col-sm-offset1 layui-col-sm4 layui-col-md3">
+          <div class="layui-col-md-offset1 layui-col-md4">
             <a href="javascript:;" v-on:click="addPickBox" class="layui-btn">确认</a>
             <a href="javascript:;" v-on:click="addPickUser" class="layui-btn">添加打包人</a>
             <a href="javascript:;"v-on:click="editPickUser" class="layui-btn">修改打包人</a>
             <a href="javascript:;"v-on:click="clearPickUser" class="layui-btn">清空打包人</a>
           </div>
-          <div class="layui-col-sm-offset1 layui-col-sm2 layui-col-md1 layui-col-md-offset3">
+          <div class="layui-col-md-offset2 layui-col-md1">
             <a href="javascript:;" class="layui-btn">复核完成</a>
           </div>
         </div>
       </form>
     </section>
     <section>
-      <h4>未复核列表</h4>
+      <h4>已复核列表</h4>
       <div class="layui-row">
-        <table class="layui-table" lay-skin="line">
+        <table id="CheckedTable" class="layui-table" lay-skin="line">
           <thead>
             <tr>
               <th>序号</th>
@@ -39,42 +39,33 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>1456987</td>
-              <td>23.00</td>
-              <td>12345677</td>
-              <td>23</td>
-              <td>999</td>
-              <td><time>2017.07.26  11:30</time></td>
-              <td>12312345678</td>
+            <tr v-if="packCheck.data.state !== 200">
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td><time>&nbsp;</time></td>
+              <td>&nbsp;</td>
             </tr>
-            <tr>
-              <td>1</td>
-              <td>1456987</td>
-              <td>23.00</td>
-              <td>12345677</td>
-              <td>23</td>
-              <td>999</td>
-              <td><time>2017.07.26  11:30</time></td>
-              <td>12312345678</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>1456987</td>
-              <td>23.00</td>
-              <td>12345677</td>
-              <td>23</td>
-              <td>999</td>
-              <td><time>2017.07.26  11:30</time></td>
-              <td>12312345678</td>
+            <tr v-else v-for="(value, index) in packCheck.data.pakNum" v-bind:key="value.Barcode">
+              <td>{{(index+1)}}</td>
+              <td>{{value.Barcode}}</td>
+              <td>{{value.Checked}}</td>
+              <td>{{value.Pricing}}</td>
+              <td>{{value.notChecked}}</td>
+              <td>{{value.orderNumber}}</td>
+              <td><time>{{value.SortingTime}}</time></td>
+              <td>{{value.waybillNumber}}</td>
             </tr>
           </tbody>
         </table>
-        <p style="text-align: center;"><a class="layui-btn layui-btn-small" href="javascript:;">显示更多数据</a></p>
+        <p style="text-align: center;"><a class="layui-btn layui-btn-small" v-on:click="moreChecked" href="javascript:;">显示更多数据</a></p>
       </div>
+      <h4>未复核列表</h4>
       <div class="layui-row">
-        <table class="layui-table" lay-skin="line">
+        <table id="unCheckedTable" class="layui-table" lay-skin="line">
           <thead>
             <tr>
               <th>序号</th>
@@ -88,35 +79,25 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>1456987</td>
-              <td>23.00</td>
-              <td>12345677</td>
-              <td>23</td>
-              <td>999</td>
-              <td><time>2017.07.26  11:30</time></td>
-              <td>12312345678</td>
+            <tr v-if="packunCheck.data.state !== 200">
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td><time>&nbsp;</time></td>
+              <td>&nbsp;</td>
             </tr>
-            <tr>
-              <td>1</td>
-              <td>1456987</td>
-              <td>23.00</td>
-              <td>12345677</td>
-              <td>23</td>
-              <td>999</td>
-              <td><time>2017.07.26  11:30</time></td>
-              <td>12312345678</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>1456987</td>
-              <td>23.00</td>
-              <td>12345677</td>
-              <td>23</td>
-              <td>999</td>
-              <td><time>2017.07.26  11:30</time></td>
-              <td>12312345678</td>
+            <tr v-else v-for="(value, index) in packunCheck.data.pakNum" v-bind:key="value.Barcode">
+              <td>{{(index+1)}}</td>
+              <td>{{value.Barcode}}</td>
+              <td>{{value.Checked}}</td>
+              <td>{{value.Pricing}}</td>
+              <td>{{value.notChecked}}</td>
+              <td>{{value.orderNumber}}</td>
+              <td><time>{{value.SortingTime}}</time></td>
+              <td>{{value.waybillNumber}}</td>
             </tr>
           </tbody>
         </table>
@@ -142,7 +123,7 @@
             </tr>
           </tbody>
         </table>
-        <p style="text-align: center;"><a class="layui-btn layui-btn-small" href="javascript:;">显示更多数据</a></p>
+        <p style="text-align: center;"><a class="layui-btn layui-btn-small" v-on:click="moreunChecked" href="javascript:;">显示更多数据</a></p>
       </div>
     </section>
   </div>
@@ -155,17 +136,41 @@ export default {
   data() {
     return {
       PickBox: null,
+      packCheck: {
+        data: {
+          state: 404,
+        },
+      },
+      packunCheck: {
+        data: {
+          state: 404,
+        },
+      },
     };
   },
   created() {
     this.axios.get('/api/packBox.php?packBox=大师兄').then((response) => {
       console.log(response.data);
     });
+    // 已复核
+    this.axios.get('/api/packCheck.php?check=true').then((response) => {
+      this.packCheck = response.data;
+    });
+    // 未复核
+    this.axios.get('/api/packCheck.php?check=false').then((response) => {
+      this.packunCheck = response.data;
+    });
   },
   computed: {
     ...mapGetters({
       getAddPickingUser: 'orderPickinggetAddPickingUser',
     }),
+    hasPickingUser() {
+      if (this.getAddPickingUser.length > 0) {
+        return true;
+      }
+      return false;
+    },
   },
   methods: {
     ...mapMutations({
@@ -189,6 +194,16 @@ export default {
       this.PickBox = '';
     },
     addPickBox() {
+      console.log(typeof this.hasPickingUser);
+      if (!this.hasPickingUser) {
+        layui.use('layer', () => {
+          const layer = layui.layer;
+          layer.msg('请先添加打包人', {
+            icon: 1,
+          });
+        });
+        return;
+      }
       this.addsPickBox(this.PickBox);
       console.log(this.getAddPickingUser);
       this.clearPick();
@@ -298,6 +313,54 @@ export default {
           },
         });
         return false;
+      });
+    },
+    moreChecked() {
+      // 已复核
+      this.axios.get('/api/packCheck.php?check=true').then((response) => {
+        const table = document.querySelector('#CheckedTable');
+        const CheckedTableTemplate = document.createDocumentFragment();
+        response.data.data.pakNum.forEach((value, index) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <tr>
+              <td>${(index + 1)}</td>
+              <td>${value.Barcode}</td>
+              <td>${value.Checked}</td>
+              <td>${value.Pricing}</td>
+              <td>${value.notChecked}</td>
+              <td>${value.orderNumber}</td>
+              <td><time>${value.SortingTime}</time></td>
+              <td>${value.waybillNumber}</td>
+            <tr>
+          `;
+          CheckedTableTemplate.appendChild(tr);
+        });
+        table.tBodies[0].appendChild(CheckedTableTemplate);
+      });
+    },
+    moreunChecked() {
+      // 未复核
+      this.axios.get('/api/packCheck.php?check=false').then((response) => {
+        const table = document.querySelector('#unCheckedTable');
+        const CheckedTableTemplate = document.createDocumentFragment();
+        response.data.data.pakNum.forEach((value, index) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <tr>
+              <td>${(index + 1)}</td>
+              <td>${value.Barcode}</td>
+              <td>${value.Checked}</td>
+              <td>${value.Pricing}</td>
+              <td>${value.notChecked}</td>
+              <td>${value.orderNumber}</td>
+              <td><time>${value.SortingTime}</time></td>
+              <td>${value.waybillNumber}</td>
+            <tr>
+          `;
+          CheckedTableTemplate.appendChild(tr);
+        });
+        table.tBodies[0].appendChild(CheckedTableTemplate);
       });
     },
   },
