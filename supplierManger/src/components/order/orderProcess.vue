@@ -162,7 +162,7 @@ export default {
     });
   },
   computed: {
-    ...mapGetters({
+    ...mapGetters('orderPickingModules', {
       getAddPickingUser: 'orderPickinggetAddPickingUser',
     }),
     hasPickingUser() {
@@ -173,12 +173,12 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({
+    ...mapMutations('orderPickingModules', {
       addUser: 'orderPickingaddPickingUser',
       addsPickBox: 'orderPickingaddPickBox',
       editsPickUser: 'orderPickingeditPickUser',
     }),
-    ...mapActions({
+    ...mapActions('orderPickingModules', {
       clearsPickUser: 'clearPickUser',
     }),
     clearPickUser() {

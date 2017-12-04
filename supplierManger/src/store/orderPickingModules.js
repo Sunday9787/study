@@ -1,9 +1,16 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+/*
+* @Author: Edward
+ * @Date: 2017-12-04 23:12:01
+ * @Last Modified by: Edward
+ * @Email: 809537981@qq.com
+ * @Last Modified time: 2017-12-04 23:16:31
+ *
+ * 订单打包模块
+ *
+ */
 
-Vue.use(Vuex);
-/* eslint-disable no-new */
-export default new Vuex.Store({
+export default {
+  namespaced: true,
   state: {
     orderPicking: {
       boxPickingUser: {
@@ -82,4 +89,4 @@ export default new Vuex.Store({
       commit('orderPickingClearPickUser');
     },
   },
-});
+};
