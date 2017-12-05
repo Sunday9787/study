@@ -141,15 +141,17 @@ export default {
         data: {
           state: 404,
         },
+        load: false,
       },
       packunCheck: {
         data: {
           state: 404,
         },
+        load: false,
       },
     };
   },
-  created() {
+  mounted() {
     this.axios.get('/api/packBox.php?packBox=大师兄').then((response) => {
       console.log(response.data);
     });
@@ -317,10 +319,17 @@ export default {
       });
     },
     moreChecked(event) {
-      const el = event.target;
-      const loading = loadingText(el);
+      const that = this;
+      if (that.packCheck.load) {
+        console.log('请求数据中...');
+        return;
+      }
+      const loading = loadingText(event.target);
+      // 开始加载
+      that.packCheck.load = true;
       // 已复核
       this.axios.get('/api/packCheck.php?check=true').then((response) => {
+        that.packCheck.load = false;
         loading.clearTime();
         const table = document.querySelector('#CheckedTable');
         const CheckedTableTemplate = document.createDocumentFragment();
@@ -341,13 +350,22 @@ export default {
           CheckedTableTemplate.appendChild(tr);
         });
         table.tBodies[0].appendChild(CheckedTableTemplate);
+      }).catch((error) => {
+        console.log(error);
       });
     },
     moreunChecked(event) {
-      const el = event.target;
-      const loading = loadingText(el);
+      const that = this;
+      if (that.packunCheck.load) {
+        console.log('请求数据中...');
+        return;
+      }
+      const loading = loadingText(event.target);
+      // 开始加载
+      that.packunCheck.load = true;
       // 未复核
       this.axios.get('/api/packCheck.php?check=false').then((response) => {
+        that.packunCheck.load = false;
         loading.clearTime();
         const table = document.querySelector('#unCheckedTable');
         const CheckedTableTemplate = document.createDocumentFragment();
@@ -368,6 +386,8 @@ export default {
           CheckedTableTemplate.appendChild(tr);
         });
         table.tBodies[0].appendChild(CheckedTableTemplate);
+      }).catch((error) => {
+        console.log(error);
       });
     },
   },
