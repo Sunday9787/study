@@ -10,7 +10,7 @@
       </ul>
       <ul class="layui-nav layui-layout-right">          
           <li class="layui-nav-item">
-            <a href="javascript:;">博库网络</a>
+            <a href="javascript:;">神机网络</a>
             <dl class="layui-nav-child layui-anim layui-anim-upbit">
               <dl><a href="javascript:;">基本资料</a></dl>
               <dl><a href="javascript:;">安全设置</a></dl>

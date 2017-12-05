@@ -101,6 +101,7 @@
             </tr>
           </tbody>
         </table>
+        <p style="text-align: center;"><a class="layui-btn layui-btn-small" v-on:click="moreunChecked" href="javascript:;">显示更多数据</a></p>
         <h2>打包人</h2>
         <table class="layui-table" lay-size="sm">
           <thead>
@@ -123,13 +124,13 @@
             </tr>
           </tbody>
         </table>
-        <p style="text-align: center;"><a class="layui-btn layui-btn-small" v-on:click="moreunChecked" href="javascript:;">显示更多数据</a></p>
       </div>
     </section>
   </div>
 </template>
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { loadingText } from '../../commont/utils';
 
 export default {
   name: 'order-01',
@@ -315,9 +316,12 @@ export default {
         return false;
       });
     },
-    moreChecked() {
+    moreChecked(event) {
+      const el = event.target;
+      const loading = loadingText(el);
       // 已复核
       this.axios.get('/api/packCheck.php?check=true').then((response) => {
+        loading.clearTime();
         const table = document.querySelector('#CheckedTable');
         const CheckedTableTemplate = document.createDocumentFragment();
         response.data.data.pakNum.forEach((value, index) => {
@@ -339,9 +343,12 @@ export default {
         table.tBodies[0].appendChild(CheckedTableTemplate);
       });
     },
-    moreunChecked() {
+    moreunChecked(event) {
+      const el = event.target;
+      const loading = loadingText(el);
       // 未复核
       this.axios.get('/api/packCheck.php?check=false').then((response) => {
+        loading.clearTime();
         const table = document.querySelector('#unCheckedTable');
         const CheckedTableTemplate = document.createDocumentFragment();
         response.data.data.pakNum.forEach((value, index) => {
