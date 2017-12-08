@@ -1,7 +1,7 @@
 <template>
   <div class="layui-layout layui-layout-admin">
     <header-main></header-main>
-    <sidebar-left></sidebar-left>
+    <sidebar-left ref="sidebarLeft"></sidebar-left>
     <main-content></main-content>
     <div class="layui-footer">© layui.com - 底部固定区域</div>
   </div>
@@ -17,6 +17,9 @@ export default {
     headerMain,
     sidebarLeft,
     mainContent,
+  },
+  mounted() {
+    console.log(this.$refs.sidebarLeft);
   },
 };
 

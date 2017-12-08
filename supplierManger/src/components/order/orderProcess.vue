@@ -13,8 +13,8 @@
           <div class="layui-col-md-offset1 layui-col-md4">
             <a href="javascript:;" v-on:click="addPickBox" class="layui-btn">确认</a>
             <a href="javascript:;" v-on:click="addPickUser" class="layui-btn">添加打包人</a>
-            <a href="javascript:;"v-on:click="editPickUser" class="layui-btn">修改打包人</a>
-            <a href="javascript:;"v-on:click="clearPickUser" class="layui-btn">清空打包人</a>
+            <a href="javascript:;" v-on:click="editPickUser" class="layui-btn">修改打包人</a>
+            <a href="javascript:;" v-on:click="clearPickUser" class="layui-btn">清空打包人</a>
           </div>
           <div class="layui-col-md-offset2 layui-col-md1">
             <a href="javascript:;" class="layui-btn">复核完成</a>
@@ -202,7 +202,7 @@ export default {
         layui.use('layer', () => {
           const layer = layui.layer;
           layer.msg('请先添加打包人', {
-            icon: 1,
+            icon: 8,
           });
         });
         return;
