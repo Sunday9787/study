@@ -41,6 +41,7 @@ module.exports = {
   },
   "globals": {
     layui: true,
-    $: true
+    $: true,
+    Swiper: true
   }
 }

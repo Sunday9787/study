@@ -282,7 +282,7 @@
 }
 
 .content-table th {
-  height: 44px;
+  padding: 12px;
   font-weight: bold;
   text-align: center;
 }

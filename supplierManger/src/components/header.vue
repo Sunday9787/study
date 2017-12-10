@@ -3,10 +3,10 @@
     <div class="layui-logo">仓储管理系统</div>
     <nav class="layui-bg-black">
       <ul class="layui-nav layui-layout-left">
-          <li class="layui-nav-item"><a href="javascript:;">订单管理</a></li>
+          <li class="layui-nav-item"><router-link to="/order">订单管理</router-link></li>
           <li class="layui-nav-item"><a href="javascript:;">仓库管理</a></li>
           <li class="layui-nav-item"><a href="javascript:;">统计报表</a></li>
-          <li class="layui-nav-item"><a href="javascript:;">基本信息</a></li>
+          <li class="layui-nav-item"><router-link to="/BasicInformation">基本信息</router-link></li>
       </ul>
       <ul class="layui-nav layui-layout-right">          
           <li class="layui-nav-item">
