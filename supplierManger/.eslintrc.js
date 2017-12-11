@@ -38,10 +38,12 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'no-console': 'off',
     'no-param-reassign': ["error", { "props": false }],
+    'no-alert': 'off',
   },
   "globals": {
     layui: true,
     $: true,
-    Swiper: true
+    Swiper: true,
+    WebUploader: true
   }
 }

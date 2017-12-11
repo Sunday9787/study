@@ -36,123 +36,108 @@
                   <table class="lh-30" width="100%">
                     <tbody>
                       <tr>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>商品名称：</label>
                             <span class="icon-round">&#xe61c;</span>
                           </div>
                           <input class="fl editor-input" type="text" name="" value="">
-                          <div class="clear"></div>
                         </td>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>副标题：</label>
                           </div>
                           <input class="fl editor-input" type="text" name="" value="">
-                          <div class="clear"></div>
                         </td>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>丛书名：</label>
                           </div>
                           <input class="fl editor-input" type="text" name="" value="">
-                          <div class="clear"></div>
                         </td>
                       </tr>
                       <tr>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>定价：</label>
                             <span class="icon-round">&#xe61c;</span>
                           </div>
                           <input class="fl editor-input" type="text" name="" value="">
-                          <div class="clear"></div>
                         </td>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>ISBN：</label>
                             <span class="icon-round">&#xe61c;</span>
                           </div>
                           <input class="fl editor-input" type="text" name="" value="">
-                          <div class="clear"></div>
                         </td>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>作者：</label>
                             <span class="icon-round">&#xe61c;</span>
                           </div>
                           <input class="fl editor-input" type="text" name="" value="">
-                          <div class="clear"></div>
                         </td>
                       </tr>
                       <tr>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>出版社：</label>
                             <span class="icon-round">&#xe61c;</span>
                           </div>
                           <input class="fl editor-input" type="text" name="" value="">
-                          <div class="clear"></div>
                         </td>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>版次：</label>
                           </div>
                           <input class="fl editor-input" type="text" name="" value="">
-                          <div class="clear"></div>
                         </td>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>印次：</label>
                           </div>
                           <input class="fl editor-input" type="text" name="" value="">
-                          <div class="clear"></div>
                         </td>
                       </tr>
                       <tr>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>出版时间：</label>
                           </div>
                           <input class="fl editor-input" type="text" name="" value="">
-                          <div class="clear"></div>
                         </td>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>印刷时间：</label>
                           </div>
                           <input class="fl editor-input" type="text" name="" value="">
-                          <div class="clear"></div>
                         </td>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>开本：</label>
                           </div>
                           <input class="fl editor-input" type="text" name="" value="">
-                          <div class="clear"></div>
                         </td>
                       </tr>
                       <tr>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>页数：</label>
                           </div>
                           <input class="fl editor-input" type="text" name="" placeholder="0.00" value="">
-                          <div class="clear"></div>
                         </td>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>包装：</label>
                           </div>
                           <input class="fl editor-input" type="text" name="" placeholder="0.00" value="">
-                          <div class="clear"></div>
                         </td>
-                        <td>
+                        <td class="clearfix">
                           <div class="editer-name-input wd-90 ta-rt fl">
                             <label>套装数量：</label>
                           </div>
                           <input class="fl editor-input" type="text" name="" placeholder="0.00" value="">
-                          <div class="clear"></div>
                         </td>
                       </tr>
                     </tbody>
@@ -271,6 +256,8 @@
 </template>
 
 <script>
+import Uploader from '../../commont/mywebuploader';
+
 export default {
   name: 'ProductEditor',
   mounted() {
@@ -278,5 +265,32 @@ export default {
       // eslint-disable-next-line
       const element = layui.element;
     });
+    const BASE_URL = '/sunday90.cn/project/';
+    console.log(BASE_URL);
+
+    // eslint-disable-next-line
+    const upImg = new Uploader({
+      base_url: BASE_URL,               // 基本url
+      WebUploadId: '#cover_pic',        // 传容器ID
+      uploadUrl: '/php/upload_file.php',  // 上传url
+      upload: '#upload_cover',          // 上传按钮
+      stopUpload: '#stop_cover',        // 取消上传按钮
+      picke: '#picke_cover',            // 文件选择按钮
+      maxSize: 2,                       // 最大单个文件大小 2 mb
+      maxFileLength: 5,
+      thumbnailSize: 100,
+      // 添加控件编号，从而区分是哪个控件上传的 ，也可以添加其他值以供后台获取
+      // http://fex-team.github.io/webuploader/doc/index.html#WebUploader_Uploader_options
+      formData: {
+        token: 'cover_pic',
+      },
+      success(response) {
+        console.log(response);
+      },
+      error() {
+        console.log('出错了');
+      },
+    });
+    console.log(upImg);
   },
 };
