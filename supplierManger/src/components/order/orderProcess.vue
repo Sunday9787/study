@@ -120,7 +120,7 @@
             <tr v-else v-for="(value, index) in getAddPickingUser" v-bind:key="value.name">
               <td>{{index}}</td>
               <td>{{value.name}}</td>
-              <td v-for="(num, index) in value.boxNumber" v-bind:key="num.number">{{num.number}}</td>
+              <td v-for="num in value.boxNumber" v-bind:key="num.number">{{num.number}}</td>
             </tr>
           </tbody>
         </table>
@@ -328,7 +328,7 @@ export default {
       // 开始加载
       that.packCheck.load = true;
       // 已复核
-      this.axios.get('/api/packCheck.php?check=true').then((response) => {
+      that.axios.get('/api/packCheck.php?check=true').then((response) => {
         that.packCheck.load = false;
         loading.clearTime();
         const table = document.querySelector('#CheckedTable');
@@ -364,7 +364,7 @@ export default {
       // 开始加载
       that.packunCheck.load = true;
       // 未复核
-      this.axios.get('/api/packCheck.php?check=false').then((response) => {
+      that.axios.get('/api/packCheck.php?check=false').then((response) => {
         that.packunCheck.load = false;
         loading.clearTime();
         const table = document.querySelector('#unCheckedTable');

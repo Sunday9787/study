@@ -37,6 +37,13 @@ module.exports = {
         pathRewrite: {
           '^/api': '/project/study/api/'
         }
+      },
+      '/upfile': {
+        target: 'http://sunday90.cn:80',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/upfile': '/project/upload/'
+        }
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import orderProcess from '../components/order/orderProcess';
-import BasicInformation from '../components/BasicInformation/BasicInformation';
+import BasicInformation from '../components/BasicInformation/index';
 import ProductEditor from '../components/BasicInformation/ProductEditor';
 
 Vue.use(Router);

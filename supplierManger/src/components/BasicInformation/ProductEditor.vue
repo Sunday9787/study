@@ -257,28 +257,23 @@
 
 <script>
 import Uploader from '../../commont/mywebuploader';
+import '../../../static/lib/webuploader/webuploader.css';
 
 export default {
   name: 'ProductEditor',
   mounted() {
-    layui.use('element', () => {
-      // eslint-disable-next-line
-      const element = layui.element;
-    });
-    const BASE_URL = '/sunday90.cn/project/';
-    console.log(BASE_URL);
-
+    const BASE_URL = 'http://sunday90.cn/project/';
     // eslint-disable-next-line
     const upImg = new Uploader({
-      base_url: BASE_URL,               // 基本url
-      WebUploadId: '#cover_pic',        // 传容器ID
-      uploadUrl: '/php/upload_file.php',  // 上传url
-      upload: '#upload_cover',          // 上传按钮
-      stopUpload: '#stop_cover',        // 取消上传按钮
-      picke: '#picke_cover',            // 文件选择按钮
-      maxSize: 2,                       // 最大单个文件大小 2 mb
-      maxFileLength: 5,
-      thumbnailSize: 100,
+      base_url: BASE_URL,                 // 基本url
+      WebUploadId: '#cover_pic',          // 传容器ID
+      uploadUrl: '/upfile/upload_file.php',  // 上传url
+      upload: '#upload_cover',            // 上传按钮
+      stopUpload: '#stop_cover',          // 取消上传按钮
+      picke: '#picke_cover',              // 文件选择按钮
+      maxSize: 2,                         // 最大单个文件大小 2 mb
+      maxFileLength: 5,                   // 最多上文件个数
+      thumbnailSize: 100,                 // 预览图大小 一般限制死100
       // 添加控件编号，从而区分是哪个控件上传的 ，也可以添加其他值以供后台获取
       // http://fex-team.github.io/webuploader/doc/index.html#WebUploader_Uploader_options
       formData: {
@@ -294,3 +289,4 @@ export default {
     console.log(upImg);
   },
 };
+</script>
