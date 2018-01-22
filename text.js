@@ -51,3 +51,21 @@ let type = 'json';
 switch(type) {
     case 'json': console.log('yes');
 }
+
+let preson = {
+    name: 'Edward',
+    age: '',
+    six: '男',
+}
+let npreson = {};
+function filterObject (obj) {
+    const result = {};
+    Object.keys(obj).map(key => {
+        if (obj[key]) {
+            result[key] = obj[key];
+        }
+    });
+    return result;
+}
+console.log(npreson);
+Object.assign(preson, {age: 22});
