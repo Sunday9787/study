@@ -17,13 +17,33 @@
     </style>
 </head>
 <body>
-    <div id="textarea" contenteditable="true">6666</div>
+    <textarea name="" id="textarea" cols="30" rows="10"></textarea>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript">
         const textarea = document.querySelector('#textarea');
 
         textarea.addEventListener('paste', function (e) {
-            console.log(e);
-            console.log(e.clipboardData.items);
+          var items = (event.clipboardData  || event.originalEvent.clipboardData).items;
+          var blob;
+          // 获取file
+          for (var i = 0; i < items.length; i++) {
+            console.log(items[i].type);
+            if (items[i].type.indexOf("image") === 0) {
+              blob = items[i].getAsFile();
+            }
+          }
+
+          // 开始读取文件转为base64
+          if (blob !== null) {
+            var reader = new FileReader();
+            var img = document.createElement('img');
+            reader.onload = function(event) {
+              console.log(event.target.result); // data url!
+              img.src = event.target.result;
+              document.body.appendChild(img);
+            };
+            reader.readAsDataURL(blob);
+          }
         },false);
     </script>
 </body>
