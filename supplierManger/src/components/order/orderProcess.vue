@@ -124,6 +124,14 @@
             </tr>
           </tbody>
         </table>
+        <div class="layui-form">
+          <div class="layui-form-item">
+            <label class="layui-form-label">观察：</label>
+            <div class="layui-input-inline">
+              <input type="text" class="layui-input" v-model="obj.value">{{obj.value}}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -148,6 +156,9 @@ export default {
           state: 404,
         },
         load: false,
+      },
+      obj: {
+        value: '6666',
       },
     };
   },
@@ -389,6 +400,18 @@ export default {
       }).catch((error) => {
         console.log(error);
       });
+    },
+  },
+  watch: {
+    PickBox: (n, old) => {
+      console.log(old, n);
+    },
+    obj: {
+      handler(val, oldVal) {
+        console.log(val, oldVal);
+      },
+      deeep: true,
+      immediate: true,
     },
   },
 };
