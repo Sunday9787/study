@@ -21,100 +21,38 @@
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript">
         const textarea = document.querySelector('#textarea');
+        textarea.addEventListener('drop', function (e) {
+          e.preventDefault();
+          let files = e.dataTransfer.files;
+          [...files].forEach(file => {
+            var fr = new FileReader();
+            fr.onload = function (e) {
+              var img = document.createElement('img');
+              img.src = e.target.result;
+              document.body.appendChild(img);
+            }
+            fr.readAsDataURL(file);
+          });
+        },false);
 
         textarea.addEventListener('paste', function (e) {
-          var items = (event.clipboardData  || event.originalEvent.clipboardData).items;
-          var blob;
+          var items = (e.clipboardData  || e.originalEvent.clipboardData).items;
+          console.log(e.clipboardData.items);
           // 获取file
-          for (var i = 0; i < items.length; i++) {
-            console.log(items[i].type);
-            if (items[i].type.indexOf("image") === 0) {
-              blob = items[i].getAsFile();
+          [...items].forEach(item => {
+            if (item.type.indexOf("image") === 0) {
+              console.log(item);
+              var blob = item.getAsFile();
+              var reader = new FileReader();
+              reader.onload = function(event) {
+                var img = document.createElement('img');
+                img.src = event.target.result;
+                document.body.appendChild(img);
+              };
+              reader.readAsDataURL(blob);
             }
-          }
-
-          // 开始读取文件转为base64
-          if (blob !== null) {
-            var reader = new FileReader();
-            var img = document.createElement('img');
-            reader.onload = function(event) {
-              console.log(event.target.result); // data url!
-              img.src = event.target.result;
-              document.body.appendChild(img);
-            };
-            reader.readAsDataURL(blob);
-          }
+          });
         },false);
     </script>
 </body>
 </html>
-
-<!-- <!DOCTYPE html> 
-<html> 
-<head lang="en"> 
-  <meta charset="UTF-8"> 
-  <title>copyimg</title> 
- 
-  <style type="text/css"> 
-    #box{ width:200px; height:200px; border:1px solid #ddd; } 
-  </style> 
- 
-</head> 
- 
-<script language="JavaScript"> 
- 
- 
-</script> 
- 
-<body> 
-<h1>利用 clipboardData 在网页中实现截屏粘贴的功能</h1> 
-<hr /> 
-<div><input type="text" id="testInput" placeholder="截屏后粘贴到输入框中" size="30" /></div> 
-<script type="text/javascript"> 
-  (function(){ 
-    var imgReader = function( item ){ 
-      var blob = item.getAsFile(), 
-          reader = new FileReader(); 
- 
-      reader.onload = function( e ){ 
-        var img = new Image(); 
- 
-        img.src = e.target.result; 
- 
-        document.body.appendChild( img );
-      }; 
- 
-      reader.readAsDataURL( blob ); 
-    }; 
-    document.getElementById( 'testInput' ).addEventListener( 'paste', function( e ){ 
-      var clipboardData = e.clipboardData, 
-          i = 0, 
-          items, item, types; 
- 
-      if( clipboardData ){ 
-        items = clipboardData.items; 
- 
-        if( !items ){ 
-          return; 
-        } 
- 
-        item = items[0]; 
-        types = clipboardData.types || []; 
- 试试
-        for( ; i < types.length; i++ ){ 
-          if( types[i] === 'Files' ){ 
-            item = items[i]; 
-            break; 
-          } 
-        } 
- 
-        if( item && item.kind === 'file' && item.type.match(/^image\//i) ){ 
-          imgReader( item ); 
-        } 
-      } 
-    }); 
-  })(); 
-</script> 
- 
-</body> 
-</html>  -->
