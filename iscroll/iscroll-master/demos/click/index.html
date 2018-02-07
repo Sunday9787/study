@@ -127,7 +127,7 @@ body {
 
 </style>
 </head>
-<body onload="loaded()">
+<body>
 <div id="header">iScroll</div>
 
 <div id="wrapper">
@@ -152,7 +152,7 @@ body {
 			<li>Pretty row 17</li>
 			<li>Pretty row 18</li>
 			<li>Pretty row 19</li>
-			<li>Pretty row 20</li>
+			<li><input type="text" name="" id="input"></li>
 			<li>Pretty row 21</li>
 			<li>Pretty row 22</li>
 			<li>Pretty row 23</li>
@@ -188,6 +188,24 @@ body {
 </div>
 
 <div id="footer"></div>
-
+<script>
+	var input = document.querySelector('#input');
+	input.addEventListener('input', function (e) {
+		console.log(this.value);
+	}, false);
+	var scroller = document.querySelector('#scroller');
+	scroller.addEventListener('touchstart', function (e) {
+		console.log(e.changedTouches[0]);
+	}, false);
+	scroller.addEventListener('touchmove', function (e) {
+		console.log(e.changedTouches[0]);
+	}, false);
+	[...(scroller.children)].forEach(item => {
+		console.log(item);
+		// item.addEventListener('touchstart', function (e) {
+		// 	console.log(e);
+		// }, false);
+	});
+</script>
 </body>
 </html>
