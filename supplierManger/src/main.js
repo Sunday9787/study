@@ -3,13 +3,17 @@
 import Vue from 'vue';
 import Axios from 'axios';
 import VueAxios from 'vue-axios';
+
+import jQuery from 'jquery';
 import router from './router';
 import store from './store/store';
 
+import Index from './index';
 // import Jquery from 'jquery';
 // import Layui from '../static/layui/layui';
-import Index from './index';
 
+window.jQuery = jQuery;
+window.$ = jQuery;
 // window.layui = Layui;
 
 // window.$ = Jquery;

@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import orderProcess from '../components/order/orderProcess';
-import BasicInformation from '../components/BasicInformation/index';
-import ProductEditor from '../components/BasicInformation/ProductEditor';
+// import orderProcess from '../components/order/orderProcess';
+// import BasicInformation from '../components/BasicInformation/index';
+// import ProductEditor from '../components/BasicInformation/ProductEditor';
 
 Vue.use(Router);
 export default new Router({
@@ -17,18 +17,18 @@ export default new Router({
     {
       path: '/order',
       name: 'order',
-      component: orderProcess,
+      component: () => import('../components/order/orderProcess'),
     },
     {
       path: '/BasicInformation',
       name: 'BasicInformation',
-      component: BasicInformation,
+      component: () => import('../components/BasicInformation/index'),
       redirect: '/BasicInformation/ProductEditor',
       children: [
         {
           path: 'ProductEditor',
           name: 'ProductEditor',
-          component: ProductEditor,
+          component: () => import('../components/BasicInformation/ProductEditor'),
         },
       ],
     },
