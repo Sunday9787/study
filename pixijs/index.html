@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>pixijs</title>
+    <script src="./js/pixi.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
+        #canvas {
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var app = new PIXI.Application(800, 600, {
+            backgroundColor: 0xf5f5f5,
+            antialias: true
+        });
+        app.view.id = 'canvas';
+        
+        document.body.appendChild(app.view);
+        // var bunny = PIXI.Sprite.fromImage('./assets/images/2a02335.webp');
+        // bunny.anchor.set(0.5);
+        // bunny.x = app.screen.width / 2;
+        // bunny.y = app.screen.height / 2;
+        // app.stage.addChild(bunny);
+        app.stage.interactive = true;
+
+
+
+        var graphics = new PIXI.Graphics();
+        // set a fill and line style
+        graphics.beginFill(0xFF3300);
+        graphics.drawRect(0, 0, 150, 150)
+        graphics.endFill();
+
+        app.stage.addChild(graphics);
+
+    </script>
+</body>
+
+</html>
