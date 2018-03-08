@@ -40,43 +40,346 @@
 
     var texture = PIXI.Texture.fromImage('./assets/images/block.jpg');
     var textureButtonDown = PIXI.Texture.fromImage('./assets/images/block-active.jpg');
-   
-    // 创建 12 * 8 的方格
-    for (let i = 0; i < 12; i++) {
-      for (let a = 0; a < 8; a++) {
-        var bunny = new PIXI.Sprite(texture);
-        bunny.interactive = true;
-        bunny.buttonMode = true;
-        bunny.isdown = false;
-        bunny.anchor.set(0, 0);
-        bunny.x = (i * 60) % (60 * 12);
-        bunny.y = (a * 60) % (60 * 8);
-        bunny.scale.set(0.3, 0.3);
 
-        // 添加点击事件
-        bunny.on('pointerover', function (e) {
-          this.isdown = !this.isdown;
-          this.isdown ? this.texture = textureButtonDown : this.texture = texture;
-        });
-        container.addChild(bunny);
+    // 创建 12 * 8 的方格
+    var Sprite = [];
+    // 过滤方格数组
+    var filter = [
+      {
+        x: 3,
+        y: 0
+      },
+      {
+        x: 4,
+        y: 0
+      },
+      {
+        x: 9,
+        y: 0
+      },
+      {
+        x: 10,
+        y: 0
+      },
+      {
+        x: 11,
+        y: 0
+      },
+      {
+        x: 0,
+        y: 1
+      },
+      {
+        x: 1,
+        y: 1
+      },
+      {
+        x: 3,
+        y: 1
+      },
+      {
+        x: 4,
+        y: 1
+      },
+      {
+        x: 5,
+        y: 1
+      },
+      {
+        x: 6,
+        y: 1
+      },
+      {
+        x: 7,
+        y: 1
+      },
+      {
+        x: 9,
+        y: 1
+      },
+      {
+        x: 10,
+        y: 1
+      },
+      {
+        x: 11,
+        y: 1
+      },
+      {
+        x: 12,
+        y: 1
+      },
+      {
+        x: 4,
+        y: 2
+      },
+      {
+        x: 5,
+        y: 2
+      },
+      {
+        x: 9,
+        y: 2
+      },
+      {
+        x: 11,
+        y: 2
+      },
+      {
+        x: 0,
+        y: 3
+      },
+      {
+        x: 1,
+        y: 3
+      },
+      {
+        x: 4,
+        y: 3
+      },
+      {
+        x: 5,
+        y: 3
+      },
+      {
+        x: 6,
+        y: 3
+      },
+      {
+        x: 11,
+        y: 3
+      },
+      {
+        x: 9,
+        y: 3
+      },
+      {
+        x: 8,
+        y: 3
+      },
+      {
+        x: 0,
+        y: 4
+      },
+      {
+        x: 1,
+        y: 4
+      },
+      {
+        x: 4,
+        y: 4
+      },
+      {
+        x: 5,
+        y: 4
+      },
+      {
+        x: 4,
+        y: 5
+      },
+      {
+        x: 5,
+        y: 5
+      },
+      {
+        x: 6,
+        y: 5
+      },
+      {
+        x: 8,
+        y: 5
+      },
+      {
+        x: 9,
+        y: 5
+      },
+      {
+        x: 11,
+        y: 5
+      },
+      {
+        x: 0,
+        y: 6
+      },
+      {
+        x: 2,
+        y: 6
+      },
+      {
+        x: 3,
+        y: 6
+      },
+      {
+        x: 8,
+        y: 6
+      },
+      {
+        x: 10,
+        y: 6
+      },
+      {
+        x: 11,
+        y: 6
+      },
+      {
+        x: 0,
+        y: 7
+      },
+      {
+        x: 2,
+        y: 7
+      },
+      {
+        x: 3,
+        y: 7
+      },
+      {
+        x: 4,
+        y: 7
+      },
+      {
+        x: 6,
+        y: 7
+      },
+      {
+        x: 7,
+        y: 7
+      },
+      {
+        x: 6,
+        y: 8
+      },
+      {
+        x: 7,
+        y: 8
+      },
+      {
+        x: 8,
+        y: 8
+      },
+      {
+        x: 10,
+        y: 8
+      },
+      {
+        x: 11,
+        y: 8
+      }
+    ];
+
+    creatTable(12, 9, filter);
+    function creatTable(row, col, filter) {
+      for(var x = 0; x < row; x++) {
+        creat: for (var y = 0; y < col; y++) {
+          var sprite = new PIXI.Sprite(texture);
+          sprite.interactive = true;
+          sprite.buttonMode = true;
+          sprite.isdown = false;
+          sprite.isEmpty = false;
+          sprite.anchor.set(0, 0);
+          sprite.width = 60;
+          sprite.height = 60;
+          sprite.x = (x * 60) % (60 * row);
+          sprite.y = (y * 60) % (60 * col);
+  
+          // 添加点击事件
+          sprite.on('pointerdown', function (e) {
+            var x = this.x / 60;
+            var y = this.y / 60;
+            this.isdown = !this.isdown;
+
+            if (this.isdown) {
+              var row = [];
+              for (var j = 0; j < Sprite.length; j++) {
+                Sprite[j].texture = texture;
+                if (Sprite[j].y / 60 === y) {
+                  row.push(Sprite[j]);
+                }
+              }
+
+              // 右边
+              for(var n = 0; n< row.length; n++) {
+                if (row[x+n] && row[x+n].isEmpty) break;
+                if (row[x+n]) {
+                  row[x+n].texture = textureButtonDown;
+                }
+              }
+              
+              // 左边
+              for(var n = 0; n< row.length; n++) {
+                if (row[x-n] && row[x-n].isEmpty) break;
+                if (row[x-n]) {
+                  row[x-n].texture = textureButtonDown;
+                }
+              }
+            } else {
+              var col = [];
+              for (var j = 0; j < Sprite.length; j++) {
+                Sprite[j].texture = texture;
+                if (Sprite[j].x / 60 === x) {
+                  col.push(Sprite[j]);
+                }
+              }
+
+              // 下边
+              for(var n = 0; n< col.length; n++) {
+                if (col[y+n] && col[y+n].isEmpty) break;
+                if (col[y+n]) {
+                  col[y+n].texture = textureButtonDown;
+                }
+              }
+              
+              // 上边
+              for(var n = 0; n< col.length; n++) {
+                if (col[y-n] && col[y-n].isEmpty) break;
+                if (col[y-n]) {
+                  col[y-n].texture = textureButtonDown;
+                }
+              }
+            }
+
+          });
+          
+          // 保存 精灵
+          Sprite.push(sprite);
+          for (var k = 0, len = filter.length; k < len; k++) {
+            if (filter[k].x === x && filter[k].y === y) {
+              sprite.isEmpty = true;
+              continue creat;
+            };
+          }
+          container.addChild(sprite);
+        }
       }
     }
+    
+    fillBorder();
+    function fillBorder() {
+      var graphics = new PIXI.Graphics();
+      var tempSprite = [];
 
-    // Center on the screen
-    // container.x = (app.screen.width - container.width) / 2;
-    // container.y = (app.screen.height - container.height) / 2;
+      for (var i = 0, len = Sprite.length; i < len; i++) {
+        if (Sprite[i].isEmpty) continue;
+        tempSprite.push(Sprite[i]);
+      }
+      
+      graphics.lineColor = '#000';
+      graphics.lineWidth = 2;
+      graphics.width = container.width;
+      graphics.height = container.height;
+
+      for(var k = 0; k < tempSprite.length; k++) {
+        graphics.drawRect()
+      }
+      // set a fill and line style
+      // graphics.beginFill(0xFF3300);
+      // graphics.drawRect(0, 0, 150, 150)
+      // graphics.endFill();
+    }
+
     container.x = 0;
     container.y = 0;
-
-    console.log(container);
-
-
-
-    // var graphics = new PIXI.Graphics();
-    // set a fill and line style
-    // graphics.beginFill(0xFF3300);
-    // graphics.drawRect(0, 0, 150, 150)
-    // graphics.endFill();
+    // console.log(container);
 
     // app.stage.addChild(graphics);
   </script>
