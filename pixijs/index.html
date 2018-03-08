@@ -269,8 +269,11 @@
 
     creatTable(12, 9, filter);
     function creatTable(row, col, filter) {
+      var index = 0;
       for(var x = 0; x < row; x++) {
         creat: for (var y = 0; y < col; y++) {
+          console.log(index++);
+          var spriteContainer = new PIXI.Container();
           var sprite = new PIXI.Sprite(texture);
           sprite.interactive = true;
           sprite.buttonMode = true;
@@ -279,80 +282,100 @@
           sprite.anchor.set(0, 0);
           sprite.width = 60;
           sprite.height = 60;
+          sprite.index = index++;
           sprite.x = (x * 60) % (60 * row);
           sprite.y = (y * 60) % (60 * col);
-  
+
           // 添加点击事件
           sprite.on('pointerdown', function (e) {
+            console.log(this.index)
             var x = this.x / 60;
             var y = this.y / 60;
             this.isdown = !this.isdown;
 
+            // toogle 点击
             if (this.isdown) {
-              var row = [];
-              for (var j = 0; j < Sprite.length; j++) {
-                Sprite[j].texture = texture;
-                if (Sprite[j].y / 60 === y) {
-                  row.push(Sprite[j]);
-                }
-              }
-
-              // 右边
-              for(var n = 0; n< row.length; n++) {
-                if (row[x+n] && row[x+n].isEmpty) break;
-                if (row[x+n]) {
-                  row[x+n].texture = textureButtonDown;
-                }
-              }
-              
-              // 左边
-              for(var n = 0; n< row.length; n++) {
-                if (row[x-n] && row[x-n].isEmpty) break;
-                if (row[x-n]) {
-                  row[x-n].texture = textureButtonDown;
-                }
+              console.log(Sprite[x+1].children[0].isEmpty);
+              if (Sprite[this.index + 1].children[0].isEmpty) {
+                renderCol(Sprite, x, y);
+              } else {
+                renderRow(Sprite, x, y);
               }
             } else {
-              var col = [];
-              for (var j = 0; j < Sprite.length; j++) {
-                Sprite[j].texture = texture;
-                if (Sprite[j].x / 60 === x) {
-                  col.push(Sprite[j]);
-                }
-              }
-
-              // 下边
-              for(var n = 0; n< col.length; n++) {
-                if (col[y+n] && col[y+n].isEmpty) break;
-                if (col[y+n]) {
-                  col[y+n].texture = textureButtonDown;
-                }
-              }
-              
-              // 上边
-              for(var n = 0; n< col.length; n++) {
-                if (col[y-n] && col[y-n].isEmpty) break;
-                if (col[y-n]) {
-                  col[y-n].texture = textureButtonDown;
-                }
-              }
+              renderCol(Sprite, x, y);
             }
-
           });
           
           // 保存 精灵
-          Sprite.push(sprite);
+          spriteContainer.addChild(sprite);
+          Sprite.push(spriteContainer);
+
           for (var k = 0, len = filter.length; k < len; k++) {
             if (filter[k].x === x && filter[k].y === y) {
               sprite.isEmpty = true;
               continue creat;
             };
           }
-          container.addChild(sprite);
+
+          // 添加到舞台;
+          container.addChild(spriteContainer);
         }
       }
     }
-    
+
+    // 渲染选中行
+    function renderRow(spriteContainer, x, y) {
+      var row = [];
+      for (var j = 0; j < spriteContainer.length; j++) {
+        spriteContainer[j].children[0].texture = texture;
+        if (spriteContainer[j].children[0].y / 60 === y) {
+          row.push(spriteContainer[j].children[0]);
+        }
+      }
+      // 右边
+      for(var n = 0; n< row.length; n++) {
+        if (row[x+n] && row[x+n].isEmpty) break;
+        if (row[x+n]) {
+          row[x+n].texture = textureButtonDown;
+        }
+      }
+      
+      // 左边
+      for(var n = 0; n< row.length; n++) {
+        if (row[x-n] && row[x-n].isEmpty) break;
+        if (row[x-n]) {
+          row[x-n].texture = textureButtonDown;
+        }
+      }
+    }
+
+    // 渲染选中列
+    function renderCol(spriteContainer, x, y) {
+      var col = [];
+      for (var j = 0; j < spriteContainer.length; j++) {
+        spriteContainer[j].children[0].texture = texture;
+        if (spriteContainer[j].children[0].x / 60 === x) {
+          col.push(spriteContainer[j].children[0]);
+        }
+      }
+
+      // 下边
+      for(var n = 0; n< col.length; n++) {
+        if (col[y+n] && col[y+n].isEmpty) break;
+        if (col[y+n]) {
+          col[y+n].texture = textureButtonDown;
+        }
+      }
+      
+      // 上边
+      for(var n = 0; n< col.length; n++) {
+        if (col[y-n] && col[y-n].isEmpty) break;
+        if (col[y-n]) {
+          col[y-n].texture = textureButtonDown;
+        }
+      }
+    }
+
     fillBorder();
     function fillBorder() {
       var graphics = new PIXI.Graphics();
