@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES5", //ecmascript支持版本
+    "noImplicitAny": true,
+    "module": "amd",
+    "removeComments": true, //是否移除文档注释
+    "sourceMap": false, //是否生成对应的map文件
+    "outDir": "js_output" //指定输出目录文件夹名称
+  },
+  "files": [
+    "index.ts",
+    "supplemental.ts"
+  ]
+}
