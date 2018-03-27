@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Promise</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    const promise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('ok');
+      }, 3000)
+    });
+
+    promise.then((value) => {
+      // alert(value);
+    });
+  </script>
+  <script>
+    const getImg = function (url) {
+      const promise = new Promise(function (resolve, reject) {
+        const handler = function () {
+          if (this.readyState !== 4) return;
+          if (this.status === 200) {
+            resolve(this.response);
+          } else {
+            reject(new Error());
+          }
+        };
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.onreadystatechange = handler;
+        xhr.responseType = "blob";
+        xhr.setRequestHeader("Accept", "image/jpeg,image/jpg");
+        xhr.send();
+      });
+
+      return promise;
+    };
+
+    getImg('/upload/11598b931cb9fa0381b7e13b81cc9afc.jpg').then(function (file) {
+      console.log(file);
+      // var img = new Image();
+      // var fileReader = new FileReader();
+      // img.onload = () => {
+      //   document.body.appendChild(img);
+      // }
+      // fileReader.onload = (event) => {
+      //   img.src = event.target.result;
+      // }
+      // fileReader.readAsDataURL(file);
+      let img = new Image();
+      img.src = URL.createObjectURL(file);
+      img.onload = (e) => {
+        document.body.appendChild(img);
+      }
+    }, function (error) {
+      console.error('出错了', error);
+    });
+  </script>
+</body>
+
+</html>
