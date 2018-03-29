@@ -13,6 +13,7 @@
       margin: 0;
       padding: 0;
     }
+
     body {
       box-sizing: border-box;
       height: 100vh;
@@ -43,11 +44,14 @@
     document.body.appendChild(app.view);
 
     let container = new PIXI.Container();
+    container.x = 0;
+    container.y = 0;
+
     app.stage.addChild(container);
 
 
-    let texture = PIXI.Texture.fromImage('./assets/images/block.svg');
-    let textureButtonDown = PIXI.Texture.fromImage('./assets/images/block-active.jpg');
+    let unitTexture = PIXI.Texture.fromImage('./assets/images/block.svg');
+    let unitBlockTexture = PIXI.Texture.fromImage('./assets/images/block-active.svg');
 
     // 创建 12 * 8 的方格
     let Sprite = [];
@@ -133,7 +137,7 @@
       '81828': '中国四大名著之一'
     }
 
-    creatTable(table, unit_block);
+    // creatTable(table, unit_block);
     function creatTable(table, block) {
       let row = table.x;
       let col = table.y;
@@ -153,67 +157,46 @@
           sprite.x = (x * unit_size.width) % (60 * unit_size.width);
           sprite.y = (y * unit_size.height) % (60 * unit_size.height);
           spriteContainer.addChild(sprite);
-
+          // for (let k = 0, n = block[];)
           container.addChild(spriteContainer);
         }
       }
     }
-    // function creatTable(row, col, filter) {
-    //   let index = 0;
-    //   for(let x = 0; x < row; x++) {
-    //     creat: for (let y = 0; y < col; y++) {
-    //       console.log(index++);
-    //       let spriteContainer = new PIXI.Container();
-    //       let sprite = new PIXI.Sprite(texture);
-    //       sprite.interactive = true;
-    //       sprite.buttonMode = true;
-    //       sprite.isdown = false;
-    //       sprite.isEmpty = false;
-    //       sprite.anchor.set(0, 0);
-    //       sprite.width = 60;
-    //       sprite.height = 60;
-    //       sprite.index = index++;
-    //       sprite.x = (x * 60) % (60 * row);
-    //       sprite.y = (y * 60) % (60 * col);
 
-    //       // 添加点击事件
-    //       sprite.on('pointerdown', function (e) {
-    //         console.log(this.index)
-    //         let x = this.x / 60;
-    //         let y = this.y / 60;
-    //         this.isdown = !this.isdown;
+    // 绘制边框
+    drawBorder(table, unit_block, container)
+    function drawBorder(table, block, ctx) {
+      let row = table.x, col = table.y;
+      let containerWidth = table.x * unit_size.width, containerHeight = table.y * unit_size.height;
+      let startY = unit_size.height, startX = unit_size.width;
+      drawLine({ width: 1, color: 0xb38743, alpha: 1 }, ctx, containerWidth, containerHeight, startX, startY, row, col);
+    }
 
-    //         // toogle 点击
-    //         if (this.isdown) {
-    //           console.log(Sprite[x+1].children[0].isEmpty);
-    //           if (Sprite[this.index + 1].children[0].isEmpty) {
-    //             renderCol(Sprite, x, y);
-    //           } else {
-    //             renderRow(Sprite, x, y);
-    //           }
-    //         } else {
-    //           renderCol(Sprite, x, y);
-    //         }
-    //       });
-          
-    //       // 保存 精灵
-    //       spriteContainer.addChild(sprite);
-    //       Sprite.push(spriteContainer);
-
-    //       for (let k = 0, len = filter.length; k < len; k++) {
-    //         if (filter[k].x === x && filter[k].y === y) {
-    //           sprite.isEmpty = true;
-    //           continue creat;
-    //         };
-    //       }
-
-    //       // 添加到舞台;
-    //       container.addChild(spriteContainer);
-    //     }
-    //   }
-    // }
-    container.x = 0;
-    container.y = 0;
+    // 绘制线条
+    function drawLine(lineStyle, ctx, width, height, X, Y, col, row) {
+      let i = 1, n = 1;
+      const graphics = new PIXI.Graphics();
+      // 绘制行
+      while (i < row) {
+        graphics.beginFill();
+        graphics.lineStyle(lineStyle.width, lineStyle.color, lineStyle.alpha);
+        graphics.moveTo(0, Y * i);
+        graphics.lineTo(width, Y * i);
+        graphics.endFill();
+        ctx.addChild(graphics);
+        i++
+      }
+      // 绘制列
+      while (n < col) {
+        graphics.beginFill();
+        graphics.lineStyle(lineStyle.width, lineStyle.color, lineStyle.alpha);
+        graphics.moveTo(X * n, 0);
+        graphics.lineTo(X * n, height);
+        graphics.endFill();
+        ctx.addChild(graphics);
+        n++
+      }
+    }
   </script>
 </body>
 
