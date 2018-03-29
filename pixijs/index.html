@@ -13,19 +13,27 @@
       margin: 0;
       padding: 0;
     }
+    body {
+      box-sizing: border-box;
+      height: 100vh;
+      background-image: -webkit-gradient(linear, left top, left bottom, from(#fed59f), to(#ffe96f));
+    }
 
     #canvas {
       width: 100%;
       box-sizing: border-box;
-      border: 2px solid red;
     }
   </style>
 </head>
 
 <body>
   <script>
-    var app = new PIXI.Application(800, 600, {
-      backgroundColor: 0xf5f5f5,
+    // 游戏基础配置
+    const unit_size = { width: 50, height: 50 };
+    const table = { x: 10, y: 10 };
+
+    const app = new PIXI.Application(table.x * unit_size.width, table.y * unit_size.height, {
+      backgroundColor: 0xf1c16c,
       antialias: true
     });
     app.view.id = 'canvas';
@@ -34,377 +42,178 @@
 
     document.body.appendChild(app.view);
 
-    var container = new PIXI.Container();
+    let container = new PIXI.Container();
     app.stage.addChild(container);
 
 
-    var texture = PIXI.Texture.fromImage('./assets/images/block.jpg');
-    var textureButtonDown = PIXI.Texture.fromImage('./assets/images/block-active.jpg');
+    let texture = PIXI.Texture.fromImage('./assets/images/block.svg');
+    let textureButtonDown = PIXI.Texture.fromImage('./assets/images/block-active.jpg');
 
     // 创建 12 * 8 的方格
-    var Sprite = [];
-    // 过滤方格数组
-    var filter = [
-      {
-        x: 3,
-        y: 0
-      },
-      {
-        x: 4,
-        y: 0
-      },
-      {
-        x: 9,
-        y: 0
-      },
-      {
-        x: 10,
-        y: 0
-      },
-      {
-        x: 11,
-        y: 0
-      },
-      {
-        x: 0,
-        y: 1
-      },
-      {
-        x: 1,
-        y: 1
-      },
-      {
-        x: 3,
-        y: 1
-      },
-      {
-        x: 4,
-        y: 1
-      },
-      {
-        x: 5,
-        y: 1
-      },
-      {
-        x: 6,
-        y: 1
-      },
-      {
-        x: 7,
-        y: 1
-      },
-      {
-        x: 9,
-        y: 1
-      },
-      {
-        x: 10,
-        y: 1
-      },
-      {
-        x: 11,
-        y: 1
-      },
-      {
-        x: 12,
-        y: 1
-      },
-      {
-        x: 4,
-        y: 2
-      },
-      {
-        x: 5,
-        y: 2
-      },
-      {
-        x: 9,
-        y: 2
-      },
-      {
-        x: 11,
-        y: 2
-      },
-      {
-        x: 0,
-        y: 3
-      },
-      {
-        x: 1,
-        y: 3
-      },
-      {
-        x: 4,
-        y: 3
-      },
-      {
-        x: 5,
-        y: 3
-      },
-      {
-        x: 6,
-        y: 3
-      },
-      {
-        x: 11,
-        y: 3
-      },
-      {
-        x: 9,
-        y: 3
-      },
-      {
-        x: 8,
-        y: 3
-      },
-      {
-        x: 0,
-        y: 4
-      },
-      {
-        x: 1,
-        y: 4
-      },
-      {
-        x: 4,
-        y: 4
-      },
-      {
-        x: 5,
-        y: 4
-      },
-      {
-        x: 4,
-        y: 5
-      },
-      {
-        x: 5,
-        y: 5
-      },
-      {
-        x: 6,
-        y: 5
-      },
-      {
-        x: 8,
-        y: 5
-      },
-      {
-        x: 9,
-        y: 5
-      },
-      {
-        x: 11,
-        y: 5
-      },
-      {
-        x: 0,
-        y: 6
-      },
-      {
-        x: 2,
-        y: 6
-      },
-      {
-        x: 3,
-        y: 6
-      },
-      {
-        x: 8,
-        y: 6
-      },
-      {
-        x: 10,
-        y: 6
-      },
-      {
-        x: 11,
-        y: 6
-      },
-      {
-        x: 0,
-        y: 7
-      },
-      {
-        x: 2,
-        y: 7
-      },
-      {
-        x: 3,
-        y: 7
-      },
-      {
-        x: 4,
-        y: 7
-      },
-      {
-        x: 6,
-        y: 7
-      },
-      {
-        x: 7,
-        y: 7
-      },
-      {
-        x: 6,
-        y: 8
-      },
-      {
-        x: 7,
-        y: 8
-      },
-      {
-        x: 8,
-        y: 8
-      },
-      {
-        x: 10,
-        y: 8
-      },
-      {
-        x: 11,
-        y: 8
-      }
+    let Sprite = [];
+    // 方格二维数组
+    let unit_block = [
+      [
+        { y: 0, x: 1 },
+        { y: 0, x: 5 },
+        { y: 0, x: 6 },
+        { y: 0, x: 7 },
+        { y: 0, x: 8 }
+      ],
+      [
+        { y: 1, x: 1 },
+        { y: 1, x: 3 },
+        { y: 1, x: 8 }
+      ],
+      [
+        { y: 2, x: 1 },
+        { y: 2, x: 2 },
+        { y: 2, x: 3 },
+        { y: 2, x: 4 },
+        { y: 2, x: 6 },
+        { y: 2, x: 7 },
+        { y: 2, x: 8 }
+      ],
+      [
+        { y: 3, x: 3 },
+        { y: 3, x: 7 }
+      ],
+      [
+        { y: 4, x: 0 },
+        { y: 4, x: 1 },
+        { y: 4, x: 2 },
+        { y: 4, x: 3 },
+        { y: 4, x: 6 },
+        { y: 4, x: 7 },
+        { y: 4, x: 8 },
+        { y: 4, x: 9 }
+      ],
+      [
+        { y: 5, x: 1 },
+        { y: 5, x: 7 }
+      ],
+      [
+        { y: 6, x: 1 },
+        { y: 6, x: 4 },
+        { y: 6, x: 5 },
+        { y: 6, x: 6 },
+        { y: 6, x: 7 }
+      ],
+      [
+        { y: 7, x: 1 },
+        { y: 7, x: 4 }
+      ],
+      [
+        { y: 8, x: 1 },
+        { y: 8, x: 2 },
+        { y: 8, x: 3 },
+        { y: 8, x: 4 }
+      ],
+      [
+        { y: 9, x: 0 },
+        { y: 9, x: 1 }
+      ]
     ];
 
-    creatTable(12, 9, filter);
-    function creatTable(row, col, filter) {
-      var index = 0;
-      for(var x = 0; x < row; x++) {
-        creat: for (var y = 0; y < col; y++) {
-          console.log(index++);
-          var spriteContainer = new PIXI.Container();
-          var sprite = new PIXI.Sprite(texture);
+    // tips
+    let tips = {
+      '21222324': '赫拉利将告诉你人类是如何从动物变成上帝',
+      '40414243': '对两次世界大战的哲学思考，直面存在的危机',
+      '81828384': '看萧红写的这书名还以为是一条河的历史',
+      '9091': '鲁迅先生的短篇小说集，里面有《狂人日记》',
+      '64656667': '天下合久必分，分久必合',
+      '46474849': '与达尔文《物种起源论》及哥白尼《天体运行论》并称为人类三大思想革命的经典之作',
+      '262728': '三位艺术天才的非凡人生，罗曼罗兰著',
+      '5678': '证明你上过中学的又一个有力佐证，冰心奶奶如是说',
+      '11121': '我们都是故事外的人——阿尔贝·加缪',
+      '13233343': '一种追求简单生活的价值观',
+      '415161718191': '余华手下一本关于记忆的长篇小说',
+      '647484': '走遍万水千山，泪尽撒哈拉',
+      '2737475767': '达康书记别低头，皇冠会掉',
+      '81828': '中国四大名著之一'
+    }
+
+    creatTable(table, unit_block);
+    function creatTable(table, block) {
+      let row = table.x;
+      let col = table.y;
+      let index = 0;
+      for (let x = 0; x < row; x++) {
+        creat: for (let y = 0; y < col; y++) {
+          let spriteContainer = new PIXI.Container();
+          let sprite = new PIXI.Sprite(texture);
           sprite.interactive = true;
           sprite.buttonMode = true;
           sprite.isdown = false;
           sprite.isEmpty = false;
           sprite.anchor.set(0, 0);
-          sprite.width = 60;
-          sprite.height = 60;
+          sprite.width = unit_size.width;
+          sprite.height = unit_size.height;
           sprite.index = index++;
-          sprite.x = (x * 60) % (60 * row);
-          sprite.y = (y * 60) % (60 * col);
-
-          // 添加点击事件
-          sprite.on('pointerdown', function (e) {
-            console.log(this.index)
-            var x = this.x / 60;
-            var y = this.y / 60;
-            this.isdown = !this.isdown;
-
-            // toogle 点击
-            if (this.isdown) {
-              console.log(Sprite[x+1].children[0].isEmpty);
-              if (Sprite[this.index + 1].children[0].isEmpty) {
-                renderCol(Sprite, x, y);
-              } else {
-                renderRow(Sprite, x, y);
-              }
-            } else {
-              renderCol(Sprite, x, y);
-            }
-          });
-          
-          // 保存 精灵
+          sprite.x = (x * unit_size.width) % (60 * unit_size.width);
+          sprite.y = (y * unit_size.height) % (60 * unit_size.height);
           spriteContainer.addChild(sprite);
-          Sprite.push(spriteContainer);
 
-          for (var k = 0, len = filter.length; k < len; k++) {
-            if (filter[k].x === x && filter[k].y === y) {
-              sprite.isEmpty = true;
-              continue creat;
-            };
-          }
-
-          // 添加到舞台;
           container.addChild(spriteContainer);
         }
       }
     }
+    // function creatTable(row, col, filter) {
+    //   let index = 0;
+    //   for(let x = 0; x < row; x++) {
+    //     creat: for (let y = 0; y < col; y++) {
+    //       console.log(index++);
+    //       let spriteContainer = new PIXI.Container();
+    //       let sprite = new PIXI.Sprite(texture);
+    //       sprite.interactive = true;
+    //       sprite.buttonMode = true;
+    //       sprite.isdown = false;
+    //       sprite.isEmpty = false;
+    //       sprite.anchor.set(0, 0);
+    //       sprite.width = 60;
+    //       sprite.height = 60;
+    //       sprite.index = index++;
+    //       sprite.x = (x * 60) % (60 * row);
+    //       sprite.y = (y * 60) % (60 * col);
 
-    // 渲染选中行
-    function renderRow(spriteContainer, x, y) {
-      var row = [];
-      for (var j = 0; j < spriteContainer.length; j++) {
-        spriteContainer[j].children[0].texture = texture;
-        if (spriteContainer[j].children[0].y / 60 === y) {
-          row.push(spriteContainer[j].children[0]);
-        }
-      }
-      // 右边
-      for(var n = 0; n< row.length; n++) {
-        if (row[x+n] && row[x+n].isEmpty) break;
-        if (row[x+n]) {
-          row[x+n].texture = textureButtonDown;
-        }
-      }
-      
-      // 左边
-      for(var n = 0; n< row.length; n++) {
-        if (row[x-n] && row[x-n].isEmpty) break;
-        if (row[x-n]) {
-          row[x-n].texture = textureButtonDown;
-        }
-      }
-    }
+    //       // 添加点击事件
+    //       sprite.on('pointerdown', function (e) {
+    //         console.log(this.index)
+    //         let x = this.x / 60;
+    //         let y = this.y / 60;
+    //         this.isdown = !this.isdown;
 
-    // 渲染选中列
-    function renderCol(spriteContainer, x, y) {
-      var col = [];
-      for (var j = 0; j < spriteContainer.length; j++) {
-        spriteContainer[j].children[0].texture = texture;
-        if (spriteContainer[j].children[0].x / 60 === x) {
-          col.push(spriteContainer[j].children[0]);
-        }
-      }
+    //         // toogle 点击
+    //         if (this.isdown) {
+    //           console.log(Sprite[x+1].children[0].isEmpty);
+    //           if (Sprite[this.index + 1].children[0].isEmpty) {
+    //             renderCol(Sprite, x, y);
+    //           } else {
+    //             renderRow(Sprite, x, y);
+    //           }
+    //         } else {
+    //           renderCol(Sprite, x, y);
+    //         }
+    //       });
+          
+    //       // 保存 精灵
+    //       spriteContainer.addChild(sprite);
+    //       Sprite.push(spriteContainer);
 
-      // 下边
-      for(var n = 0; n< col.length; n++) {
-        if (col[y+n] && col[y+n].isEmpty) break;
-        if (col[y+n]) {
-          col[y+n].texture = textureButtonDown;
-        }
-      }
-      
-      // 上边
-      for(var n = 0; n< col.length; n++) {
-        if (col[y-n] && col[y-n].isEmpty) break;
-        if (col[y-n]) {
-          col[y-n].texture = textureButtonDown;
-        }
-      }
-    }
+    //       for (let k = 0, len = filter.length; k < len; k++) {
+    //         if (filter[k].x === x && filter[k].y === y) {
+    //           sprite.isEmpty = true;
+    //           continue creat;
+    //         };
+    //       }
 
-    fillBorder();
-    function fillBorder() {
-      var graphics = new PIXI.Graphics();
-      var tempSprite = [];
-
-      for (var i = 0, len = Sprite.length; i < len; i++) {
-        if (Sprite[i].isEmpty) continue;
-        tempSprite.push(Sprite[i]);
-      }
-      
-      graphics.lineColor = '#000';
-      graphics.lineWidth = 2;
-      graphics.width = container.width;
-      graphics.height = container.height;
-
-      for(var k = 0; k < tempSprite.length; k++) {
-        graphics.drawRect()
-      }
-      // set a fill and line style
-      // graphics.beginFill(0xFF3300);
-      // graphics.drawRect(0, 0, 150, 150)
-      // graphics.endFill();
-    }
-
+    //       // 添加到舞台;
+    //       container.addChild(spriteContainer);
+    //     }
+    //   }
+    // }
     container.x = 0;
     container.y = 0;
-    // console.log(container);
-
-    // app.stage.addChild(graphics);
   </script>
 </body>
 

@@ -28,7 +28,7 @@
           if (this.status === 200) {
             resolve(this.response);
           } else {
-            reject(new Error());
+            reject(this.status);
           }
         };
         const xhr = new XMLHttpRequest();
@@ -58,8 +58,9 @@
       img.onload = (e) => {
         document.body.appendChild(img);
       }
-    }, function (error) {
-      console.error('出错了', error);
+    }, function (status) {
+      console.error('出错了', status);
+      alert(status);
     });
   </script>
 </body>
