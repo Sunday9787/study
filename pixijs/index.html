@@ -147,27 +147,27 @@
       let width = unit_size.width * table.x * unit_size.width;
       let height = unit_size.width * table.y * unit_size.height;
       
-      let i = 0, k = 0;
+      let i = 0;
       while (i < row) {
         unit.push([]);
+        let k = 0;
         while(k < col) {
-          unit[i].push(0);
-          // let sprite = new PIXI.Sprite(unitTexture);
-          // let x = (i * unit_size.width) % width;
-          // let y = (k * unit_size.height) % height;
-          // sprite.interactive = true;
-          // sprite.buttonMode = true;
-          // sprite.isdown = false;
-          // sprite.isEmpty = false;
-          // sprite.anchor.set(0, 0);
-          // sprite.width = unit_size.width;
-          // sprite.height = unit_size.height;
-          // sprite.index = index++;
-          // sprite.x = x;
-          // sprite.y = y;
-          // unit[i].push(sprite);
-          // container.addChild(sprite);
-          // sprite.on('pointerdown', onClick);
+          let sprite = new PIXI.Sprite(unitTexture);
+          let x = (i * unit_size.width) % width;
+          let y = (k * unit_size.height) % height;
+          sprite.interactive = true;
+          sprite.buttonMode = true;
+          sprite.isdown = false;
+          sprite.isEmpty = false;
+          sprite.anchor.set(0, 0);
+          sprite.width = unit_size.width;
+          sprite.height = unit_size.height;
+          sprite.index = index++;
+          sprite.x = x;
+          sprite.y = y;
+          unit[i].push(sprite);
+          container.addChild(sprite);
+          sprite.on('pointerdown', onClick);
           k++;
         }
         i++;
