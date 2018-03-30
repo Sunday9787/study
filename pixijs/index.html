@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>pixijs</title>
   <script src="./js/pixi.min.js"></script>
-  <style>
+  <style type="text/css">
     body,
     html {
       margin: 0;
@@ -32,7 +32,8 @@
     // 游戏基础配置
     const unit_size = { width: 50, height: 50 };
     const table = { x: 10, y: 10 };
-
+    
+    // 创建画布
     const app = new PIXI.Application(table.x * unit_size.width, table.y * unit_size.height, {
       backgroundColor: 0xf1c16c,
       antialias: true
@@ -43,6 +44,7 @@
 
     document.body.appendChild(app.view);
 
+    // 创建舞台
     let container = new PIXI.Container();
     container.x = 0;
     container.y = 0;
@@ -52,9 +54,6 @@
 
     let unitTexture = PIXI.Texture.fromImage('./assets/images/block.svg');
     let unitBlockTexture = PIXI.Texture.fromImage('./assets/images/block-active.svg');
-
-    // 创建 12 * 8 的方格
-    let Sprite = [];
     // 方格二维数组
     let unit_block = [
       [
@@ -137,15 +136,74 @@
       '81828': '中国四大名著之一'
     }
 
-    // creatTable(table, unit_block);
+    // 创建 12 * 8 的方格
+    let unit = [];
+
+    creatTable(table, unit_block);
     function creatTable(table, block) {
       let row = table.x;
       let col = table.y;
       let index = 0;
-      for (let x = 0; x < row; x++) {
-        creat: for (let y = 0; y < col; y++) {
-          let spriteContainer = new PIXI.Container();
-          let sprite = new PIXI.Sprite(texture);
+      let width = unit_size.width * table.x * unit_size.width;
+      let height = unit_size.width * table.y * unit_size.height;
+      
+      let i = 0, k = 0;
+      while (i < row) {
+        unit.push([]);
+        while(k < col) {
+          unit[i].push(0);
+          // let sprite = new PIXI.Sprite(unitTexture);
+          // let x = (i * unit_size.width) % width;
+          // let y = (k * unit_size.height) % height;
+          // sprite.interactive = true;
+          // sprite.buttonMode = true;
+          // sprite.isdown = false;
+          // sprite.isEmpty = false;
+          // sprite.anchor.set(0, 0);
+          // sprite.width = unit_size.width;
+          // sprite.height = unit_size.height;
+          // sprite.index = index++;
+          // sprite.x = x;
+          // sprite.y = y;
+          // unit[i].push(sprite);
+          // container.addChild(sprite);
+          // sprite.on('pointerdown', onClick);
+          k++;
+        }
+        i++;
+      }
+      // for (let row = 0; row < table.y; row++) {
+      //   // 创建行
+      //   unit.push([]);
+      //   for (let col = 0; col < table.x; col++) {
+      //     let sprite = new PIXI.Sprite(unitTexture);
+      //     let x = (row * unit_size.width) % width;
+      //     let y = (col * unit_size.height) % height;
+      //     sprite.interactive = true;
+      //     sprite.buttonMode = true;
+      //     sprite.isdown = false;
+      //     sprite.isEmpty = false;
+      //     sprite.anchor.set(0, 0);
+      //     sprite.width = unit_size.width;
+      //     sprite.height = unit_size.height;
+      //     sprite.index = index++;
+      //     sprite.x = x;
+      //     sprite.y = y;
+      //     unit[row].push(sprite);
+      //     container.addChild(sprite);
+      //     sprite.on('pointerdown', onClick);
+      //   }
+      // }
+    }
+
+    function filters () {
+      // 过滤
+      for (let i = 0, len = block[row].length; i < len; i++) {
+        // console.log(col, block[row][i].x, row, block[row][i].y, col === block[row][i].x && row === block[row][i].y);
+        if (col === block[row][i].x && row === block[row][i].y) {
+          let sprite = new PIXI.Sprite(unitBlockTexture);
+          let x = (row * unit_size.width) % width;
+          let y = (col * unit_size.height) % height;
           sprite.interactive = true;
           sprite.buttonMode = true;
           sprite.isdown = false;
@@ -154,13 +212,21 @@
           sprite.width = unit_size.width;
           sprite.height = unit_size.height;
           sprite.index = index++;
-          sprite.x = (x * unit_size.width) % (60 * unit_size.width);
-          sprite.y = (y * unit_size.height) % (60 * unit_size.height);
-          spriteContainer.addChild(sprite);
-          // for (let k = 0, n = block[];)
-          container.addChild(spriteContainer);
+          sprite.x = x;
+          sprite.y = y;
+          break creat;
         }
       }
+    }
+    function onClick () {
+      this.isdown = !this.isdown;
+      if (this.isdown) {
+        this.texture = unitBlockTexture;
+      } else {
+        this.texture = unitTexture;
+      }
+      console.log(this);
+      console.log(this.x, this.y);
     }
 
     // 绘制边框
