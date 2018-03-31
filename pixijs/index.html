@@ -52,10 +52,12 @@
     app.stage.addChild(container);
 
 
-    let unitTexture = PIXI.Texture.fromImage('./assets/images/block.svg');
-    let unitBlockTexture = PIXI.Texture.fromImage('./assets/images/block-active.svg');
+    let unitTexture = PIXI.Texture.fromImage('./assets/images/unit.svg');
+    let unitBlockTexture = PIXI.Texture.fromImage('./assets/images/unit-block.svg');
+    let unitBlockActiveTexture = PIXI.Texture.fromImage('./assets/images/unit-block-active.svg');
+
     // 方格二维数组
-    let unit_block = [
+    let unit_data = [
       [
         { y: 0, x: 1 },
         { y: 0, x: 5 },
@@ -138,99 +140,162 @@
 
     // 创建 12 * 8 的方格
     let unit = [];
+    let unit_block = [];
 
-    creatTable(table, unit_block);
+    creatTable(table, unit_data);
+
     function creatTable(table, block) {
       let row = table.x;
       let col = table.y;
       let index = 0;
       let width = unit_size.width * table.x * unit_size.width;
       let height = unit_size.width * table.y * unit_size.height;
-      
+
       let i = 0;
       while (i < row) {
         unit.push([]);
         let k = 0;
         while(k < col) {
           let sprite = new PIXI.Sprite(unitTexture);
-          let x = (i * unit_size.width) % width;
-          let y = (k * unit_size.height) % height;
+          let x = (k * unit_size.width) % width;
+          let y = (i * unit_size.height) % height;
           sprite.interactive = true;
-          sprite.buttonMode = true;
-          sprite.isdown = false;
-          sprite.isEmpty = false;
+          sprite.isDown = false;
+          sprite.isEmpty = true;
           sprite.anchor.set(0, 0);
           sprite.width = unit_size.width;
           sprite.height = unit_size.height;
-          sprite.index = index++;
+          sprite.index = index++; // 唯一id
           sprite.x = x;
           sprite.y = y;
+          sprite.X = x / unit_size.width; // x坐标
+          sprite.Y = y / unit_size.height; // y 坐标
           unit[i].push(sprite);
           container.addChild(sprite);
-          sprite.on('pointerdown', onClick);
           k++;
         }
         i++;
       }
-      // for (let row = 0; row < table.y; row++) {
-      //   // 创建行
-      //   unit.push([]);
-      //   for (let col = 0; col < table.x; col++) {
-      //     let sprite = new PIXI.Sprite(unitTexture);
-      //     let x = (row * unit_size.width) % width;
-      //     let y = (col * unit_size.height) % height;
-      //     sprite.interactive = true;
-      //     sprite.buttonMode = true;
-      //     sprite.isdown = false;
-      //     sprite.isEmpty = false;
-      //     sprite.anchor.set(0, 0);
-      //     sprite.width = unit_size.width;
-      //     sprite.height = unit_size.height;
-      //     sprite.index = index++;
-      //     sprite.x = x;
-      //     sprite.y = y;
-      //     unit[row].push(sprite);
-      //     container.addChild(sprite);
-      //     sprite.on('pointerdown', onClick);
-      //   }
-      // }
-    }
 
-    function filters () {
-      // 过滤
-      for (let i = 0, len = block[row].length; i < len; i++) {
-        // console.log(col, block[row][i].x, row, block[row][i].y, col === block[row][i].x && row === block[row][i].y);
-        if (col === block[row][i].x && row === block[row][i].y) {
-          let sprite = new PIXI.Sprite(unitBlockTexture);
-          let x = (row * unit_size.width) % width;
-          let y = (col * unit_size.height) % height;
-          sprite.interactive = true;
-          sprite.buttonMode = true;
-          sprite.isdown = false;
-          sprite.isEmpty = false;
-          sprite.anchor.set(0, 0);
-          sprite.width = unit_size.width;
-          sprite.height = unit_size.height;
-          sprite.index = index++;
-          sprite.x = x;
-          sprite.y = y;
-          break creat;
+      // 添加事件
+      for (let row = 0, uLen = unit.length; row < uLen; row++) {
+        add: for(let col = 0, len = unit[row].length; col < len; col++) {
+          // console.log(unit[row][col].x / unit_size.width, unit[row][col].y / unit_size.height);
+          for (let k = 0, fLen = block[row].length; k < fLen; k++) {
+            if (block[row][k].x === col && block[row][k].y === row) {
+              unit[row][col].isEmpty = false;
+              unit[row][col].texture = unitBlockTexture;
+              unit[row][col].buttonMode = true;
+              unit[row][col].on('pointerdown', onClick);
+              unit_block.push(unit[row][col]);
+              continue add;
+            }
+          }
         }
       }
     }
-    function onClick () {
-      this.isdown = !this.isdown;
-      if (this.isdown) {
-        this.texture = unitBlockTexture;
+
+    function onClick() {
+      const X = this.X, Y = this.Y
+      console.log(X, Y);
+      let cols = [], rows = unit[Y];
+      // 重置默认
+      reset(unit_block);
+      if (this.selectRow) console.log(this.selectRow);
+
+      this.isDown = !this.isDown;
+      unit.forEach((row) => {
+        if (row[X].X === X) cols.push(row[X]);
+      });
+
+      console.log(cols.map(item => {
+        return {x: item.X, y: item.Y};
+      }));
+
+      if (this.selectRow !== undefined) {
+        if (this.isDown && this.selectRow) {
+          renderCol(X, Y, cols, rows);
+        } else {
+          renderRow(X, Y, rows, cols);
+        }
       } else {
-        this.texture = unitTexture;
+        if (this.isDown) {
+          renderRow(X, Y, rows, cols);
+        } else {
+          renderCol(X, Y, cols, rows);
+        }
       }
-      console.log(this);
-      console.log(this.x, this.y);
+    }
+
+    // 渲染行
+    function renderRow(x, y, row, col) {
+      let unit = aroundUnit(row, x, y, true);
+      let len = unit.length;
+      // 如果临近元素为为空 (1 代表自身) 渲染列
+      if (len <= 1) {
+        renderCol(x, y, col, row);
+        return;
+      }
+
+      unit.forEach((item) => {
+        item.texture = unitBlockActiveTexture;
+        item.selectRow = true;
+      });
+
+      // var unit = stor(unit);
+      // selectUnit.isRow = true;
+      // selectUnit.unit = unit;
+    }
+
+    // 渲染列
+    function renderCol(x, y, col, row) {
+      var unit = aroundUnit(col, x, y, false);
+      var len = unit.length;
+      // 如果临近元素为空 (1 代表自身) 渲染行
+      if (len <= 1) {
+        renderRow(x, y, row, col, true);
+        return;
+      }
+      unit.forEach((item) => {
+        item.texture = unitBlockActiveTexture;
+        item.selectRow = false;
+      });
+
+      // var unit = stor(unit);
+      // selectUnit.isRow = false;
+      // selectUnit.unit = unit;
+    }
+
+    // 获取相邻元素  arry 一维数组 行 或者 列
+    function aroundUnit(arry, x, y, selectRow) {
+      let n = selectRow ? x : y;
+      let len = arry.length;
+      let unit = [];
+      for (let i = 0; i < len; i++) {
+        if (arry[n + i] && arry[n + i].isEmpty) break;
+        if (arry[n + i]) {
+          unit.push(arry[n + i]);
+        };
+      }
+
+      for (let i = 1; i < len; i++) {
+        if (arry[n - i] && arry[n - i].isEmpty) break;
+        if (arry[n - i]) unit.push(arry[n - i]);
+      }
+      return unit;
+    }
+
+    // 重置视图
+    function reset(unit) {
+      unit.forEach((item) => {
+        item.isDown = false;
+        item.texture = unitBlockTexture;
+      });
     }
 
     // 绘制边框
-    drawBorder(table, unit_block, container)
+    drawBorder(table, unit_data, container);
+
     function drawBorder(table, block, ctx) {
       let row = table.x, col = table.y;
       let containerWidth = table.x * unit_size.width, containerHeight = table.y * unit_size.height;
