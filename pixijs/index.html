@@ -180,13 +180,19 @@
 
       // 绘制表格
       creatTable(table, unit_data, function () {
-        setTimeout(() => {
-          mask.innerText = '初始化完成,祝您玩的开心';
+        const initDown = new Promise((resolve, reject) => {
           setTimeout(() => {
-            mask.classList.add('mask-out');
-            console.log('初始化完成');
-          }, 1500)
-        }, 2000);
+            mask.innerText = '初始化完成,祝您玩的开心';
+            resolve();
+          }, 1000);
+        });
+
+        initDown.then(() => {
+            setTimeout(() => {
+              mask.classList.add('mask-out');
+              console.log('初始化完成');
+            }, 1500);
+        })
       });
     }
 
