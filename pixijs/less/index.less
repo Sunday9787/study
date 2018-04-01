@@ -1,0 +1,77 @@
+// out: ../css/index.css, compress: true, sourceMap: true
+
+/*
+ * @Author: Edward
+ * @Date: 2018-04-01 13:46:09
+ * @Last Modified by: Edward
+ * @Email: 809537981@qq.com
+ * @Last Modified time: 2018-04-01 17:35:10
+ */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::before,
+::after {
+  box-sizing: inherit;
+}
+
+body.game-wrapper {
+  height: 100vh;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#fed59f),
+    to(#ffe96f)
+  );
+} 
+
+.fl {
+  float: left;
+}
+.oh {
+  overflow: hidden;
+}
+
+.game-container {
+  position: relative;
+  padding-top: 100%;
+  background-color: #f1c16c;
+  .mask {
+    display: flex;
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    will-change: contents;
+    background-color: #f1c16c;
+    transition-duration: 300ms;
+    &-in {
+      opacity: 1;
+      transition-duration: 300ms;
+      transition-timing-function: ease-in;
+    }
+    &-out {
+      opacity: 0;
+      background-color: transparent;
+      transition-duration: 300ms;
+      transition-timing-function: ease-out;
+    }
+  }
+}
+
+#game {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}

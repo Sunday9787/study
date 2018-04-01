@@ -1,62 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./css/index.css">
   <title>pixijs</title>
-  <script src="./js/pixi.min.js"></script>
-  <style type="text/css">
-    body,
-    html {
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      box-sizing: border-box;
-      height: 100vh;
-      background-image: -webkit-gradient(linear, left top, left bottom, from(#fed59f), to(#ffe96f));
-    }
-
-    #canvas {
-      width: 100%;
-      box-sizing: border-box;
-    }
-  </style>
 </head>
 
-<body>
+<body class="game-wrapper">
+  <div>
+    <p class="fl">提示：</p>
+    <p id="tips" class="oh">赫拉利将告诉你人类是如何从动物变成上帝</p>
+  </div>
+  <div class="game-container">
+    <canvas id="game" width="500" height="500"></canvas>
+    <div class="mask">初始化中...</div>
+  </div>
+  <script src="./js/pixi.min.js"></script>
   <script>
     // 游戏基础配置
     const unit_size = { width: 50, height: 50 };
     const table = { x: 10, y: 10 };
-    
-    // 创建画布
-    const app = new PIXI.Application(table.x * unit_size.width, table.y * unit_size.height, {
-      backgroundColor: 0xf1c16c,
-      antialias: true
-    });
-    app.view.id = 'canvas';
-
-    app.stage.interactive = true;
-
-    document.body.appendChild(app.view);
-
-    // 创建舞台
-    let container = new PIXI.Container();
-    container.x = 0;
-    container.y = 0;
-
-    app.stage.addChild(container);
-
-
-    let unitTexture = PIXI.Texture.fromImage('./assets/images/unit.svg');
-    let unitBlockTexture = PIXI.Texture.fromImage('./assets/images/unit-block.svg');
-    let unitBlockActiveTexture = PIXI.Texture.fromImage('./assets/images/unit-block-active.svg');
-
-    // 方格二维数组
+    const gameContainer = document.querySelector('.game-container');
+    const mask = document.querySelector('.mask');
+    const tipsEl = document.querySelector('#tips');
+    // 需要渲染的方格二维数组
     let unit_data = [
       [
         { y: 0, x: 1 },
@@ -139,12 +109,88 @@
     }
 
     // 创建 12 * 8 的方格
-    let unit = [];
-    let unit_block = [];
+    const unit = []; // 所有单元格 二维数组
+    const unit_block = []; // 需要渲染的单元格
+    const selectUnit = {isRow: true, unit: []}; // 选中后的单元格
 
-    creatTable(table, unit_data);
+    // 创建材质
+    let unitTexture = PIXI.Texture.fromImage('./assets/images/unit.svg');
+    let unitBlockTexture = PIXI.Texture.fromImage('./assets/images/unit-block.svg');
+    let unitBlockActiveTexture = PIXI.Texture.fromImage('./assets/images/unit-block-active.svg');
 
-    function creatTable(table, block) {
+    // 创建舞台
+    let container = new PIXI.Container();
+    container.x = 0;
+    container.y = 0;
+    
+    // es6
+    // setTimeout('initGame()', 800);
+    // function initGame() {
+    //   const promise = new Promise((resolve, reject) => {
+    //     mask.classList.add('mask-in');
+    //     setTimeout(() => {
+    //       resolve();
+    //     }, 300);
+    //   });
+
+    //   promise.then(() => {
+    //     // 创建画布
+    //     const app = new PIXI.Application(table.x * unit_size.width, table.y * unit_size.height, {
+    //       backgroundColor: 0xf1c16c,
+    //       antialias: true,
+    //       view: document.querySelector('#game')
+    //     });
+    //     app.stage.interactive = true;
+    //     app.stage.addChild(container);
+
+    //     // 绘制表格
+    //     creatTable(table, unit_data, function () {
+    //       setTimeout(() => {
+    //         mask.innerText = '初始化完成,祝您玩的开心';
+    //         setTimeout(() => {
+    //           mask.classList.add('mask-out');
+    //           console.log('初始化完成');
+    //         }, 1500)
+    //       }, 2000);
+    //     });
+    //   });
+    // }
+
+    // es7
+    setTimeout('initGame()', 800);
+
+    async function initGame() {
+      await (function () {
+        return new Promise((resolve, reject) => {
+          mask.classList.add('mask-in');
+          setTimeout(() => {
+            resolve();
+          }, 300);
+        })
+      })();
+
+      // 创建画布
+      const app = new PIXI.Application(table.x * unit_size.width, table.y * unit_size.height, {
+        backgroundColor: 0xf1c16c,
+        antialias: true,
+        view: document.querySelector('#game')
+      });
+      app.stage.interactive = true;
+      app.stage.addChild(container);
+
+      // 绘制表格
+      creatTable(table, unit_data, function () {
+        setTimeout(() => {
+          mask.innerText = '初始化完成,祝您玩的开心';
+          setTimeout(() => {
+            mask.classList.add('mask-out');
+            console.log('初始化完成');
+          }, 1500)
+        }, 2000);
+      });
+    }
+
+    function creatTable(table, block, callBack) {
       let row = table.x;
       let col = table.y;
       let index = 0;
@@ -193,24 +239,21 @@
           }
         }
       }
+      // 绘制边框
+      drawBorder(table, unit_data, container);
+      typeof callBack === 'function' ? callBack() : void (0);
     }
 
     function onClick() {
       const X = this.X, Y = this.Y
-      console.log(X, Y);
       let cols = [], rows = unit[Y];
       // 重置默认
       reset(unit_block);
-      if (this.selectRow) console.log(this.selectRow);
 
       this.isDown = !this.isDown;
       unit.forEach((row) => {
         if (row[X].X === X) cols.push(row[X]);
       });
-
-      console.log(cols.map(item => {
-        return {x: item.X, y: item.Y};
-      }));
 
       if (this.selectRow !== undefined) {
         if (this.isDown && this.selectRow) {
@@ -225,6 +268,13 @@
           renderCol(X, Y, cols, rows);
         }
       }
+
+      let key = '';
+      selectUnit.unit.forEach((item) => {
+        key += item.index.toString();
+      });
+      tipsEl.innerText = tips[key];
+      console.log(key);
     }
 
     // 渲染行
@@ -242,15 +292,15 @@
         item.selectRow = true;
       });
 
-      // var unit = stor(unit);
-      // selectUnit.isRow = true;
-      // selectUnit.unit = unit;
+      let storUnit = stor(unit);
+      selectUnit.isRow = true;
+      selectUnit.unit = storUnit;
     }
 
     // 渲染列
     function renderCol(x, y, col, row) {
-      var unit = aroundUnit(col, x, y, false);
-      var len = unit.length;
+      let unit = aroundUnit(col, x, y, false);
+      let len = unit.length;
       // 如果临近元素为空 (1 代表自身) 渲染行
       if (len <= 1) {
         renderRow(x, y, row, col, true);
@@ -261,9 +311,9 @@
         item.selectRow = false;
       });
 
-      // var unit = stor(unit);
-      // selectUnit.isRow = false;
-      // selectUnit.unit = unit;
+      let storUnit = stor(unit);
+      selectUnit.isRow = false;
+      selectUnit.unit = storUnit;
     }
 
     // 获取相邻元素  arry 一维数组 行 或者 列
@@ -293,8 +343,17 @@
       });
     }
 
-    // 绘制边框
-    drawBorder(table, unit_data, container);
+    // 排序
+    function stor(unit) {
+      function compare(property){
+        return function(a, b){
+          var value1 = a[property];
+          var value2 = b[property];
+          return value1 - value2;
+        }
+      }
+      return unit.sort(compare('index'));
+    }
 
     function drawBorder(table, block, ctx) {
       let row = table.x, col = table.y;
