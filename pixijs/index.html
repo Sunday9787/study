@@ -191,7 +191,7 @@
             setTimeout(() => {
               mask.classList.add('mask-out');
               console.log('初始化完成');
-            }, 1500);
+            }, 500);
         })
       });
     }
@@ -238,7 +238,7 @@
               unit[row][col].isEmpty = false;
               unit[row][col].texture = unitBlockTexture;
               unit[row][col].buttonMode = true;
-              unit[row][col].on('pointerdown', onClick);
+              unit[row][col].on('tap', onClick);
               unit_block.push(unit[row][col]);
               continue add;
             }
