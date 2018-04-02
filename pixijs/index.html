@@ -167,7 +167,7 @@
             resolve();
           }, 300);
         })
-      });
+      })();
 
       // 创建画布
       const app = new PIXI.Application(table.x * unit_size.width, table.y * unit_size.height, {
@@ -187,7 +187,7 @@
               resolve();
             }, 1000);
             });
-        });
+        })();
 
         await setTimeout(() => {
           mask.classList.add('mask-out');
@@ -286,10 +286,7 @@
         }
       }
 
-      let key = '';
-      selectUnit.unit.forEach((item) => {
-        key += item.index.toString();
-      });
+      let key = selectUnit.unit.reduce((total, num) => total + num.toString());
       tipsEl.innerText = tips[key];
       console.log(key);
     }
