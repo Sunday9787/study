@@ -179,6 +179,20 @@
       app.stage.addChild(container);
 
       // 绘制表格
+<<<<<<< HEAD
+      creatTable(table, unit_data, function () {
+        const initDown = new Promise((resolve, reject) => {
+          setTimeout(() => {
+            mask.innerText = '初始化完成,祝您玩的开心';
+            resolve();
+          }, 1000);
+        }).then(() => {
+          setTimeout(() => {
+            mask.classList.add('mask-out');
+            console.log('初始化完成');
+          }, 800);
+        });
+=======
       creatTable(table, unit_data, async function () {
         await (() => {
           return new Promise((resolve, reject) => {
@@ -204,6 +218,7 @@
         //       console.log('初始化完成');
         //     }, 500);
         // });
+>>>>>>> 677eb843cb8f1d8eceab4bc1ed531770d3906107
       });
     }
 
