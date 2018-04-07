@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, iinitial-scale=1.0, maximum-scale=1, minimum-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./css/index.css">
   <title>pixijs</title>
@@ -185,14 +185,12 @@
             mask.innerText = '初始化完成,祝您玩的开心';
             resolve();
           }, 1000);
+        }).then(() => {
+          setTimeout(() => {
+            mask.classList.add('mask-out');
+            console.log('初始化完成');
+          }, 800);
         });
-
-        initDown.then(() => {
-            setTimeout(() => {
-              mask.classList.add('mask-out');
-              console.log('初始化完成');
-            }, 500);
-        })
       });
     }
 
