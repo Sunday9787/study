@@ -160,7 +160,7 @@
     setTimeout('initGame()', 800);
 
     async function initGame() {
-      await (function () {
+      await (() => {
         return new Promise((resolve, reject) => {
           mask.classList.add('mask-in');
           setTimeout(() => {
@@ -179,6 +179,7 @@
       app.stage.addChild(container);
 
       // 绘制表格
+<<<<<<< HEAD
       creatTable(table, unit_data, function () {
         const initDown = new Promise((resolve, reject) => {
           setTimeout(() => {
@@ -191,6 +192,33 @@
             console.log('初始化完成');
           }, 800);
         });
+=======
+      creatTable(table, unit_data, async function () {
+        await (() => {
+          return new Promise((resolve, reject) => {
+            setTimeout(() => {
+              mask.innerText = '初始化完成,祝您玩的开心';
+              resolve();
+            }, 1000);
+            });
+        })();
+
+        await setTimeout(() => {
+          mask.classList.add('mask-out');
+          console.log('初始化完成');
+        }, 500);
+        // const initDown = new Promise((resolve, reject) => {
+        //   setTimeout(() => {
+        //     mask.innerText = '初始化完成,祝您玩的开心';
+        //     resolve();
+        //   }, 1000);
+        // }).then(() => {
+        //     setTimeout(() => {
+        //       mask.classList.add('mask-out');
+        //       console.log('初始化完成');
+        //     }, 500);
+        // });
+>>>>>>> 677eb843cb8f1d8eceab4bc1ed531770d3906107
       });
     }
 
@@ -273,10 +301,7 @@
         }
       }
 
-      let key = '';
-      selectUnit.unit.forEach((item) => {
-        key += item.index.toString();
-      });
+      let key = selectUnit.unit.reduce((total, num) => total + num.toString());
       tipsEl.innerText = tips[key];
       console.log(key);
     }
