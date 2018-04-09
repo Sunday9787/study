@@ -286,7 +286,7 @@
         }
       }
 
-      let key = selectUnit.unit.reduce((total, num) => total + num.toString());
+      let key = selectUnit.unit.reduce((total, unit) => { return total + unit.index.toString();}, '');
       tipsEl.innerText = tips[key];
       console.log(key);
     }
