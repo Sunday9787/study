@@ -6,3 +6,5 @@
 * @Email by: 809537981@qq.com
 * @Last Modified time: 2018-04-10 16:43:42
  */
+
+ echo '<a href="javascript:;" class="btn btn-primary">第二页</a>';

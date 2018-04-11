@@ -63,17 +63,17 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="container">
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
-          <a href="javascript:;" class="btn btn-primary" data-pjax data-pjax-container="">第一页</a>
+          <a href="./first.html" class="btn btn-primary" data-pjax data-pjax-container=".row">第一页</a>
         </div>
         <div class="col-md-4">
-          <a href="javascript:;" class="btn btn-primary" data-pjax data-pjax-container="">第二页</a>
+          <a href="./second.html" class="btn btn-primary" data-pjax data-pjax-container=".row">第二页</a>
         </div>
         <div class="col-md-4">
-          <a href="javascript:;" class="btn btn-primary" data-pjax data-pjax-container="">第三页</a>
+          <a href="./third.html" class="btn btn-primary" data-pjax data-pjax-container=".row">第三页</a>
         </div>
       </div>
 
@@ -86,15 +86,44 @@
   <footer class="container">
     <p>&copy; Company 2017-2018</p>
   </footer>
-  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous" type="text/javascript"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js" type="text/javascript"></script>
   <script src="https://unpkg.com/nprogress@0.2.0/nprogress.js" type="text/javascript"></script>
   <script src="./js/jquery.pjax.js" type="text/javascript"></script>
-  <script type="text/javascript">
-    $('.container').on('click', '.btn[data-pjax]', function (e) {
-      NProgress.start();
-      console.log(this);
+  <script src="./js/pjax.js"></script>
+  <!-- <script type="text/javascript">
+    history.replaceState({ title: document.title, url: document.URL }, null, document.URL);
+
+    // 处理前进 后退
+    $(window).on('popstate', function (e) {
+      var state = history.state;
+      console.log(state);
+      pjax(state.url, true);
     });
-  </script>
+
+    function pjax(url, replaceState) {
+      $.get(url, function (str) {
+        var $page = $(str);
+        var title = $page.filter('title').text();
+        var $content = $page.find('#container').html();
+        console.log($content);
+        document.title = title;
+        $('#container').html($content);
+        history[replaceState ? 'replaceState' : 'pushState']({ title: title, url: url }, null, url);
+        NProgress.done();
+      });
+    }
+
+    $('.container').on('click', '.btn[data-pjax]', function (e) {
+      NProgress.inc();
+      var url = this.href;
+      // console.log(this);
+      // if (!/^\/($|(\w+\/)+)/.test(href)) { // 非相对路径退出操作
+      //   return true;
+      // }
+      pjax(url);
+      e.preventDefault();
+    });
+  </script> -->
 </body>
 
 </html>
