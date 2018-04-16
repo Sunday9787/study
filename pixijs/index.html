@@ -10,13 +10,17 @@
 </head>
 
 <body class="game-wrapper">
+  <div class="game-container">
+    <canvas id="game" width="500" height="500"></canvas>
+    <div class="mask">初始化中...</div>
+  </div>
   <div>
     <p class="fl">提示：</p>
     <p id="tips" class="oh">赫拉利将告诉你人类是如何从动物变成上帝</p>
   </div>
-  <div class="game-container">
-    <canvas id="game" width="500" height="500"></canvas>
-    <div class="mask">初始化中...</div>
+  <div class="input-container">
+    <input type="text" class="game-input">
+    <a href="javascript:;" class="game-input-send">确认</a>
   </div>
   <script src="./js/pixi.min.js"></script>
   <script>
