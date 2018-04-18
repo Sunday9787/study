@@ -3,9 +3,10 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, iinitial-scale=1.0, maximum-scale=1, minimum-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./css/index.css">
+  <script src="http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
   <title>pixijs</title>
 </head>
 
@@ -19,7 +20,7 @@
     <p id="tips" class="oh">赫拉利将告诉你人类是如何从动物变成上帝</p>
   </div>
   <div class="input-container">
-    <input type="text" class="game-input">
+    <input type="text" class="game-input" id="game-input">
     <a href="javascript:;" class="game-input-send">确认</a>
   </div>
   <script src="./js/pixi.min.js"></script>
@@ -405,6 +406,24 @@
         n++
       }
     }
+
+    const style = new PIXI.TextStyle({
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
+        fontSize: 40,
+        fontWeight: '500',
+        fill: ['#333'], // gradient
+    });
+    // 输入
+    $('.input-container').on('click', '.game-input-send', function (e) {
+      let input = document.querySelector('#game-input');
+      [...input.value].forEach((item, index) => {
+        let richText = new PIXI.Text(item, style);
+        richText.anchor.set(0.5);
+        richText.x = selectUnit.unit[index].width / 2;
+        richText.y = selectUnit.unit[index].height / 2;
+        selectUnit.unit[index].addChild(richText)
+      });
+    });
   </script>
 </body>
 
