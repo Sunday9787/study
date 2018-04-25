@@ -5,8 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="./css/index.css">
-  <script src="http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="./css/index.css">
+  <link rel="stylesheet" type="text/css" href="./css/reset.css">
+  <link rel="stylesheet" type="text/css" href="./css/common.css">
+  <script type="text/javascript" src="http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
   <title>pixijs</title>
 </head>
 
@@ -23,7 +25,7 @@
     <input type="text" class="game-input" id="game-input">
     <a href="javascript:;" class="game-input-send">确认</a>
   </div>
-  <script src="./js/pixi.min.js"></script>
+  <script type="text/javascript" src="./js/pixi.min.js"></script>
   <script>
     // 游戏基础配置
     const unit_size = { width: 50, height: 50 };
@@ -422,8 +424,20 @@
     // 输入
     $('.input-container').on('click', '.game-input-send', function (e) {
       let input = document.querySelector('#game-input');
-      [...input.value].forEach((item, index) => {
-        let richText = new PIXI.Text(item, fontStyle);
+      if (input.value.length > selectUnit.unit.length) {
+        alert(`最大可输入字数为${selectUnit.unit.length}个`);
+        return false;
+      }
+      [...input.value].forEach((chart, index) => {
+        if (selectUnit.unit[index].parent.children.length > 1) {
+          selectUnit.unit[index].parent.children.forEach((sprite, i) => {
+            if (sprite.type === 'text') sprite.text = chart;
+          });
+          return false;
+        }
+
+        let richText = new PIXI.Text(chart, fontStyle);
+        richText.type = 'text';
         richText.anchor.set(0.5);
         richText.x = selectUnit.unit[index].parent.width / 2;
         richText.y = selectUnit.unit[index].parent.height / 2;

@@ -1,0 +1,204 @@
+// out: ../css/reset.css, compress: false, sourceMap: true
+
+@charset "utf-8";
+
+@import "./color.less";
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+fieldset,
+button,
+input,
+option,
+textarea,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: #fff;
+  word-break: break-all;
+  height: 100%;
+  font-size: 10vw;
+  overflow: hidden;
+}
+
+body {
+  position: relative;
+  padding-top: 1.40625rem;
+  height: 100%;
+  max-width: 32rem;
+  font-size: .4375rem;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: #fff;
+  -webkit-overflow-scrolling: touch;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.4;
+  color: @fontColor;
+}
+
+h4,
+h5,
+h6 {
+  font-size: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.7;
+  font-weight: 500;
+}
+
+i,
+address,
+cite,
+dfn,
+em,
+var {
+  font-style: normal;
+}
+
+small {
+  font-size: 12px;
+}
+
+ul,
+ol,
+dl {
+  list-style: none;
+}
+
+ul,
+ol,
+dl,
+menu {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: @fontColor;
+  text-decoration: none;
+  outline: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+fieldset,
+img {
+  border: none;
+  max-width: 100%;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+  transform: translateZ(0);
+}
+
+/* 重置表单元素 */
+
+input,
+select,
+textarea {
+  font-size: inherit;
+  display: inline-block;
+  box-sizing: border-box;
+  font-size: inherit;
+  outline: none;
+  vertical-align: middle;
+  border: 1px @bdColor solid;
+  -webkit-appearance: none;
+  &:focus {
+    outline: 2px @baseColor solid;
+  }
+}
+
+/*去除谷歌背景*/
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  background-color: rgb(250, 255, 189);
+  background-image: none;
+  color: rgb(0, 0, 0);
+}
+
+input[disabled],
+input[readonly],
+button[disabled],
+textarea[readonly] {
+  opacity: 1;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+textarea {
+  padding: 0.1rem;
+}
+
+input[type=button],
+button {
+  cursor: pointer;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: lighten(@fontColor, 60%);
+}
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: lighten(@fontColor, 60%);
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  color: lighten(@fontColor, 60%);
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: lighten(@fontColor, 60%);
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+hr {
+  display: block;
+  border: 0;
+  border-top: 1px @bdColor solid;
+}
