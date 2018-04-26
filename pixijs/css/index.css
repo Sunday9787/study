@@ -12,6 +12,7 @@
 */
 body.game-wrapper {
   height: 100vh;
+  padding-top: 0;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#fed59f), to(#ffe96f));
 }
 .game-container {
@@ -21,6 +22,7 @@ body.game-wrapper {
 }
 .game-container .mask {
   display: -webkit-box;
+  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   position: absolute;
@@ -30,9 +32,11 @@ body.game-wrapper {
   width: 100%;
   height: 100%;
   -webkit-box-pack: center;
+  -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
+  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   opacity: 0;
@@ -57,8 +61,17 @@ body.game-wrapper {
   -webkit-transition-timing-function: ease-out;
           transition-timing-function: ease-out;
 }
+.time-container {
+  margin: .3125rem 0;
+  text-align: center;
+}
+.tips-container {
+  font-size: .375rem;
+  margin: .3125rem 0;
+}
 #game {
   position: absolute;
+  z-index: 1;
   top: 0;
   left: 0;
   width: 100%;
@@ -69,47 +82,57 @@ body.game-wrapper {
   left: 0;
   box-sizing: border-box;
   display: -webkit-box;
+  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   padding: 2%;
   width: 100%;
   -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
   -webkit-box-align: center;
+  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   background-color: #fff;
 }
 .game-input {
   display: -webkit-box;
+  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   height: 1.1rem;
-  -ms-flex-preferred-size: 78%;
-      flex-basis: 78%;
+  -webkit-flex-basis: 78%;
+      -ms-flex-preferred-size: 78%;
+          flex-basis: 78%;
   padding: .125rem .1875rem;
   -webkit-box-align: center;
+  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   background-color: #fff;
-  border: .03125rem solid #e8e8e8;
+  border: 1px solid #e8e8e8;
   /*1px*/
 }
 .game-input-send {
   display: -webkit-box;
+  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
+  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   -webkit-box-pack: center;
+  -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
   height: 1.1rem;
-  -ms-flex-preferred-size: 20%;
-      flex-basis: 20%;
-  border-radius: .125rem;
+  -webkit-flex-basis: 20%;
+      -ms-flex-preferred-size: 20%;
+          flex-basis: 20%;
+  border-radius: 4px;
   color: #fff;
   background-color: #3f9efd;
   -webkit-transition-duration: 300ms;

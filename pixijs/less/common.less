@@ -4,12 +4,155 @@
  * @Date: 2018-04-25 22:35:45
  * @Last Modified by: Edward
  * @Email: 809537981@qq.com
- * @Last Modified time: 2018-04-25 22:38:46
+ * @Last Modified time: 2018-04-26 15:48:25
  */
+ @charset "utf-8";
+
+ @import "./color.less";
+ @import "./utils.less";
 
 .fl {
   float: left;
 }
 .oh {
   overflow: hidden;
+}
+.ta-ct {
+  text-align: center;
+}
+
+// 模态框
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1000;
+  width: 8.59375rem;
+  margin-left: -8.59375rem / 2;
+  height: auto;
+  opacity: 0;
+  border-radius: .125rem;
+  background-color: #fff;
+  transform: translate3d(0,0,0) scale(1.185);
+  transition-property: transform, opacity;
+  &&-in {
+    opacity: 1;
+    transition-duration: 400ms;
+    transform: translate3d(0,0,0) scale(1);
+  }
+  &&-out {
+    opacity: 0;
+    transform: translate3d(0,0,0) scale(.815);
+  }
+  &-head {
+    position: relative;
+    padding: .40625rem .40625rem 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+  }
+  &-content {
+    padding: .40625rem;
+  }
+  &-footer {
+    padding: 0 .40625rem .40625rem;
+  }
+  &-close {
+    font-size: 17px;
+  }
+}
+
+.modal-overlay, .overlay {
+  position: absolute;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition-duration: 400ms;
+  background-color: rgba(0, 0, 0, .4);
+  &-visible {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+
+.toast {
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  z-index: 1100;
+  color: #fff;
+  font-size: 14px;
+  background: rgba(0,0,0,.75);
+  transition-duration: 450ms;
+  transition-property: transform,opacity;
+  transform: translate3d(-50%, -50%, 0);
+  &-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .375rem .46875rem;
+  }
+  &.toast-center {
+    width: auto;
+    left: 50%;
+    top: 50%;
+    opacity: 0;
+    border-radius: 8px;
+    transition-duration: 450ms;
+    transition-property: transform,opacity;
+
+    &.modal-in {
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0);
+    }
+  }
+}
+
+// 弹出层
+
+.pupup {
+  position: absolute;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  opacity: 0;
+  background: rgba(0,0,0,.75);
+  transition-duration: 400ms;
+  transform: translate3d(-50%, -50%, 0);
+  &.pupup-in {
+    opacity: 1;
+    transform: translate3d(-50%, -50%, 0);
+  }
+}
+
+// form
+.input {
+  display: block;
+  border-radius: 4px;
+  padding: 0 .15625rem;
+  height: 100%;
+  width: 100%;
+  transition-duration: 300ms;
+  transition-property: border-color;
+  &:focus {
+    border-color: darken(@bdColor, 10%);
+  }
+}
+
+.btn {
+  display: inline-block;
+  padding: .234375rem 0;
+  .ta-ct;
+  color: #fff;
+  background-color: @baseRed;
+  border-radius: 4px;
+  &-full {
+    width: 100%;
+  }
 }

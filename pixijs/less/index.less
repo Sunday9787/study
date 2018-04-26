@@ -16,6 +16,7 @@
 
 body.game-wrapper {
   height: 100vh;
+  padding-top: 0;
   background-image: -webkit-gradient(
     linear,
     left top,
@@ -58,12 +59,28 @@ body.game-wrapper {
   }
 }
 
+.time {
+  &-container {
+    margin: .3125rem 0;
+    text-align: center;
+  }
+}
+
+.tips {
+  &-container {
+    font-size: .375rem;
+    margin: .3125rem 0;
+  }
+}
+
 #game {
   position: absolute;
+  z-index: 1;
   top: 0;
   left: 0;
   width: 100%;
 }
+
 .input-container {
   position: absolute;
   bottom: 0;
@@ -76,6 +93,7 @@ body.game-wrapper {
   align-items: center;
   background-color: #fff;
 }
+
 .game-input {
   display: flex;
   height: 1.1rem;
@@ -83,14 +101,14 @@ body.game-wrapper {
   padding: .125rem .1875rem;
   align-items: center;
   background-color: #fff;
-  border: .03125rem solid #e8e8e8; /*1px*/
+  border: 1px solid #e8e8e8; /*1px*/
   &-send {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 1.1rem;
     flex-basis: 20%;
-    border-radius: .125rem;
+    border-radius: 4px;
     color: #fff;
     background-color: rgba(63, 158, 253, 1);
     transition-duration: 300ms;
