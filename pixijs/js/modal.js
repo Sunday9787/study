@@ -222,6 +222,7 @@
     this.content = options.content;
     this.success = options.success;
     this.skin = options.skin;
+    this.position = options.position || 'center';
     this.mask = options.mask || false;
     this.init();
   }
@@ -234,7 +235,7 @@
   pupup.prototype.close = function () {
     // 异步执行动画
     setTimeout(function () {
-      this.modal.classList.add('modal-out');
+      this.modal.classList.remove('pupup-in');
       this.modalOverlay.classList.remove('modal-overlay-visible');
     }.bind(this), 0);
     setTimeout(function () {
@@ -246,15 +247,22 @@
   pupup.prototype.creatModalOverlay = Modal.prototype.creatModalOverlay;
 
   pupup.prototype.createPupup = function () {
-    var Pupup = document.createElement('div');
-    Pupup.className = 'pupup';
-    Pupup.innerHTML = this.content;
-    if (typeof this.skin === 'string' && this.skin !== '') Pupup.classList.add(this.skin);
-    document.body.appendChild(Pupup);
+    var position = 'slideInDown';
+    var pupup = document.createElement('div');
+    var pupupContent = document.createElement('div');
+    pupup.className = 'pupup';
+    pupupContent.className = 'pupup-content';
+    pupupContent.innerHTML = this.content;
+    pupup.appendChild(pupupContent);
+    if (typeof this.skin === 'string' && this.skin !== '') pupup.classList.add(this.skin);
+    document.body.appendChild(pupup);
     setTimeout(function () {
-      Pupup.classList.add('pupup-in');
-    }, 20);
-    return Pupup;
+      pupup.classList.add('pupup-in');
+      pupupContent.classList.add('slideInDown');
+    }.bind(this), 0);
+    console.log(typeof this.success);
+    if (typeof this.success === 'function') this.success.call(this, pupup);
+    return pupup;
   }
 
   return {

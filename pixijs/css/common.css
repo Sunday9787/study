@@ -4,7 +4,7 @@
  * @Date: 2018-04-25 22:35:45
  * @Last Modified by: Edward
  * @Email: 809537981@qq.com
- * @Last Modified time: 2018-04-26 15:48:25
+ * @Last Modified time: 2018-04-30 02:21:32
  */
 /*
  * @Author: Edward
@@ -56,11 +56,9 @@
   position: relative;
   padding: .40625rem .40625rem 0;
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
   font-size: 15px;
@@ -113,15 +111,12 @@
 }
 .toast-content {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: .375rem .46875rem;
@@ -144,22 +139,86 @@
   -webkit-transform: translate3d(-50%, -50%, 0);
           transform: translate3d(-50%, -50%, 0);
 }
+@-webkit-keyframes slideInDown {
+  from {
+    opacity: 1;
+    -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+  }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+}
+@keyframes slideInDown {
+  from {
+    opacity: 1;
+    -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+  }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+}
+.animated {
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+  -webkit-animation-duration: 450ms;
+          animation-duration: 450ms;
+}
 .pupup {
   position: absolute;
   z-index: 1000;
-  left: 50%;
-  top: 50%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   opacity: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: transparent;
   -webkit-transition-duration: 400ms;
           transition-duration: 400ms;
-  -webkit-transform: translate3d(-50%, -50%, 0);
-          transform: translate3d(-50%, -50%, 0);
 }
 .pupup.pupup-in {
   opacity: 1;
-  -webkit-transform: translate3d(-50%, -50%, 0);
-          transform: translate3d(-50%, -50%, 0);
+}
+.pupup-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  -webkit-transition-property: -webkit-transform;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+  transition-property: transform, -webkit-transform;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+  -webkit-animation-duration: 450ms;
+          animation-duration: 450ms;
+  visibility: hidden;
+}
+.pupup-content.slideInDown {
+  -webkit-animation-name: slideInDown;
+          animation-name: slideInDown;
 }
 .input {
   display: block;
@@ -177,10 +236,11 @@
 }
 .btn {
   display: inline-block;
-  padding: .234375rem 0;
+  padding: .234375rem .3125rem;
+  min-width: 2.5rem;
   text-align: center;
-  color: #fff;
-  background-color: #e4393c;
+  background-color: #ffffff;
+  border: 1px solid transparent;
   border-radius: 4px;
 }
 .btn-full {

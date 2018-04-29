@@ -3,7 +3,7 @@
  * @Date: 2018-04-01 13:46:09
  * @Last Modified by: Edward
  * @Email: 809537981@qq.com
- * @Last Modified time: 2018-04-25 22:36:55
+ * @Last Modified time: 2018-04-30 02:22:38
  */
 /*
 * {
@@ -12,7 +12,6 @@
 */
 body.game-wrapper {
   height: 100vh;
-  padding-top: 0;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#fed59f), to(#ffe96f));
 }
 .game-container {
@@ -22,7 +21,6 @@ body.game-wrapper {
 }
 .game-container .mask {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   position: absolute;
@@ -32,11 +30,9 @@ body.game-wrapper {
   width: 100%;
   height: 100%;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   opacity: 0;
@@ -68,6 +64,7 @@ body.game-wrapper {
 .tips-container {
   font-size: .375rem;
   margin: .3125rem 0;
+  padding: 0 2%;
 }
 #game {
   position: absolute;
@@ -82,33 +79,27 @@ body.game-wrapper {
   left: 0;
   box-sizing: border-box;
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   padding: 2%;
   width: 100%;
   -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   background-color: #fff;
 }
 .game-input {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   height: 1.1rem;
-  -webkit-flex-basis: 78%;
-      -ms-flex-preferred-size: 78%;
-          flex-basis: 78%;
+  -ms-flex-preferred-size: 78%;
+      flex-basis: 78%;
   padding: .125rem .1875rem;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   background-color: #fff;
@@ -117,21 +108,17 @@ body.game-wrapper {
 }
 .game-input-send {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
   height: 1.1rem;
-  -webkit-flex-basis: 20%;
-      -ms-flex-preferred-size: 20%;
-          flex-basis: 20%;
+  -ms-flex-preferred-size: 20%;
+      flex-basis: 20%;
   border-radius: 4px;
   color: #fff;
   background-color: #3f9efd;
@@ -140,5 +127,9 @@ body.game-wrapper {
 }
 .game-input-send:active {
   background-color: rgba(63, 158, 253, 0.8);
+}
+.start-btn {
+  color: #fff;
+  background-image: -webkit-linear-gradient(-90deg, #fec75b 0%, #f8b43f 66%, #f2a122 100%);
 }
 /*# sourceMappingURL=./index.css.map */

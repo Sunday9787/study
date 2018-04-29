@@ -39,10 +39,22 @@
     require(['zepto', 'pixi', 'modal'], function ($, pixi, modal) {
       // 游戏基础配置
       modal.pupup({
-        content: '77777777777',
-        mask: 'true',
-        yes: function (layero) {
-          console.log(layero);
+        content: `
+          <!-- <img src="http://sunday90.cn/upload/2500872220b52768dd9c4e237579f8bc.jpg" /> -->
+          <a href="javascript:;" class="btn start-btn">开始计时</a>
+        `,
+        mask: true,
+        success: function (layero) {
+          const that = this;
+          $(layero).on('click', '.start-btn', function (e) {
+            console.log(this);
+            console.log('开始游戏');
+            let time = document.querySelector('#time');
+            Countdown.start(0.2, time, function (time) {
+              console.log(time);
+            });
+            that.close();
+          });
         }
       });
       const unit_size = { width: 50, height: 50 };
@@ -155,7 +167,7 @@
       container.y = 0;
 
       // 倒计时
-      var startTime = {
+      const Countdown = {
         down(callBack, success) {
           clearInterval(this.Interval);
           callBack(success === true ? (this.countTime * 60) - (this.time / 1000) : '时间结束');

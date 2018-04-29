@@ -5,7 +5,7 @@
  * @Date: 2018-04-01 13:46:09
  * @Last Modified by: Edward
  * @Email: 809537981@qq.com
- * @Last Modified time: 2018-04-25 22:36:55
+ * @Last Modified time: 2018-04-30 02:22:38
  */
 
 /*
@@ -16,7 +16,6 @@
 
 body.game-wrapper {
   height: 100vh;
-  padding-top: 0;
   background-image: -webkit-gradient(
     linear,
     left top,
@@ -70,9 +69,10 @@ body.game-wrapper {
   &-container {
     font-size: .375rem;
     margin: .3125rem 0;
+    padding: 0 2%;
   }
 }
-
+// 游戏视图
 #game {
   position: absolute;
   z-index: 1;
@@ -80,7 +80,7 @@ body.game-wrapper {
   left: 0;
   width: 100%;
 }
-
+// 输入框容器
 .input-container {
   position: absolute;
   bottom: 0;
@@ -93,7 +93,7 @@ body.game-wrapper {
   align-items: center;
   background-color: #fff;
 }
-
+// 输入框
 .game-input {
   display: flex;
   height: 1.1rem;
@@ -116,4 +116,10 @@ body.game-wrapper {
       background-color: rgba(63, 158, 253, .8);
     }
   }
+}
+
+// 开始游戏按钮
+.start-btn {
+  color: #fff;
+  background-image: -webkit-linear-gradient(-90deg, #fec75b 0%, #f8b43f 66%, #f2a122 100%);
 }
