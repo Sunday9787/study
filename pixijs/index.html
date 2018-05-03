@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" type="text/css" href="./css/reset.css">
-  <link rel="stylesheet" type="text/css" href="./css/common.css">
-  <link rel="stylesheet" type="text/css" href="./css/index.css">
+  <link rel="stylesheet" type="text/css" href="./css/reset.css?v=7">
+  <link rel="stylesheet" type="text/css" href="./css/common.css?v=7">
+  <link rel="stylesheet" type="text/css" href="./css/index.css?v=7">
   <script type="text/javascript" src="http://apps.bdimg.com/libs/require.js/2.1.11/require.min.js"></script>
   <script type="text/javascript">
     require.config({
@@ -245,7 +245,8 @@
         const app = new PIXI.Application(table.x * unit_size.width, table.y * unit_size.height, {
           backgroundColor: 0xf1c16c,
           antialias: true,
-          view: document.querySelector('#game')
+          view: document.querySelector('#game'),
+          resolution: window.devicePixelRatio
         });
         app.stage.interactive = true;
         app.stage.addChild(container);
@@ -258,7 +259,7 @@
                 mask.innerText = '初始化完成,祝您玩的开心';
                 resolve();
               }, 1000);
-              });
+            });
           })();
 
           await setTimeout(() => {
@@ -437,7 +438,7 @@
 
       // 排序
       function stor(unit) {
-        function compare(property){
+        function compare(property) {
           return function(a, b){
             var value1 = a[property];
             var value2 = b[property];
@@ -482,11 +483,34 @@
       // 输入
       $('.input-container').on('click', '.game-input-send', function (e) {
         let input = document.querySelector('#game-input');
-        if (input.value.length > selectUnit.unit.length) {
+        let flag = true;
+        let value = $.trim(input.value);
+
+        if (value.length > selectUnit.unit.length) {
           modal.toast(`最大可输入字数为${selectUnit.unit.length}个`);
           return false;
         }
-        [...input.value].forEach((chart, index) => {
+        let param = selectUnit.unit.map((item, index) => {
+          return {value: value.charAt(index), x: item.X, y: item.Y, index: item.index};
+        });
+        console.log(param);
+        $.ajax({
+          async: false,
+          type: 'post',
+          url: './game.php',
+          data: {data: param},
+          success: function(data) {
+            if (data.status === '0') {
+              modal.toast('填错了哦');
+              flag = false
+              input.value = '';
+            }
+          }
+        });
+
+        if (!flag) return;
+
+        [...value].forEach((chart, index) => {
           if (selectUnit.unit[index].parent.children.length > 1) {
             selectUnit.unit[index].parent.children.forEach((sprite, i) => {
               if (sprite.type === 'text') sprite.text = chart;
@@ -502,6 +526,7 @@
           selectUnit.unit[index].parent.addChild(richText);
           // container.addChild(richText);
         });
+        input.value = '';
       });
     });
   </script>
